@@ -24,7 +24,8 @@ Kavro Framework is a modern WordPress option framework for themes and plugins. I
 - Modular field classes
 - WordPress media uploader support
 - WordPress color picker support
-- Repeater support
+- Repeater/group support
+- Premium field UI for media, gallery, typography, sorter, accordion, tabbed, backup, and structured fields
 
 ## Why there is no `parent` key
 
@@ -115,3 +116,25 @@ composer dump-autoload
 ```
 
 Kavro also includes a fallback autoloader so it can run without Composer during development.
+
+
+## Field Documentation
+
+Field usage examples and supported field types are documented in:
+
+- [`docs/fields.md`](docs/fields.md)
+- [`docs/developer-notes.md`](docs/developer-notes.md)
+
+## Current Built-in Fields
+
+`text`, `textarea`, `checkbox`, `switcher`, `toggle`, `select`, `radio`, `button_set`, `color`, `color_group`, `number`, `spinner`, `date`, `time`, `email`, `url`, `password`, `range`, `slider`, `code`, `hidden`, `media`, `upload`, `image`, `gallery`, `dimensions`, `spacing`, `typography`, `repeater`, `group`, `fieldset`, `multicheck`, `wysiwyg`, `wp_editor`, `link`, `icon`, `palette`, `background`, `border`, `sortable`, `sorter`, `accordion`, `tabbed`, `backup`, `notice`, `heading`, `subheading`, `divider`, and `content`.
+
+## Developer Notes
+
+All core PHP, JavaScript, and CSS files include professional inline comments/docblocks. The public API remains intentionally small:
+
+```php
+KAVRO::createOptions( $prefix, $args );
+KAVRO::createSection( $prefix, $section );
+kavro_get_option( $prefix, $key, $default );
+```

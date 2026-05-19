@@ -1,4 +1,13 @@
 <?php
+/**
+ * Kavro Framework file: examples/basic-usage.php.
+ *
+ * This file is part of the Kavro options framework and is intentionally kept
+ * focused on one responsibility for easier maintenance and extension.
+ *
+ * @package Kavro
+ */
+
 // Paste into a theme functions.php or custom plugin after Kavro Framework is active.
 if ( class_exists( 'KAVRO' ) ) {
     $prefix = 'my_kavro_options';
@@ -111,25 +120,41 @@ if ( class_exists( 'KAVRO' ) ) {
     ) );
 
     KAVRO::createSection( $prefix, array(
-        'id'       => 'social',
-        'title'    => 'Social & Contact',
-        'subtitle' => 'Configure your social profile links and contact details.',
+        'id'       => 'premium-fields',
+        'title'    => 'Premium Fields',
+        'subtitle' => 'A larger collection of polished field demos for testing Kavro UI behavior.',
         'fields'   => array(
-            array( 'id' => 'social_facebook', 'type' => 'url', 'title' => 'Facebook URL', 'default' => 'https://facebook.com/' ),
-            array( 'id' => 'social_twitter', 'type' => 'url', 'title' => 'Twitter URL', 'default' => 'https://twitter.com/' ),
-            array( 'id' => 'social_instagram', 'type' => 'url', 'title' => 'Instagram URL', 'default' => 'https://instagram.com/' ),
-            array( 'id' => 'contact_phone', 'type' => 'text', 'title' => 'Phone Number', 'default' => '+1 (555) 000-0000' ),
+            array( 'type' => 'subheading', 'content' => 'Interactive Controls' ),
+            array( 'id' => 'items_per_page', 'type' => 'spinner', 'title' => 'Items Per Page', 'default' => '12', 'min' => '1', 'max' => '100', 'step' => '1', 'desc' => 'Premium number spinner with plus/minus controls.' ),
+            array( 'id' => 'feature_icon', 'type' => 'icon', 'title' => 'Feature Icon', 'default' => 'dashicons-star-filled' ),
+            array( 'id' => 'hero_gallery', 'type' => 'gallery', 'title' => 'Hero Gallery', 'desc' => 'Select multiple images from the WordPress media library.' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Structured Data' ),
+            array( 'id' => 'social_links', 'type' => 'fieldset', 'title' => 'Social Links', 'fields' => array(
+                array( 'id' => 'facebook', 'type' => 'url', 'title' => 'Facebook', 'placeholder' => 'https://facebook.com/...' ),
+                array( 'id' => 'twitter', 'type' => 'url', 'title' => 'Twitter / X', 'placeholder' => 'https://x.com/...' ),
+                array( 'id' => 'linkedin', 'type' => 'url', 'title' => 'LinkedIn', 'placeholder' => 'https://linkedin.com/...' ),
+            ) ),
+            array( 'id' => 'team_members', 'type' => 'group', 'title' => 'Team Members', 'fields' => array(
+                array( 'id' => 'name', 'type' => 'text', 'title' => 'Name' ),
+                array( 'id' => 'role', 'type' => 'text', 'title' => 'Role' ),
+                array( 'id' => 'url', 'type' => 'url', 'title' => 'Profile URL' ),
+            ) ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Layout Helpers' ),
+            array( 'id' => 'enabled_blocks', 'type' => 'sortable', 'title' => 'Sortable Blocks', 'default' => array( 'hero', 'features', 'pricing' ), 'options' => array( 'hero' => 'Hero', 'features' => 'Features', 'pricing' => 'Pricing', 'faq' => 'FAQ', 'footer' => 'Footer' ) ),
+            array( 'id' => 'homepage_sorter', 'type' => 'sorter', 'title' => 'Homepage Sorter', 'default' => array( 'enabled' => array( 'hero', 'features' ) ), 'options' => array( 'hero' => 'Hero', 'features' => 'Features', 'testimonials' => 'Testimonials', 'pricing' => 'Pricing' ) ),
+            array( 'id' => 'help_accordion', 'type' => 'accordion', 'title' => 'Accordion Help', 'items' => array(
+                array( 'title' => 'Why Kavro?', 'content' => '<p>Kavro is designed as a modern developer-first options framework.</p>' ),
+                array( 'title' => 'Nested menus', 'content' => '<p>Use the children array to create nested section trees.</p>' ),
+            ) ),
+            array( 'id' => 'docs_tabs', 'type' => 'tabbed', 'title' => 'Tabbed Content', 'tabs' => array(
+                array( 'title' => 'Admin', 'content' => '<p>Admin option panels are included in the free core.</p>' ),
+                array( 'title' => 'Metabox', 'content' => '<p>Metabox APIs can be built on top of the same field registry.</p>' ),
+                array( 'title' => 'Customizer', 'content' => '<p>Customizer support can reuse the same field configuration style.</p>' ),
+            ) ),
+            array( 'id' => 'backup_payload', 'type' => 'backup', 'title' => 'Backup Payload' ),
         ),
     ) );
 
-    KAVRO::createSection( $prefix, array(
-        'id'       => 'misc',
-        'title'    => 'Additional Demos',
-        'subtitle' => 'Demos for other field types.',
-        'fields'   => array(
-            array( 'id' => 'demo_checkbox', 'type' => 'checkbox', 'title' => 'Single Checkbox', 'label' => 'I agree to the terms and conditions', 'default' => '0' ),
-            array( 'id' => 'demo_radio', 'type' => 'radio', 'title' => 'Radio Select', 'default' => 'blue', 'options' => array( 'red' => 'Red', 'blue' => 'Blue', 'green' => 'Green' ) ),
-            array( 'id' => 'demo_hidden', 'type' => 'hidden', 'default' => 'hidden_value_123' ),
-        ),
-    ) );
 }

@@ -1,4 +1,13 @@
 <?php
+/**
+ * Kavro Framework file: fields/Border/Border.php.
+ *
+ * This file is part of the Kavro options framework and is intentionally kept
+ * focused on one responsibility for easier maintenance and extension.
+ *
+ * @package Kavro
+ */
+
 namespace Kavro\Fields\Border;
 
 use Kavro\AbstractField;

@@ -1,4 +1,13 @@
 <?php
+/**
+ * Kavro Framework file: fields/Code/Code.php.
+ *
+ * This file is part of the Kavro options framework and is intentionally kept
+ * focused on one responsibility for easier maintenance and extension.
+ *
+ * @package Kavro
+ */
+
 namespace Kavro\Fields\Code;
 use Kavro\AbstractField;
 if ( ! defined( 'ABSPATH' ) ) { exit; }

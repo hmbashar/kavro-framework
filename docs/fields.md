@@ -208,3 +208,60 @@ array( 'type' => 'heading', 'content' => 'Design Settings' )
 array( 'type' => 'notice', 'content' => 'This is an informational notice.' )
 array( 'type' => 'content', 'content' => '<p>Custom HTML content.</p>' )
 ```
+
+## Additional Premium Field Types
+
+Kavro now includes the following extra field types for richer demos and future production use:
+
+| Field Type | Purpose |
+|---|---|
+| `spinner` | Compact number control with plus/minus buttons. |
+| `subheading` | Small visual heading used inside a section. |
+| `divider` | Clean separator for large settings groups. |
+| `gallery` | Stores multiple image URLs selected from the media library. |
+| `icon` | Dashicons picker/input field. |
+| `fieldset` | Structured group of simple sub-fields saved as an array. |
+| `group` | Alias of repeater for repeatable item groups. |
+| `accordion` | Collapsible content/help blocks inside a settings page. |
+| `tabbed` | Inline tabbed content/help panels. |
+| `sortable` | Ordered list of enabled items. |
+| `sorter` | Two-column enabled/available ordering control. |
+| `backup` | Import/export textarea placeholder field. |
+
+### Example: Spinner
+
+```php
+array(
+  'id'      => 'items_per_page',
+  'type'    => 'spinner',
+  'title'   => 'Items Per Page',
+  'default' => 12,
+  'min'     => 1,
+  'max'     => 100,
+  'step'    => 1,
+)
+```
+
+### Example: Gallery
+
+```php
+array(
+  'id'    => 'hero_gallery',
+  'type'  => 'gallery',
+  'title' => 'Hero Gallery',
+)
+```
+
+### Example: Fieldset
+
+```php
+array(
+  'id'     => 'social_links',
+  'type'   => 'fieldset',
+  'title'  => 'Social Links',
+  'fields' => array(
+    array( 'id' => 'facebook', 'type' => 'url', 'title' => 'Facebook' ),
+    array( 'id' => 'twitter',  'type' => 'url', 'title' => 'Twitter / X' ),
+  ),
+)
+```
