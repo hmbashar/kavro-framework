@@ -295,4 +295,62 @@ if ( class_exists( 'KAVRO' ) ) {
         ),
     ) );
 
+
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'advanced-framework-fields',
+        'title'    => 'Advanced Framework Fields',
+        'subtitle' => 'Conditional logic, cloneable inputs, responsive values, builders, uploads, editors, and dynamic tags.',
+        'fields'   => array(
+            array( 'type' => 'subheading', 'content' => 'Conditional Logic' ),
+            array( 'id' => 'demo_enable_advanced', 'type' => 'switcher', 'title' => 'Enable Advanced Fields', 'default' => true, 'desc' => 'Turn this off to test field dependency hiding.' ),
+            array( 'id' => 'demo_dependent_text', 'type' => 'text', 'title' => 'Dependent Text Field', 'dependency' => array( 'field' => 'demo_enable_advanced', 'operator' => '==', 'value' => '1' ), 'default' => 'Visible only when enabled.' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Repeatable & Searchable' ),
+            array( 'id' => 'demo_cloneable', 'type' => 'cloneable', 'title' => 'Cloneable Text List', 'placeholder' => 'Add item', 'default' => array( 'Header', 'Footer' ) ),
+            array( 'id' => 'demo_ajax_select', 'type' => 'ajax_select', 'title' => 'AJAX-ready Select', 'select2' => true, 'multiple' => true, 'options' => array( 'local-one' => 'Local Option One', 'local-two' => 'Local Option Two' ), 'desc' => 'Prepared for remote results; local options work now.' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Responsive & Builder Fields' ),
+            array( 'id' => 'demo_responsive_value', 'type' => 'responsive_value', 'title' => 'Responsive Value', 'default' => array( 'desktop' => '80px', 'tablet' => '48px', 'mobile' => '32px' ) ),
+            array( 'id' => 'demo_css_builder', 'type' => 'css_builder', 'title' => 'CSS Builder', 'default' => array( 'selector' => '.site-header', 'property' => 'background-color', 'value' => '#ffffff' ) ),
+            array( 'id' => 'demo_device_preview', 'type' => 'device_preview', 'title' => 'Device Preview Notes', 'default' => array( 'content' => 'Preview notes for desktop, tablet, and mobile layouts.' ) ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Fonts, Editors & Uploads' ),
+            array( 'id' => 'demo_google_fonts', 'type' => 'google_fonts', 'title' => 'Google Font Family', 'default' => 'Inter' ),
+            array( 'id' => 'demo_css_editor', 'type' => 'css_editor', 'title' => 'CSS Editor', 'default' => '.kavro-demo { color: #4f46e5; }' ),
+            array( 'id' => 'demo_js_editor', 'type' => 'js_editor', 'title' => 'JS Editor', 'default' => 'console.log("Kavro");' ),
+            array( 'id' => 'demo_file_upload', 'type' => 'file_upload', 'title' => 'File Upload' ),
+            array( 'id' => 'demo_video_upload', 'type' => 'video_upload', 'title' => 'Video Upload' ),
+            array( 'id' => 'demo_audio_upload', 'type' => 'audio_upload', 'title' => 'Audio Upload' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Dynamic Tags' ),
+            array( 'id' => 'demo_dynamic_tags', 'type' => 'dynamic_tags', 'title' => 'Dynamic Tag Text', 'default' => 'Copyright {{current_year}} {{site_title}}' ),
+        ),
+    ) );
+
+
+
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'next-advanced-fields',
+        'title'    => 'Next Advanced Fields',
+        'subtitle' => 'Builder-style and advanced design controls added for the next development step.',
+        'fields'   => array(
+            array( 'type' => 'subheading', 'content' => 'Advanced Design Controls' ),
+            array( 'id' => 'advanced_radius', 'type' => 'border_radius', 'title' => 'Border Radius Advanced', 'default' => array( 'top_left' => '16px', 'top_right' => '16px', 'bottom_right' => '16px', 'bottom_left' => '16px' ) ),
+            array( 'id' => 'advanced_box_model', 'type' => 'box_model', 'title' => 'Box Model', 'default' => array( 'margin' => array( 'top' => '0', 'right' => 'auto', 'bottom' => '24px', 'left' => 'auto' ), 'padding' => array( 'top' => '24px', 'right' => '24px', 'bottom' => '24px', 'left' => '24px' ) ) ),
+            array( 'id' => 'advanced_dimensions', 'type' => 'dimensions_advanced', 'title' => 'Advanced Dimensions', 'default' => array( 'width' => '1200px', 'height' => 'auto', 'min_width' => '320px', 'max_width' => '100%' ) ),
+            array( 'id' => 'advanced_spacing', 'type' => 'spacing_advanced', 'title' => 'Advanced Spacing', 'default' => array( 'top' => '40px', 'right' => '24px', 'bottom' => '40px', 'left' => '24px' ) ),
+            array( 'id' => 'advanced_typography', 'type' => 'typography_advanced', 'title' => 'Advanced Typography', 'default' => array( 'family' => 'Inter', 'size' => '18px', 'weight' => '700', 'line_height' => '1.5', 'letter_spacing' => '-0.01em', 'color' => '#111827' ) ),
+            array( 'id' => 'alpha_color', 'type' => 'color_picker_alpha', 'title' => 'Alpha Color Picker', 'default' => array( 'color' => '#635bff', 'alpha' => '0.85' ) ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Builder Fields' ),
+            array( 'id' => 'conditional_rule', 'type' => 'conditional_group', 'title' => 'Conditional Group Rule', 'default' => array( 'field' => 'enable_feature', 'operator' => '==', 'value' => '1' ) ),
+            array( 'id' => 'nested_repeater_schema', 'type' => 'repeater_nested', 'title' => 'Nested Repeater Schema', 'default' => '[{"title":"Parent row","children":[{"title":"Child row"}]}]' ),
+            array( 'id' => 'homepage_query', 'type' => 'query_builder', 'title' => 'Query Builder', 'default' => array( 'post_type' => 'post', 'posts_per_page' => '6', 'orderby' => 'date', 'order' => 'DESC' ) ),
+            array( 'id' => 'promo_shortcode', 'type' => 'shortcode_builder', 'title' => 'Shortcode Builder', 'default' => array( 'tag' => 'kavro_cta', 'attrs' => '{"style":"primary"}' ) ),
+            array( 'id' => 'contact_form_schema', 'type' => 'form_builder', 'title' => 'Form Builder Schema', 'default' => '[{"label":"Name","type":"text"},{"label":"Email","type":"email"}]' ),
+            array( 'id' => 'footer_menu_schema', 'type' => 'menu_builder', 'title' => 'Menu Builder Schema', 'default' => '[{"label":"Home","url":"/"},{"label":"Contact","url":"/contact"}]' ),
+            array( 'id' => 'page_layout_builder', 'type' => 'layout_builder', 'title' => 'Layout Builder', 'default' => 'sidebar' ),
+        ),
+    ) );
+
 }

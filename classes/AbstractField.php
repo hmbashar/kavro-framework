@@ -63,8 +63,18 @@ abstract class AbstractField {
         $type = isset( $this->field['type'] ) ? sanitize_key( $this->field['type'] ) : 'text';
         $full_width_types = array( 'content', 'heading', 'notice', 'subheading', 'divider' );
         $is_full_width = in_array( $type, $full_width_types, true );
+        $dependency = '';
 
-        echo '<div class="kavro-field kavro-field-' . esc_attr( $type ) . ( $is_full_width ? ' kavro-field-full' : '' ) . '">';
+        /*
+         * Field dependencies are rendered as JSON data attributes so the
+         * JavaScript layer can hide/show any field without coupling the logic
+         * to a specific field class. Supported keys: field, operator, value.
+         */
+        if ( ! empty( $this->field['dependency'] ) && is_array( $this->field['dependency'] ) ) {
+            $dependency = ' data-kavro-dependency="' . esc_attr( wp_json_encode( $this->field['dependency'] ) ) . '"';
+        }
+
+        echo '<div class="kavro-field kavro-field-' . esc_attr( $type ) . ( $is_full_width ? ' kavro-field-full' : '' ) . '"' . $dependency . '>';
 
         if ( ! $is_full_width ) {
             echo '<div class="kavro-field-label">';

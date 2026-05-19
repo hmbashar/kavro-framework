@@ -201,3 +201,14 @@ array(
   ),
 )
 ```
+
+### Newly Added Advanced Fields
+
+Kavro now includes advanced field support for conditional dependencies, cloneable rows, AJAX-ready selects, responsive values, CSS/device builders, Google font selection, advanced code editors, media uploads, and dynamic tags.
+
+See [`docs/fields.md`](docs/fields.md) for usage examples and configuration notes.
+
+
+## Next Advanced Fields
+
+This build includes additional builder-style fields: `border_radius`, `box_model`, `dimensions_advanced`, `spacing_advanced`, `typography_advanced`, `color_picker_alpha`, `conditional_group`, `repeater_nested`, `query_builder`, `shortcode_builder`, `form_builder`, `menu_builder`, and `layout_builder`. The plugin currently loads `examples/basic-usage.php` from the main file for easy testing. Remove that require before production distribution.

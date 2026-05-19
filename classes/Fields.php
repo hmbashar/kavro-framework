@@ -115,6 +115,35 @@ class Fields {
         'menu_select'       => '\\Kavro\\Fields\\WPSystem\\WPSystem',
         'sidebar_select'    => '\\Kavro\\Fields\\WPSystem\\WPSystem',
         'template_select'   => '\\Kavro\\Fields\\WPSystem\\WPSystem',
+        'custom'      => '\\Kavro\\Fields\\Custom\\Custom',
+        'select2'     => '\\Kavro\\Fields\\Select\\Select',
+        'enhanced_select' => '\\Kavro\\Fields\\Select\\Select',
+        'ajax_select' => '\\Kavro\\Fields\\AjaxSelect\\AjaxSelect',
+        'cloneable'   => '\\Kavro\\Fields\\Cloneable\\Cloneable',
+        'responsive_value' => '\\Kavro\\Fields\\Responsive\\Responsive',
+        'css_builder' => '\\Kavro\\Fields\\CssBuilder\\CssBuilder',
+        'google_fonts' => '\\Kavro\\Fields\\GoogleFonts\\GoogleFonts',
+        'code_editor_advanced' => '\\Kavro\\Fields\\AdvancedCode\\AdvancedCode',
+        'css_editor' => '\\Kavro\\Fields\\AdvancedCode\\AdvancedCode',
+        'js_editor' => '\\Kavro\\Fields\\AdvancedCode\\AdvancedCode',
+        'file_upload' => '\\Kavro\\Fields\\FileUpload\\FileUpload',
+        'video_upload' => '\\Kavro\\Fields\\FileUpload\\FileUpload',
+        'audio_upload' => '\\Kavro\\Fields\\FileUpload\\FileUpload',
+        'device_preview' => '\\Kavro\\Fields\\DevicePreview\\DevicePreview',
+        'dynamic_tags' => '\\Kavro\\Fields\\DynamicTags\\DynamicTags',
+        'border_radius' => '\\Kavro\\Fields\\BorderRadius\\BorderRadius',
+        'box_model' => '\\Kavro\\Fields\\BoxModel\\BoxModel',
+        'dimensions_advanced' => '\\Kavro\\Fields\\DimensionsAdvanced\\DimensionsAdvanced',
+        'spacing_advanced' => '\\Kavro\\Fields\\SpacingAdvanced\\SpacingAdvanced',
+        'typography_advanced' => '\\Kavro\\Fields\\TypographyAdvanced\\TypographyAdvanced',
+        'color_picker_alpha' => '\\Kavro\\Fields\\ColorAlpha\\ColorAlpha',
+        'conditional_group' => '\\Kavro\\Fields\\ConditionalGroup\\ConditionalGroup',
+        'repeater_nested' => '\\Kavro\\Fields\\RepeaterNested\\RepeaterNested',
+        'query_builder' => '\\Kavro\\Fields\\QueryBuilder\\QueryBuilder',
+        'shortcode_builder' => '\\Kavro\\Fields\\ShortcodeBuilder\\ShortcodeBuilder',
+        'form_builder' => '\\Kavro\\Fields\\FormBuilder\\FormBuilder',
+        'menu_builder' => '\\Kavro\\Fields\\MenuBuilder\\MenuBuilder',
+        'layout_builder' => '\\Kavro\\Fields\\LayoutBuilder\\LayoutBuilder',
     );
 
     /**
@@ -152,6 +181,11 @@ class Fields {
         if ( 'taxonomy_checkbox' === $type ) { $field['variant'] = 'checkbox'; }
         if ( 'taxonomy_radio' === $type ) { $field['variant'] = 'radio'; }
         if ( 'term_relation' === $type ) { $field['variant'] = 'relation'; }
+        if ( in_array( $type, array( 'select2', 'enhanced_select' ), true ) ) {
+            $field['select2'] = true;
+        }
+        if ( 'css_editor' === $type ) { $field['language'] = 'css'; }
+        if ( 'js_editor' === $type ) { $field['language'] = 'javascript'; }
         if ( in_array( $type, array( 'user_select', 'role_select', 'menu_select', 'sidebar_select', 'template_select' ), true ) ) {
             $source_map = array(
                 'user_select'     => 'users',

@@ -46,6 +46,8 @@ if (file_exists($kavro_autoload)) {
 
 require_once KAVRO_PATH . 'includes/functions.php';
 
+
+
 if (!class_exists('KAVRO')) {
     final class KAVRO
     {
@@ -74,4 +76,5 @@ if (!class_exists('KAVRO')) {
 
 add_action('plugins_loaded', array('KAVRO', 'boot'));
 
+// Temporary demo loader for easy local testing. Remove/comment before production release.
 require_once KAVRO_PATH . 'examples/basic-usage.php';

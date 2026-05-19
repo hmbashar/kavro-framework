@@ -627,3 +627,76 @@ document.addEventListener('input', function (event) {
     }
   });
 })(jQuery);
+
+/**
+ * Advanced Kavro field behaviors.
+ *
+ * Adds conditional dependencies, cloneable rows and dynamic tag insertion while
+ * keeping the controls progressive-enhancement friendly for WordPress admin.
+ */
+(function ($) {
+  'use strict';
+
+  function fieldValue(fieldId) {
+    var $fields = $('[name$="[' + fieldId + ']"], [name$="[' + fieldId + '][]"]');
+    if (!$fields.length) { return ''; }
+    if ($fields.is(':checkbox')) {
+      var values = [];
+      $fields.filter(':checked').each(function () { values.push(this.value || '1'); });
+      return values.length > 1 ? values : (values[0] || '');
+    }
+    if ($fields.is(':radio')) { return $fields.filter(':checked').val() || ''; }
+    return $fields.first().val();
+  }
+
+  function compare(actual, operator, expected) {
+    operator = operator || '==';
+    if ($.isArray(actual)) { actual = actual.map(String); }
+    var a = $.isArray(actual) ? actual : String(actual);
+    var e = $.isArray(expected) ? expected.map(String) : String(expected);
+    if (operator === '!=' || operator === 'not') { return a !== e; }
+    if (operator === 'contains') { return $.isArray(a) ? a.indexOf(e) !== -1 : String(a).indexOf(e) !== -1; }
+    if (operator === 'empty') { return !actual || ($.isArray(actual) && !actual.length); }
+    if (operator === 'not_empty') { return !!actual && (!$.isArray(actual) || actual.length > 0); }
+    return $.isArray(a) ? a.indexOf(e) !== -1 : a === e;
+  }
+
+  function refreshDependencies() {
+    $('[data-kavro-dependency]').each(function () {
+      var $field = $(this);
+      var dep = $field.data('kavro-dependency');
+      if (!dep || !dep.field) { return; }
+      var visible = compare(fieldValue(dep.field), dep.operator, dep.value);
+      $field.toggleClass('kavro-dependency-hidden', !visible);
+    });
+  }
+
+  $(document).on('change input', '.kavro-main input, .kavro-main select, .kavro-main textarea', refreshDependencies);
+  $(refreshDependencies);
+
+  $(document).on('click', '.kavro-clone-add', function (e) {
+    e.preventDefault();
+    var $wrap = $(this).closest('[data-kavro-cloneable]');
+    var $clone = $wrap.find('.kavro-cloneable-row:first').clone();
+    var index = $wrap.find('.kavro-cloneable-row').length;
+    $clone.find('input, textarea, select').each(function () {
+      var name = $(this).attr('name') || '';
+      $(this).attr('name', name.replace(/\[\d+\]/, '[' + index + ']')).val('');
+    });
+    $clone.insertBefore($(this));
+  });
+
+  $(document).on('click', '.kavro-clone-remove', function (e) {
+    e.preventDefault();
+    var $wrap = $(this).closest('[data-kavro-cloneable]');
+    if ($wrap.find('.kavro-cloneable-row').length > 1) {
+      $(this).closest('.kavro-cloneable-row').remove();
+    }
+  });
+
+  $(document).on('click', '.kavro-tag', function (e) {
+    e.preventDefault();
+    var $input = $(this).closest('.kavro-dynamic-tags').find('input');
+    $input.val(($input.val() || '') + $(this).data('tag')).trigger('change').focus();
+  });
+})(jQuery);

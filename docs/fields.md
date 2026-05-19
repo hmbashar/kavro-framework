@@ -419,3 +419,57 @@ array(
   ),
 )
 ```
+
+## Advanced Framework Fields
+
+These fields were added for premium framework workflows:
+
+- `ajax_select` — searchable select prepared for AJAX/remote data workflows, while also supporting local `options`.
+- `cloneable` — repeatable text rows for simple lists.
+- `responsive_value` — desktop/tablet/mobile value storage.
+- `css_builder` — selector/property/value CSS rule builder.
+- `google_fonts` — font family selector with searchable UI.
+- `code_editor_advanced` — premium code textarea wrapper.
+- `css_editor` — alias of advanced code editor with CSS language label.
+- `js_editor` — alias of advanced code editor with JavaScript language label.
+- `file_upload` — WordPress media-powered file selector.
+- `video_upload` — WordPress media-powered video selector.
+- `audio_upload` — WordPress media-powered audio selector.
+- `device_preview` — device-focused preview notes/control field.
+- `dynamic_tags` — inserts common template tokens such as `{{site_title}}` and `{{current_year}}`.
+
+### Conditional Logic
+
+Any normal field can include a `dependency` array:
+
+```php
+array(
+    'id'         => 'advanced_text',
+    'type'       => 'text',
+    'title'      => 'Advanced Text',
+    'dependency' => array(
+        'field'    => 'enable_advanced',
+        'operator' => '==',
+        'value'    => '1',
+    ),
+)
+```
+
+Supported operators: `==`, `!=`, `contains`, `empty`, and `not_empty`.
+
+
+## Next Advanced Fields
+
+- `border_radius` - corner radius control.
+- `box_model` - margin and padding control.
+- `dimensions_advanced` - width, height, min and max dimensions.
+- `spacing_advanced` - advanced spacing control.
+- `typography_advanced` - extended typography control.
+- `color_picker_alpha` - color with opacity.
+- `conditional_group` - stores conditional display rules.
+- `repeater_nested` - stores nested repeater data.
+- `query_builder` - post query configuration.
+- `shortcode_builder` - shortcode tag and attributes.
+- `form_builder` - form schema builder field.
+- `menu_builder` - menu tree schema field.
+- `layout_builder` - visual layout choice field.
