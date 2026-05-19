@@ -122,6 +122,24 @@ final class Framework {
         );
     }
 
+
+    /**
+     * Register user profile option fields.
+     *
+     * @param string $id   Unique profile option container ID.
+     * @param array  $args Profile option arguments.
+     * @return void
+     */
+    public static function createProfileOptions( $id, $args = array() ) {
+        self::$containers[ sanitize_key( $id ) ] = wp_parse_args(
+            array_merge( $args, array( '_module' => 'profile' ) ),
+            array(
+                'title' => 'Kavro Profile Options',
+                'roles' => array(),
+            )
+        );
+    }
+
     /**
      * Placeholder API for future metabox support.
      *
@@ -159,6 +177,12 @@ final class Framework {
 
             if ( isset( $args['_module'] ) && 'customizer' === $args['_module'] ) {
                 self::$instances[ $id ] = new Customizer( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
+                continue;
+            }
+
+
+            if ( isset( $args['_module'] ) && 'profile' === $args['_module'] ) {
+                self::$instances[ $id ] = new Profile( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
                 continue;
             }
 

@@ -17,3 +17,4 @@ require_once __DIR__ . '/options-demo.php';
 require_once __DIR__ . '/metabox-demo.php';
 require_once __DIR__ . '/customizer-demo.php';
 require_once __DIR__ . '/taxonomy-demo.php';
+require_once __DIR__ . '/profile-demo.php';

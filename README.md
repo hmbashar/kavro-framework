@@ -56,3 +56,9 @@ The development build loads `examples/basic-usage.php` on `init` priority 10. Ka
 Kavro now includes an initial Customizer API. See [`docs/customizer.md
 - [Taxonomy Options](docs/taxonomy.md)`](docs/customizer.md
 - [Taxonomy Options](docs/taxonomy.md)).
+
+- [Profile Options](docs/profile.md)
+
+## Profile Options
+
+Use `KAVRO::createProfileOptions()` to add Kavro fields to WordPress user profile screens.

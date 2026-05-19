@@ -13,3 +13,9 @@ The demo files are located in `examples/`:
 - `examples/field-examples.php` contains shared field examples used by both demos.
 
 - [Customizer Framework](customizer.md)
+
+- [Profile Options](docs/profile.md)
+
+## Profile Options
+
+Use `KAVRO::createProfileOptions()` to add Kavro fields to WordPress user profile screens.
