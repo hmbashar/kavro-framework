@@ -29,3 +29,19 @@ Each supported field has its own Markdown file in `docs/fields/`.
 ## Supported field count
 
 This documentation covers **144 public field type slugs**, including aliases such as `slider`, `wp_editor`, `enhanced_select`, `css_editor`, and `js_editor`.
+
+## Field documentation coverage
+
+Every dedicated field document in `docs/fields/` now includes examples for all Kavro contexts where a field may be used:
+
+- Options Framework
+- Metabox Framework
+- Customizer Framework
+- Taxonomy Options
+- Profile/User Options
+- Nav Menu Options
+- Widget Options
+- Comment Options
+- Shortcode Framework
+
+Some highly contextual fields may require additional production tuning depending on where they are used, but the documented examples show the expected configuration shape for each framework.

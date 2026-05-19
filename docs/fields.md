@@ -173,3 +173,7 @@ This page lists all public field type slugs. See each dedicated file for attribu
 - [`term_relation`](fields/term_relation.md) — Multiple term relationship selector.
 - [`user_select`](fields/user_select.md) — User selector.
 
+
+## Context examples
+
+Each dedicated field file under `docs/fields/` includes example code for Options, Metabox, Customizer, Taxonomy, Profile/User, Nav Menu, Widget, Comment, and Shortcode usage. Use those files as the source of truth for full field configuration examples.

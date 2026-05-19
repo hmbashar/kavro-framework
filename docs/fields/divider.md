@@ -68,6 +68,51 @@ KAVRO::createSection( $metabox_prefix, array(
 
 This field is primarily structural/display-only and normally does not save a value because it does not require an `id`.
 
+
+### From Customizer
+
+```php
+$value = get_theme_mod( 'demo_divider', null );
+```
+
+### From Taxonomy Options
+
+```php
+$value = kavro_get_term_meta( $term_id, $taxonomy_prefix, 'demo_divider', null );
+```
+
+### From Profile/User Options
+
+```php
+$value = kavro_get_user_meta( $user_id, $profile_prefix, 'demo_divider', null );
+```
+
+### From Nav Menu Options
+
+```php
+$value = kavro_get_nav_menu_item_meta( $menu_item_id, $nav_menu_prefix, 'demo_divider', null );
+```
+
+### From Widget Options
+
+```php
+$value = kavro_get_widget_option( $widget_id, $widget_prefix, 'demo_divider', null );
+```
+
+### From Comment Options
+
+```php
+$value = kavro_get_comment_meta( $comment_id, $comment_prefix, 'demo_divider', null );
+```
+
+### From Shortcode Framework
+
+Shortcode field values are passed to the shortcode callback as attributes or normalized settings depending on your shortcode registration callback.
+
+```php
+$value = isset( $atts['demo_divider'] ) ? $atts['demo_divider'] : null;
+```
+
 ## Notes
 
 This field is commonly used for display/admin UX. Use it in options pages when possible; metabox usage is supported when the output makes sense for editors.
