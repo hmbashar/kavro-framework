@@ -19,3 +19,4 @@ require_once __DIR__ . '/customizer-demo.php';
 require_once __DIR__ . '/taxonomy-demo.php';
 require_once __DIR__ . '/profile-demo.php';
 require_once __DIR__ . '/nav-menu-demo.php';
+require_once __DIR__ . '/widget-demo.php';

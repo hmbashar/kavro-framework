@@ -50,6 +50,7 @@ if ( ! class_exists( 'KAVRO' ) ) {
         public static function createTaxonomyOptions( $id, $args = array() ) { return \Kavro\Framework::createTaxonomyOptions( $id, $args ); }
         public static function createProfileOptions( $id, $args = array() ) { return \Kavro\Framework::createProfileOptions( $id, $args ); }
         public static function createNavMenuOptions( $id, $args = array() ) { return \Kavro\Framework::createNavMenuOptions( $id, $args ); }
+        public static function createWidgetOptions( $id, $args = array() ) { return \Kavro\Framework::createWidgetOptions( $id, $args ); }
     }
 }
 

@@ -21,3 +21,5 @@ The demo files are located in `examples/`:
 Use `KAVRO::createProfileOptions()` to add Kavro fields to WordPress user profile screens.
 
 - [Nav Menu Options](nav-menu.md)
+
+- [Widget Options](docs/widget.md)

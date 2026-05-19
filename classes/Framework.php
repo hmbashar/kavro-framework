@@ -159,6 +159,25 @@ final class Framework {
         );
     }
 
+
+    /**
+     * Register a WordPress widget powered by Kavro fields.
+     *
+     * @param string $id   Unique widget ID.
+     * @param array  $args Widget registration arguments.
+     * @return void
+     */
+    public static function createWidgetOptions( $id, $args = array() ) {
+        self::$containers[ sanitize_key( $id ) ] = wp_parse_args(
+            array_merge( $args, array( '_module' => 'widget' ) ),
+            array(
+                'title'       => 'Kavro Widget',
+                'description' => 'A widget powered by Kavro Framework fields.',
+                'classname'   => 'kavro-widget',
+            )
+        );
+    }
+
     /**
      * Placeholder API for future metabox support.
      *
@@ -206,6 +225,15 @@ final class Framework {
             }
 
 
+
+
+
+            if ( isset( $args['_module'] ) && 'widget' === $args['_module'] ) {
+                $widget = new Widget( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
+                $widget->register();
+                self::$instances[ $id ] = $widget;
+                continue;
+            }
 
             if ( isset( $args['_module'] ) && 'nav_menu' === $args['_module'] ) {
                 self::$instances[ $id ] = new NavMenu( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );

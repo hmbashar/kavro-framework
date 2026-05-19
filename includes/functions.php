@@ -122,3 +122,28 @@ if ( ! function_exists( 'kavro_get_nav_menu_item_meta' ) ) {
         return array_key_exists( $key, $values ) ? $values[ $key ] : $default;
     }
 }
+
+
+if ( ! function_exists( 'kavro_get_widget_option' ) ) {
+    /**
+     * Retrieve a value from a saved Kavro widget instance array.
+     *
+     * WordPress widgets store values per sidebar instance, so this helper is
+     * intentionally small and works with an instance array received inside a
+     * widget callback.
+     *
+     * @param array  $instance Widget instance values.
+     * @param string $key      Optional field ID. Leave empty to return all values.
+     * @param mixed  $default  Default value when the key is missing.
+     * @return mixed
+     */
+    function kavro_get_widget_option( $instance, $key = '', $default = null ) {
+        $instance = is_array( $instance ) ? $instance : array();
+
+        if ( '' === $key ) {
+            return $instance;
+        }
+
+        return array_key_exists( $key, $instance ) ? $instance[ $key ] : $default;
+    }
+}

@@ -48,7 +48,15 @@ abstract class AbstractField {
         $this->value  = $value;
         $this->unique = sanitize_key( $unique );
         $this->id     = isset( $field['id'] ) ? sanitize_key( $field['id'] ) : '';
-        $this->name   = $this->id ? $this->unique . '[' . $this->id . ']' : '';
+
+        /*
+         * Normal option/metabox/profile/taxonomy fields use a simple
+         * container[field_id] name. Widget fields are different because
+         * WordPress requires names like widget-id_base[number][field_id].
+         * Internal modules can pass a trusted _name override while public
+         * field configs continue using the standard API.
+         */
+        $this->name   = ! empty( $field['_name'] ) ? (string) $field['_name'] : ( $this->id ? $this->unique . '[' . $this->id . ']' : '' );
     }
 
     /**

@@ -1422,3 +1422,39 @@
 .kavro-nav-menu-options .kavro-field {
     padding: 12px 0;
 }
+
+
+/* Widget Options ---------------------------------------------------------
+ * WordPress widget forms are much narrower than full option pages, so Kavro
+ * stacks labels and controls for better readability inside Appearance > Widgets.
+ */
+.kavro-widget-form {
+  padding: 12px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06);
+}
+.kavro-widget-form .kavro-field {
+  display: block;
+  margin: 0 0 14px;
+  padding: 14px;
+}
+.kavro-widget-form .kavro-field-label {
+  width: auto;
+  margin: 0 0 10px;
+}
+.kavro-widget-form .kavro-field-control {
+  width: 100%;
+}
+.kavro-widget-heading h3 {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #111827;
+}
+.kavro-widget-heading p {
+  margin: 0 0 12px;
+  color: #64748b;
+  font-size: 12px;
+}
