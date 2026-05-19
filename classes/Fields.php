@@ -155,6 +155,22 @@ class Fields {
         'webhook' => '\\Kavro\\Fields\\Webhook\\Webhook',
         'cron_schedule' => '\\Kavro\\Fields\\CronSchedule\\CronSchedule',
         'capability_select' => '\\Kavro\\Fields\\CapabilitySelect\\CapabilitySelect',
+        'notification_channels' => '\\Kavro\\Fields\\NotificationChannels\\NotificationChannels',
+        'api_credentials' => '\\Kavro\\Fields\\ApiCredentials\\ApiCredentials',
+        'license_key' => '\\Kavro\\Fields\\LicenseKey\\LicenseKey',
+        'environment_select' => '\\Kavro\\Fields\\EnvironmentSelect\\EnvironmentSelect',
+        'feature_flags' => '\\Kavro\\Fields\\FeatureFlags\\FeatureFlags',
+        'permission_matrix' => '\\Kavro\\Fields\\PermissionMatrix\\PermissionMatrix',
+        'redirect_rules' => '\\Kavro\\Fields\\RedirectRules\\RedirectRules',
+        'email_template' => '\\Kavro\\Fields\\EmailTemplate\\EmailTemplate',
+        'rest_endpoint' => '\\Kavro\\Fields\\RestEndpoint\\RestEndpoint',
+        'rate_limit' => '\\Kavro\\Fields\\RateLimit\\RateLimit',
+        'cache_control' => '\\Kavro\\Fields\\CacheControl\\CacheControl',
+        'log_viewer' => '\\Kavro\\Fields\\LogViewer\\LogViewer',
+        'changelog' => '\\Kavro\\Fields\\Changelog\\Changelog',
+        'system_info' => '\\Kavro\\Fields\\SystemInfo\\SystemInfo',
+        'health_check' => '\\Kavro\\Fields\\HealthCheck\\HealthCheck',
+        'onboarding_steps' => '\\Kavro\\Fields\\OnboardingSteps\\OnboardingSteps',
     );
 
     /**
@@ -173,6 +189,16 @@ class Fields {
         }
 
         $class = isset( self::$map[ $type ] ) ? self::$map[ $type ] : self::$map['text'];
+
+        // If an unknown field type receives an array value, do not pass it to a text input.
+        // This prevents WordPress "Array to string conversion" notices while making
+        // missing field registrations visible during development.
+        if ( ! isset( self::$map[ $type ] ) && is_array( $value ) ) {
+            $field['type']    = 'notice';
+            $field['style']   = 'warning';
+            $field['content'] = sprintf( __( 'Field type "%s" is not registered yet. Please register a renderer before using array values.', 'kavro-framework' ), esc_html( $type ) );
+            $class = self::$map['notice'];
+        }
 
         // Content-aware aliases automatically receive sensible query defaults.
         if ( in_array( $type, array( 'post_checkbox', 'post_radio', 'post_autocomplete', 'post_relation' ), true ) ) {

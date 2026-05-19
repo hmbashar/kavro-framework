@@ -379,4 +379,39 @@ if ( class_exists( 'KAVRO' ) ) {
         ),
     ) );
 
+
+
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'operations-pro-fields',
+        'title'    => 'Operations Pro Fields',
+        'subtitle' => 'API, license, environment, notification, permission, REST, cache, logs, health, and onboarding controls.',
+        'fields'   => array(
+            array( 'type' => 'subheading', 'content' => 'Connection & Environment' ),
+            array( 'id' => 'demo_license_key', 'type' => 'license_key', 'title' => 'License Key', 'default' => array( 'key' => '', 'status' => 'inactive' ) ),
+            array( 'id' => 'demo_api_credentials', 'type' => 'api_credentials', 'title' => 'API Credentials' ),
+            array( 'id' => 'demo_environment_select', 'type' => 'environment_select', 'title' => 'Environment Select', 'default' => 'staging' ),
+            array( 'id' => 'demo_feature_flags', 'type' => 'feature_flags', 'title' => 'Feature Flags', 'default' => array( 'beta_ui', 'api_cache' ) ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Notifications & Permissions' ),
+            array( 'id' => 'demo_notification_channels', 'type' => 'notification_channels', 'title' => 'Notification Channels' ),
+            array( 'id' => 'demo_permission_matrix', 'type' => 'permission_matrix', 'title' => 'Permission Matrix' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Routing & API Controls' ),
+            array( 'id' => 'demo_redirect_rules', 'type' => 'redirect_rules', 'title' => 'Redirect Rules', 'default' => array( 'rules' => array( array( 'from' => '/old', 'to' => '/new', 'status' => '301' ) ) ) ),
+            array( 'id' => 'demo_rest_endpoint', 'type' => 'rest_endpoint', 'title' => 'REST Endpoint', 'default' => array( 'method' => 'POST', 'route' => '/kavro/v1/action' ) ),
+            array( 'id' => 'demo_rate_limit', 'type' => 'rate_limit', 'title' => 'Rate Limit', 'default' => array( 'requests' => '120', 'minutes' => '1' ) ),
+            array( 'id' => 'demo_cache_control', 'type' => 'cache_control', 'title' => 'Cache Control', 'default' => array( 'enabled' => '1', 'ttl' => '3600', 'group' => 'kavro' ) ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Communication & Diagnostics' ),
+            array( 'id' => 'demo_email_template', 'type' => 'email_template', 'title' => 'Email Template', 'default' => array( 'subject' => 'Welcome to {{site_title}}', 'body' => 'Hello {{user_name}},
+
+Thanks for using Kavro.' ) ),
+            array( 'id' => 'demo_log_viewer', 'type' => 'log_viewer', 'title' => 'Log Viewer' ),
+            array( 'id' => 'demo_system_info', 'type' => 'system_info', 'title' => 'System Info' ),
+            array( 'id' => 'demo_health_check', 'type' => 'health_check', 'title' => 'Health Check' ),
+            array( 'id' => 'demo_changelog', 'type' => 'changelog', 'title' => 'Changelog', 'items' => array( array( 'version' => '1.0.0', 'changes' => 'Added operations-focused premium fields.' ) ) ),
+            array( 'id' => 'demo_onboarding_steps', 'type' => 'onboarding_steps', 'title' => 'Onboarding Steps', 'default' => array( 'install' => '1' ) ),
+        ),
+    ) );
+
 }

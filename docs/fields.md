@@ -481,3 +481,29 @@ Supported operators: `==`, `!=`, `contains`, `empty`, and `not_empty`.
 - Reset is nonce-protected and returns to the same active Kavro section.
 - New fields: `table`, `matrix`, `checklist`, `business_hours`, `timeline`, `seo_preview`, `open_graph`, `schema_markup`, `webhook`, `cron_schedule`, `capability_select`.
 - Each new field has at least one example in `examples/basic-usage.php`.
+
+
+## Operations Pro Fields
+
+These fields are useful for premium plugin/theme dashboards, API integrations, SaaS controls, support tooling, and diagnostic screens.
+
+| Field Type | Purpose |
+|---|---|
+| `notification_channels` | Configure email/SMS/Slack/webhook notification targets. |
+| `api_credentials` | Store API key, secret, client ID, and client secret style values. |
+| `license_key` | Render a premium license key input with visual status. |
+| `environment_select` | Select local/staging/production mode. |
+| `feature_flags` | Enable or disable internal feature flags. |
+| `permission_matrix` | Manage role/capability-style permission matrices. |
+| `redirect_rules` | Configure simple redirect from/to/status rules. |
+| `email_template` | Subject/body template field with token hints. |
+| `rest_endpoint` | Configure REST method and route values. |
+| `rate_limit` | Define request limits by time window. |
+| `cache_control` | Manage cache enabled state, TTL, and group. |
+| `log_viewer` | Display diagnostic log lines in a premium console style. |
+| `changelog` | Display version/change history inside settings. |
+| `system_info` | Display current WP/PHP/site/debug details. |
+| `health_check` | Display pass/warning diagnostic checks. |
+| `onboarding_steps` | Render checklist-style onboarding progress. |
+
+Example usage is included in `examples/basic-usage.php` under **Operations Pro Fields**.

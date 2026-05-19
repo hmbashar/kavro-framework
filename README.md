@@ -220,3 +220,10 @@ This build includes additional builder-style fields: `border_radius`, `box_model
 - Reset is nonce-protected and returns to the same active Kavro section.
 - New fields: `table`, `matrix`, `checklist`, `business_hours`, `timeline`, `seo_preview`, `open_graph`, `schema_markup`, `webhook`, `cron_schedule`, `capability_select`.
 - Each new field has at least one example in `examples/basic-usage.php`.
+
+
+### Latest additions
+
+Kavro now includes an **Operations Pro Fields** demo section with API credentials, license key, environment selector, feature flags, permission matrix, redirect rules, email templates, REST endpoint, rate limit, cache control, log viewer, changelog, system info, health check, and onboarding steps.
+
+See [`docs/fields.md`](docs/fields.md) for field documentation and `examples/basic-usage.php` for working examples.
