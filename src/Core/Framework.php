@@ -1,7 +1,9 @@
 <?php
+namespace Kavro\Core;
+
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-final class KAVRO {
+final class Framework {
     protected static $containers = array();
     protected static $sections   = array();
     protected static $instances  = array();
@@ -33,12 +35,10 @@ final class KAVRO {
     }
 
     public static function createCustomizeOptions( $id, $args = array() ) {
-        // Reserved for Pro/customizer module. Kept now for forward-compatible public API.
         self::createOptions( $id, array_merge( $args, array( '_module' => 'customizer' ) ) );
     }
 
     public static function createMetabox( $id, $args = array() ) {
-        // Reserved for Pro/metabox module. Kept now for forward-compatible public API.
         self::$containers[ $id ] = array_merge( $args, array( '_module' => 'metabox' ) );
     }
 
@@ -47,7 +47,8 @@ final class KAVRO {
             if ( isset( self::$instances[ $id ] ) || ( isset( $args['_module'] ) && 'metabox' === $args['_module'] ) ) {
                 continue;
             }
-            self::$instances[ $id ] = new Kavro_Admin_Options( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
+
+            self::$instances[ $id ] = new AdminOptions( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
         }
     }
 }

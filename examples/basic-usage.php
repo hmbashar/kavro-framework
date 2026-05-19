@@ -36,4 +36,43 @@ if ( class_exists( 'KAVRO' ) ) {
             ),
         ),
     ) );
+
+    // Header Section
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'header',
+        'title'    => 'Header',
+        'subtitle' => 'Header layout and settings.',
+        'icon'     => 'dashicons-heading',
+        'fields'   => array(
+            array( 'id' => 'header_layout', 'type' => 'select', 'title' => 'Header Layout', 'options' => array( 'layout-1' => 'Layout 1', 'layout-2' => 'Layout 2' ), 'default' => 'layout-1' ),
+            array( 'id' => 'sticky_header', 'type' => 'switcher', 'title' => 'Sticky Header', 'default' => '1' ),
+            array( 'id' => 'header_bg_color', 'type' => 'color', 'title' => 'Background Color', 'default' => '#ffffff' ),
+        ),
+    ) );
+
+    // Footer Section
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'footer',
+        'title'    => 'Footer',
+        'subtitle' => 'Footer layout and settings.',
+        'icon'     => 'dashicons-editor-insertmore',
+        'fields'   => array(
+            array( 'id' => 'footer_columns', 'type' => 'number', 'title' => 'Footer Columns', 'default' => '4' ),
+            array( 'id' => 'footer_copyright', 'type' => 'textarea', 'title' => 'Copyright Text', 'default' => '© ' . date('Y') . ' Your Site. All rights reserved.' ),
+        ),
+    ) );
+
+    // Typography Section
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'typography',
+        'title'    => 'Typography',
+        'subtitle' => 'Site wide typography settings.',
+        'icon'     => 'dashicons-editor-textcolor',
+        'fields'   => array(
+            array( 'id' => 'body_font', 'type' => 'text', 'title' => 'Body Font Family', 'default' => 'Inter, sans-serif' ),
+            array( 'id' => 'heading_font', 'type' => 'text', 'title' => 'Heading Font Family', 'default' => 'Inter, sans-serif' ),
+            array( 'id' => 'base_font_size', 'type' => 'text', 'title' => 'Base Font Size', 'default' => '16px' ),
+        ),
+    ) );
+
 }
