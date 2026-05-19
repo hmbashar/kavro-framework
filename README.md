@@ -53,4 +53,6 @@ The development build loads `examples/basic-usage.php` on `init` priority 10. Ka
 
 ## Customizer Framework
 
-Kavro now includes an initial Customizer API. See [`docs/customizer.md`](docs/customizer.md).
+Kavro now includes an initial Customizer API. See [`docs/customizer.md
+- [Taxonomy Options](docs/taxonomy.md)`](docs/customizer.md
+- [Taxonomy Options](docs/taxonomy.md)).

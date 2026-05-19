@@ -105,6 +105,23 @@ final class Framework {
         );
     }
 
+
+    /**
+     * Register taxonomy term option fields.
+     *
+     * @param string $id   Unique taxonomy option container ID.
+     * @param array  $args Taxonomy option arguments.
+     * @return void
+     */
+    public static function createTaxonomyOptions( $id, $args = array() ) {
+        self::$containers[ sanitize_key( $id ) ] = wp_parse_args(
+            array_merge( $args, array( '_module' => 'taxonomy' ) ),
+            array(
+                'taxonomy' => array( 'category' ),
+            )
+        );
+    }
+
     /**
      * Placeholder API for future metabox support.
      *
@@ -142,6 +159,11 @@ final class Framework {
 
             if ( isset( $args['_module'] ) && 'customizer' === $args['_module'] ) {
                 self::$instances[ $id ] = new Customizer( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
+                continue;
+            }
+
+            if ( isset( $args['_module'] ) && 'taxonomy' === $args['_module'] ) {
+                self::$instances[ $id ] = new Taxonomy( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
                 continue;
             }
 

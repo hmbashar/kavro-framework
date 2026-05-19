@@ -54,3 +54,25 @@ if ( ! function_exists( 'kavro_get_post_meta' ) ) {
         return array_key_exists( $key, $values ) ? $values[ $key ] : $default;
     }
 }
+
+if ( ! function_exists( 'kavro_get_term_meta' ) ) {
+    /**
+     * Retrieve a saved Kavro taxonomy option value from a term meta container.
+     *
+     * @param int    $term_id Term ID.
+     * @param string $unique  Taxonomy option unique ID passed to KAVRO::createTaxonomyOptions().
+     * @param string $key     Optional field ID. Leave empty to return all values.
+     * @param mixed  $default Default value when the meta/key is missing.
+     * @return mixed
+     */
+    function kavro_get_term_meta( $term_id, $unique, $key = '', $default = null ) {
+        $values = get_term_meta( absint( $term_id ), sanitize_key( $unique ), true );
+        $values = is_array( $values ) ? $values : array();
+
+        if ( '' === $key ) {
+            return $values;
+        }
+
+        return array_key_exists( $key, $values ) ? $values[ $key ] : $default;
+    }
+}
