@@ -1,29 +1,40 @@
-# Kavro Developer Notes
+# Developer Notes
 
-## Core Files
+## Field Architecture
 
-```text
-kavro-framework.php        Main plugin bootstrap
-composer.json              Composer metadata and PSR-4 mapping
-includes/functions.php     Global helper functions
-src/Core/Framework.php     Static registry and boot process
-src/Core/AdminOptions.php  Admin option page renderer
-src/Core/Fields.php        Field rendering and sanitization
-assets/css/admin.css       Admin UI styling
-assets/js/admin.js         Navigation and interaction behavior
-examples/basic-usage.php   Full demo configuration
+Fields are registered in `classes/Fields.php` and implemented as modular classes under `fields/`.
+
+Each field class extends `Kavro\AbstractField` and implements `render()`.
+
+Example:
+
+```php
+namespace Kavro\Fields\Text;
+
+use Kavro\AbstractField;
+
+class Text extends AbstractField {
+    public function render() {
+        // output field HTML
+    }
+}
 ```
+
+## Adding a New Field
+
+1. Create a folder under `fields/`, for example `fields/Icon/Icon.php`.
+2. Create a class such as `Kavro\Fields\Icon\Icon`.
+3. Extend `Kavro\AbstractField`.
+4. Add the field type to the map in `classes/Fields.php`.
+5. Add CSS/JS only if needed.
 
 ## Nested Menu Behavior
 
-Native WordPress admin menus support top-level pages and one submenu level. Kavro avoids that limitation by rendering its own nested navigation inside the option page.
+The sidebar uses custom nested panels instead of WordPress native submenu nesting. This avoids core admin-menu limitations and allows 3-4 levels or more. The JavaScript recalculates panel height from deepest open children upward to prevent clipping when many fields/sections exist.
 
-The JavaScript recalculates submenu heights from deepest child to parent. This prevents clipping when a parent contains many fields or when a deep child menu expands.
+## Current Limitations
 
-## Version 0.1.2 Changes
-
-- Expanded demo file with many test sections and fields.
-- Added 4-level nested demo menu.
-- Improved nested menu expand/collapse height calculation.
-- Made sidebar scrollable for long navigation lists.
-- Added documentation folder.
+- Repeater currently supports simple nested inputs only.
+- Media stores the selected URL only.
+- Code editor is a styled textarea, not WP CodeMirror yet.
+- Customizer and metabox method stubs exist but are not fully implemented.

@@ -3,20 +3,16 @@
   "description": "A modern lightweight WordPress options, fields, customizer and metabox framework foundation.",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
-  "authors": [
-    {
-      "name": "Md Abul Bashar",
-      "homepage": "https://hmbashar.com"
-    }
-  ],
   "autoload": {
     "psr-4": {
-      "Kavro\\": "src/"
+      "Kavro\\": "classes/",
+      "Kavro\\Fields\\": "fields/"
     },
-    "files": [
-      "includes/functions.php"
-    ]
+    "files": ["includes/functions.php"]
   },
+  "authors": [
+    {"name": "Md Abul Bashar", "homepage": "https://hmbashar.com"}
+  ],
   "minimum-stability": "stable",
   "prefer-stable": true
 }
