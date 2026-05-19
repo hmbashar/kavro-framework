@@ -62,3 +62,5 @@ Kavro now includes an initial Customizer API. See [`docs/customizer.md
 ## Profile Options
 
 Use `KAVRO::createProfileOptions()` to add Kavro fields to WordPress user profile screens.
+
+- [Nav Menu Options](docs/nav-menu.md)

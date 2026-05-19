@@ -140,6 +140,25 @@ final class Framework {
         );
     }
 
+
+
+    /**
+     * Register nav menu item option fields.
+     *
+     * @param string $id   Unique nav menu option container ID.
+     * @param array  $args Nav menu option arguments.
+     * @return void
+     */
+    public static function createNavMenuOptions( $id, $args = array() ) {
+        self::$containers[ sanitize_key( $id ) ] = wp_parse_args(
+            array_merge( $args, array( '_module' => 'nav_menu' ) ),
+            array(
+                'title'      => 'Kavro Menu Options',
+                'capability' => 'edit_theme_options',
+            )
+        );
+    }
+
     /**
      * Placeholder API for future metabox support.
      *
@@ -183,6 +202,13 @@ final class Framework {
 
             if ( isset( $args['_module'] ) && 'profile' === $args['_module'] ) {
                 self::$instances[ $id ] = new Profile( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
+                continue;
+            }
+
+
+
+            if ( isset( $args['_module'] ) && 'nav_menu' === $args['_module'] ) {
+                self::$instances[ $id ] = new NavMenu( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
                 continue;
             }
 

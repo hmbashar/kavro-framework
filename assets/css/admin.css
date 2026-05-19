@@ -1383,3 +1383,42 @@
 .kavro-taxonomy-add .kavro-field-control {
   width: 100%;
 }
+
+/* Nav menu item options --------------------------------------------------- */
+.kavro-nav-menu-options {
+    margin: 14px 10px 12px 0;
+    padding: 16px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+    border: 1px solid rgba(148, 163, 184, 0.26);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.kavro-nav-menu-options .kavro-metabox-heading {
+    margin-bottom: 12px;
+}
+
+.kavro-nav-menu-options .kavro-metabox-heading h4 {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.kavro-nav-menu-options .kavro-metabox-heading p {
+    margin: 0;
+    color: #64748b;
+}
+
+.kavro-section-mini-title {
+    margin: 14px 0 8px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #4f46e5;
+}
+
+.kavro-nav-menu-options .kavro-field {
+    padding: 12px 0;
+}

@@ -49,6 +49,7 @@ if ( ! class_exists( 'KAVRO' ) ) {
         public static function createMetabox( $id, $args = array() ) { return \Kavro\Framework::createMetabox( $id, $args ); }
         public static function createTaxonomyOptions( $id, $args = array() ) { return \Kavro\Framework::createTaxonomyOptions( $id, $args ); }
         public static function createProfileOptions( $id, $args = array() ) { return \Kavro\Framework::createProfileOptions( $id, $args ); }
+        public static function createNavMenuOptions( $id, $args = array() ) { return \Kavro\Framework::createNavMenuOptions( $id, $args ); }
     }
 }
 

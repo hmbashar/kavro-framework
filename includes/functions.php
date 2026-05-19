@@ -99,3 +99,26 @@ if ( ! function_exists( 'kavro_get_user_meta' ) ) {
         return array_key_exists( $key, $values ) ? $values[ $key ] : $default;
     }
 }
+
+
+if ( ! function_exists( 'kavro_get_nav_menu_item_meta' ) ) {
+    /**
+     * Retrieve a saved Kavro nav menu item option value.
+     *
+     * @param int    $menu_item_id Menu item post ID.
+     * @param string $unique       Nav menu option unique ID passed to KAVRO::createNavMenuOptions().
+     * @param string $key          Optional field ID. Leave empty to return all values.
+     * @param mixed  $default      Default value when the meta/key is missing.
+     * @return mixed
+     */
+    function kavro_get_nav_menu_item_meta( $menu_item_id, $unique, $key = '', $default = null ) {
+        $values = get_post_meta( absint( $menu_item_id ), sanitize_key( $unique ), true );
+        $values = is_array( $values ) ? $values : array();
+
+        if ( '' === $key ) {
+            return $values;
+        }
+
+        return array_key_exists( $key, $values ) ? $values[ $key ] : $default;
+    }
+}
