@@ -15,6 +15,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 define( 'KAVRO_VERSION', '1.0.0' );
+define( 'KAVRO_EDITION', 'free' );
 define( 'KAVRO_FILE', __FILE__ );
 define( 'KAVRO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'KAVRO_URL', plugin_dir_url( __FILE__ ) );
@@ -43,6 +44,11 @@ require_once KAVRO_PATH . 'includes/functions.php';
 if ( ! class_exists( 'KAVRO' ) ) {
     final class KAVRO {
         public static function boot() { return \Kavro\Framework::boot(); }
+        public static function registerModule( $module, $class, $args = array() ) { return \Kavro\Framework::registerModule( $module, $class, $args ); }
+        public static function getModules() { return \Kavro\Framework::getModules(); }
+        public static function isModuleAvailable( $module ) { return \Kavro\Framework::isModuleAvailable( $module ); }
+        public static function isPro() { return \Kavro\Framework::isPro(); }
+        public static function edition() { return \Kavro\Framework::edition(); }
         public static function createOptions( $id, $args = array() ) { return \Kavro\Framework::createOptions( $id, $args ); }
         public static function createSection( $id, $section ) { return \Kavro\Framework::createSection( $id, $section ); }
         public static function createCustomizeOptions( $id, $args = array() ) { return \Kavro\Framework::createCustomizeOptions( $id, $args ); }

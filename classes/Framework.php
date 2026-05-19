@@ -35,7 +35,62 @@ final class Framework {
      * @return void
      */
     public static function boot() {
+        Extensions::boot();
         add_action( 'init', array( __CLASS__, 'init_instances' ), 20 );
+    }
+
+
+    /**
+     * Register or override a Kavro module controller.
+     *
+     * This is the public bridge used by Kavro Pro and add-ons. It allows new
+     * modules to be connected to the same container/section registry without
+     * modifying Kavro core.
+     *
+     * @param string $module Module key.
+     * @param string $class  Fully-qualified controller class.
+     * @param array  $args   Optional module metadata.
+     * @return void
+     */
+    public static function registerModule( $module, $class, $args = array() ) {
+        Extensions::register_module( $module, $class, $args );
+    }
+
+    /**
+     * Return all registered Kavro modules.
+     *
+     * @return array
+     */
+    public static function getModules() {
+        return Extensions::modules();
+    }
+
+    /**
+     * Determine if a module is available.
+     *
+     * @param string $module Module key.
+     * @return bool
+     */
+    public static function isModuleAvailable( $module ) {
+        return Extensions::is_module_available( $module );
+    }
+
+    /**
+     * Check whether a Pro companion build is active.
+     *
+     * @return bool
+     */
+    public static function isPro() {
+        return Extensions::is_pro_active();
+    }
+
+    /**
+     * Return the current edition slug: free or pro.
+     *
+     * @return string
+     */
+    public static function edition() {
+        return Extensions::edition();
     }
 
     /**
@@ -241,6 +296,11 @@ final class Framework {
     /**
      * Instantiate registered modules after developers have defined containers.
      *
+     * Module creation is now registry-driven. This keeps the free plugin stable
+     * while allowing Kavro Pro or third-party add-ons to override controller
+     * classes through `KAVRO::registerModule()` or the `kavro/register_modules`
+     * action.
+     *
      * @return void
      */
     public static function init_instances() {
@@ -249,55 +309,52 @@ final class Framework {
                 continue;
             }
 
-            if ( isset( $args['_module'] ) && 'metabox' === $args['_module'] ) {
-                self::$instances[ $id ] = new Metabox( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
+            $module = isset( $args['_module'] ) ? sanitize_key( $args['_module'] ) : 'options';
+
+            if ( ! Extensions::is_module_available( $module ) ) {
+                /**
+                 * Fires when a registered container requests an unavailable module.
+                 *
+                 * @param string $module Module key.
+                 * @param string $id     Container ID.
+                 * @param array  $args   Container arguments.
+                 */
+                do_action( 'kavro/module_unavailable', $module, $id, $args );
                 continue;
             }
 
-            if ( isset( $args['_module'] ) && 'customizer' === $args['_module'] ) {
-                self::$instances[ $id ] = new Customizer( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
+            $class    = Extensions::module_class( $module );
+            $sections = isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array();
+
+            if ( ! $class || ! class_exists( $class ) ) {
+                do_action( 'kavro/module_class_missing', $module, $class, $id, $args );
                 continue;
             }
 
+            /**
+             * Fires before a module controller is created.
+             *
+             * @param string $module   Module key.
+             * @param string $id       Container ID.
+             * @param array  $args     Container arguments.
+             * @param array  $sections Registered sections.
+             */
+            do_action( 'kavro/before_module_init', $module, $id, $args, $sections );
 
-            if ( isset( $args['_module'] ) && 'profile' === $args['_module'] ) {
-                self::$instances[ $id ] = new Profile( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
-                continue;
+            self::$instances[ $id ] = new $class( $id, $args, $sections );
+
+            if ( 'widget' === $module && method_exists( self::$instances[ $id ], 'register' ) ) {
+                self::$instances[ $id ]->register();
             }
 
-
-
-
-
-            if ( isset( $args['_module'] ) && 'widget' === $args['_module'] ) {
-                $widget = new Widget( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
-                $widget->register();
-                self::$instances[ $id ] = $widget;
-                continue;
-            }
-
-
-            if ( isset( $args['_module'] ) && 'comment' === $args['_module'] ) {
-                self::$instances[ $id ] = new Comment( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
-                continue;
-            }
-
-            if ( isset( $args['_module'] ) && 'shortcode' === $args['_module'] ) {
-                self::$instances[ $id ] = new Shortcode( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
-                continue;
-            }
-
-            if ( isset( $args['_module'] ) && 'nav_menu' === $args['_module'] ) {
-                self::$instances[ $id ] = new NavMenu( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
-                continue;
-            }
-
-            if ( isset( $args['_module'] ) && 'taxonomy' === $args['_module'] ) {
-                self::$instances[ $id ] = new Taxonomy( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
-                continue;
-            }
-
-            self::$instances[ $id ] = new AdminOptions( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
+            /**
+             * Fires after a module controller has been created.
+             *
+             * @param object $instance Module controller instance.
+             * @param string $module   Module key.
+             * @param string $id       Container ID.
+             */
+            do_action( 'kavro/after_module_init', self::$instances[ $id ], $module, $id );
         }
     }
 }

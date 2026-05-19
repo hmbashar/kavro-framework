@@ -170,3 +170,37 @@ if ( ! function_exists( 'kavro_get_comment_meta' ) ) {
         return array_key_exists( $key, $values ) ? $values[ $key ] : $default;
     }
 }
+
+
+if ( ! function_exists( 'kavro_is_pro' ) ) {
+    /**
+     * Determine whether Kavro Pro or a compatible Pro bridge is active.
+     *
+     * @return bool
+     */
+    function kavro_is_pro() {
+        return class_exists( 'KAVRO' ) && KAVRO::isPro();
+    }
+}
+
+if ( ! function_exists( 'kavro_edition' ) ) {
+    /**
+     * Return the current Kavro edition slug.
+     *
+     * @return string Either `free` or `pro`.
+     */
+    function kavro_edition() {
+        return class_exists( 'KAVRO' ) ? KAVRO::edition() : 'free';
+    }
+}
+
+if ( ! function_exists( 'kavro_get_modules' ) ) {
+    /**
+     * Return registered Kavro modules for diagnostics or add-on UIs.
+     *
+     * @return array
+     */
+    function kavro_get_modules() {
+        return class_exists( 'KAVRO' ) ? KAVRO::getModules() : array();
+    }
+}

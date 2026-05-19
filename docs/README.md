@@ -13,3 +13,8 @@ Kavro documentation is split by module so developers can quickly find the API th
 - [Shortcode Framework](shortcode.md)
 - [Field Reference](fields.md)
 - [Developer Notes](developer-notes.md)
+
+
+## Free vs Pro Architecture
+
+Kavro now includes a module registry for clean Free/Pro separation. See [`free-pro.md`](free-pro.md) for details.

@@ -71,3 +71,8 @@ The development build loads `examples/basic-usage.php` on `init` priority 10. Ka
 Copyright © Md Abul Bashar — https://hmbashar.com — https://facebook.com/hmbashar
 
 Licensed under GPLv2 or later.
+
+
+## Free vs Pro Architecture
+
+Kavro now includes a module registry for clean Free/Pro separation. See [`docs/free-pro.md`](docs/free-pro.md) for details.
