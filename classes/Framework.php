@@ -178,6 +178,24 @@ final class Framework {
         );
     }
 
+
+    /**
+     * Register comment edit screen option fields.
+     *
+     * @param string $id   Unique comment option container ID.
+     * @param array  $args Comment option arguments.
+     * @return void
+     */
+    public static function createCommentOptions( $id, $args = array() ) {
+        self::$containers[ sanitize_key( $id ) ] = wp_parse_args(
+            array_merge( $args, array( '_module' => 'comment' ) ),
+            array(
+                'title'      => 'Kavro Comment Options',
+                'capability' => 'edit_comment',
+            )
+        );
+    }
+
     /**
      * Placeholder API for future metabox support.
      *
@@ -232,6 +250,12 @@ final class Framework {
                 $widget = new Widget( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
                 $widget->register();
                 self::$instances[ $id ] = $widget;
+                continue;
+            }
+
+
+            if ( isset( $args['_module'] ) && 'comment' === $args['_module'] ) {
+                self::$instances[ $id ] = new Comment( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
                 continue;
             }
 

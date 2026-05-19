@@ -51,6 +51,7 @@ if ( ! class_exists( 'KAVRO' ) ) {
         public static function createProfileOptions( $id, $args = array() ) { return \Kavro\Framework::createProfileOptions( $id, $args ); }
         public static function createNavMenuOptions( $id, $args = array() ) { return \Kavro\Framework::createNavMenuOptions( $id, $args ); }
         public static function createWidgetOptions( $id, $args = array() ) { return \Kavro\Framework::createWidgetOptions( $id, $args ); }
+        public static function createCommentOptions( $id, $args = array() ) { return \Kavro\Framework::createCommentOptions( $id, $args ); }
     }
 }
 

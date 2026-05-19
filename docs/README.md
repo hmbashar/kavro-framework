@@ -23,3 +23,5 @@ Use `KAVRO::createProfileOptions()` to add Kavro fields to WordPress user profil
 - [Nav Menu Options](nav-menu.md)
 
 - [Widget Options](docs/widget.md)
+
+- [Comment Options](comment.md)
