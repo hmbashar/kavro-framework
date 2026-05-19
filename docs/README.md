@@ -11,3 +11,5 @@ The demo files are located in `examples/`:
 - `examples/options-demo.php` registers the options panel.
 - `examples/metabox-demo.php` registers post/page metaboxes.
 - `examples/field-examples.php` contains shared field examples used by both demos.
+
+- [Customizer Framework](customizer.md)

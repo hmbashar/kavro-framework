@@ -84,14 +84,25 @@ final class Framework {
     }
 
     /**
-     * Placeholder API for future Customizer support.
+     * Register a WordPress Customizer option panel.
+     *
+     * Customizer containers share the same section registration API as admin
+     * options and metaboxes. Child sections are flattened because WordPress
+     * Customizer does not support nested sections natively.
      *
      * @param string $id   Unique container ID.
      * @param array  $args Customizer arguments.
      * @return void
      */
     public static function createCustomizeOptions( $id, $args = array() ) {
-        self::createOptions( $id, array_merge( $args, array( '_module' => 'customizer' ) ) );
+        self::$containers[ sanitize_key( $id ) ] = wp_parse_args(
+            array_merge( $args, array( '_module' => 'customizer' ) ),
+            array(
+                'title'       => 'Kavro Customizer',
+                'description' => 'Customizer settings registered with Kavro Framework.',
+                'priority'    => 160,
+            )
+        );
     }
 
     /**
@@ -126,6 +137,11 @@ final class Framework {
 
             if ( isset( $args['_module'] ) && 'metabox' === $args['_module'] ) {
                 self::$instances[ $id ] = new Metabox( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
+                continue;
+            }
+
+            if ( isset( $args['_module'] ) && 'customizer' === $args['_module'] ) {
+                self::$instances[ $id ] = new Customizer( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
                 continue;
             }
 
