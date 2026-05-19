@@ -188,6 +188,7 @@
       e.preventDefault();
       var tab=$(this).data('kavro-tab');
       window.location.hash=tab;
+      $('.kavro-active-section').val(tab);
       activate(tab);
     });
 
@@ -209,6 +210,7 @@
    * before the browser navigates.
    */
   $(document).on('submit', '.kavro-main form', function(){
+    setReturnHash();
     var $form = $(this);
     if (!$form.find('.kavro-save-status').length) {
       $form.find('.kavro-topbar').append('<span class="kavro-save-status is-visible">Saving...</span>');
@@ -258,6 +260,25 @@
     e.preventDefault();
     var $rows = $(this).closest('[data-kavro-key-value]').find('.kavro-key-value-row');
     if ($rows.length > 1) { $(this).closest('.kavro-key-value-row').remove(); }
+  });
+
+
+
+  /** Copy a read-only field value to the clipboard with a small visual label update. */
+  $(document).on('click', '.kavro-copy-button', function(e){
+    e.preventDefault();
+    var $button = $(this);
+    var target = $button.data('kavro-copy');
+    var value = $(target).val() || '';
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(value);
+    } else {
+      $(target).trigger('select');
+      document.execCommand('copy');
+    }
+    var original = $button.text();
+    $button.text('Copied!');
+    setTimeout(function(){ $button.text(original); }, 1200);
   });
 
 })(jQuery);

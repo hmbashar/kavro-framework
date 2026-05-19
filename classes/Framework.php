@@ -58,7 +58,7 @@ final class Framework {
                 'menu_position'   => null,
                 'show_bar_menu'   => false,
                 'theme'           => 'premium',
-                'footer_credit'   => 'Built with Kavro Framework',
+                'footer_credit'   => 'Kavro Framework © Md Abul Bashar · hmbashar.com · facebook.com/hmbashar',
             )
         );
     }

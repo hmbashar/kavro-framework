@@ -219,3 +219,131 @@
   .kavro-sidebar{position:relative;top:auto;max-height:none;}
   .kavro-field{grid-template-columns:1fr;gap:12px;}
 }
+
+/**
+ * Import/export tools
+ * -----------------------------------------------------------------------------
+ * The tools screen is outside the settings form so downloads/uploads can be
+ * handled by secure admin-post.php endpoints without interfering with options.php.
+ */
+.kavro-nav-tools {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,.22);
+}
+.kavro-tools-card {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(91,92,246,.08), transparent 34%),
+    linear-gradient(180deg, #fff, #fbfdff);
+}
+.kavro-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 26px;
+}
+.kavro-tool-box {
+  padding: 24px;
+  border: 1px solid rgba(148, 163, 184, .28);
+  border-radius: 24px;
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 18px 44px rgba(15, 23, 42, .07);
+}
+.kavro-tool-box h3 {
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: 17px;
+  font-weight: 800;
+}
+.kavro-tool-box p {
+  margin: 0 0 18px;
+  color: #64748b;
+  line-height: 1.65;
+}
+.kavro-tool-box textarea,
+.kavro-tool-box input[type="file"] {
+  width: 100%;
+  margin-bottom: 14px;
+  border: 1px solid rgba(148, 163, 184, .35);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, .04);
+}
+.kavro-tool-box textarea {
+  padding: 16px;
+  min-height: 168px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: #334155;
+}
+.kavro-import-file {
+  padding: 13px;
+}
+.kavro-tool-button {
+  min-height: 44px !important;
+  border-radius: 999px !important;
+}
+.kavro-notice-success,
+.kavro-notice-error {
+  margin: 18px 0 6px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-weight: 700;
+}
+.kavro-notice-success {
+  color: #065f46;
+  background: rgba(16, 185, 129, .12);
+  border: 1px solid rgba(16, 185, 129, .25);
+}
+.kavro-notice-error {
+  color: #991b1b;
+  background: rgba(239, 68, 68, .11);
+  border: 1px solid rgba(239, 68, 68, .24);
+}
+@media (max-width: 980px) {
+  .kavro-tools-grid { grid-template-columns: 1fr; }
+}
+
+
+/* --------------------------------------------------------------------------
+ * Kavro v1.0.0 premium interaction polish.
+ * --------------------------------------------------------------------------
+ * These overrides improve custom checkbox/radio rendering, normalize cursor
+ * behavior for all clickable controls, and add a compact version badge in the
+ * sidebar brand area.
+ */
+.kavro-wrap button,
+.kavro-wrap .button,
+.kavro-wrap input[type="button"],
+.kavro-wrap input[type="submit"],
+.kavro-wrap input[type="reset"],
+.kavro-wrap label,
+.kavro-wrap summary,
+.kavro-wrap [role="button"],
+.kavro-nav-row a,
+.kavro-image-select-card,
+.kavro-palette span,
+.kavro-icon-choice,
+.kavro-sortable-list li,
+.kavro-sorter-list li{cursor:pointer!important;}
+.kavro-brand-copy{display:grid;gap:4px;min-width:0;}
+.kavro-version-badge{display:inline-flex;width:max-content;align-items:center;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.24);color:#f8fafc;font-size:11px;font-weight:900;letter-spacing:.04em;box-shadow:inset 0 1px 0 rgba(255,255,255,.15);}
+.kavro-field-control input[type=checkbox],
+.kavro-field-control input[type=radio]{appearance:none;-webkit-appearance:none;width:22px!important;height:22px!important;min-width:22px;margin:0 8px 0 0!important;border:1px solid #cbd5e1!important;background:linear-gradient(180deg,#fff,#f8fafc)!important;box-shadow:0 7px 16px rgba(15,23,42,.08), inset 0 1px 0 rgba(255,255,255,.8)!important;display:inline-grid!important;place-content:center!important;vertical-align:middle;transition:all .18s ease!important;position:relative;}
+.kavro-field-control input[type=checkbox]{border-radius:8px!important;}
+.kavro-field-control input[type=radio]{border-radius:50%!important;}
+.kavro-field-control input[type=checkbox]:hover,
+.kavro-field-control input[type=radio]:hover{border-color:#818cf8!important;box-shadow:0 0 0 4px rgba(99,102,241,.12),0 10px 20px rgba(15,23,42,.1)!important;}
+.kavro-field-control input[type=checkbox]:checked,
+.kavro-field-control input[type=radio]:checked{border-color:#635bff!important;background:linear-gradient(135deg,#6d5dfc,#06b6d4)!important;box-shadow:0 0 0 4px rgba(99,102,241,.16),0 12px 24px rgba(79,70,229,.22)!important;}
+.kavro-field-control input[type=checkbox]:checked:before{content:"";width:11px;height:7px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg);margin-top:-2px;}
+.kavro-field-control input[type=radio]:checked:before{content:"";width:8px;height:8px;border-radius:999px;background:#fff;box-shadow:0 1px 3px rgba(15,23,42,.18);}
+.kavro-check-grid label:has(input:checked),
+.kavro-radio-list label:has(input:checked),
+.kavro-radio-group label:has(input:checked),
+.kavro-inline-check:has(input:checked),
+.kavro-check:has(input:checked){border-color:#a5b4fc;background:linear-gradient(135deg,#eef2ff,#fff 55%,#ecfeff);box-shadow:0 16px 36px rgba(79,70,229,.12);}
+.kavro-copy-field,.kavro-button-field,.kavro-readonly-field{display:flex;align-items:center;gap:10px;max-width:760px;}
+.kavro-readonly-field input[readonly],.kavro-copy-field input[readonly]{background:linear-gradient(180deg,#f8fafc,#eef2ff)!important;color:#334155!important;font-weight:750;}
+.kavro-button-preview{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:16px;padding:13px 18px;background:linear-gradient(135deg,#635bff,#09a8d9);color:#fff;text-decoration:none;font-weight:900;box-shadow:0 18px 35px rgba(99,91,255,.24);transition:transform .18s ease,box-shadow .18s ease;}
+.kavro-button-preview:hover{transform:translateY(-2px);box-shadow:0 22px 44px rgba(99,91,255,.3);color:#fff;}
+.kavro-html-preview{border:1px solid #e2e8f0;border-radius:20px;background:linear-gradient(180deg,#fff,#f8fafc);padding:18px;box-shadow:0 14px 32px rgba(15,23,42,.06);}

@@ -280,3 +280,24 @@ Native `datetime-local` input for combined date/time settings.
 
 ### key_value
 Repeatable key/value rows for custom variables, labels, or developer settings.
+
+
+## Demo Coverage
+
+Every built-in Kavro field has at least one working example in `examples/basic-usage.php`. Use that file as the primary field reference when testing the framework in a theme or plugin.
+
+## Settings Import / Export
+
+Import/export tools are rendered automatically by the admin options controller. They are not normal fields because they use secure `admin-post.php` actions for downloading and importing JSON payloads.
+
+
+## Additional Fields Added
+
+- `tel` - telephone input.
+- `month` - month picker.
+- `week` - week picker.
+- `readonly` - read-only saved value display.
+- `copy` - copyable read-only value.
+- `button` - URL input with premium preview button.
+- `html` - safe HTML preview card.
+- `oembed` - oEmbed URL helper field.

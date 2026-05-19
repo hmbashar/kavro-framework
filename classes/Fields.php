@@ -80,6 +80,14 @@ class Fields {
         'image_select'=> '\\Kavro\\Fields\\ImageSelect\\ImageSelect',
         'link_color'  => '\\Kavro\\Fields\\LinkColor\\LinkColor',
         'key_value'   => '\\Kavro\\Fields\\KeyValue\\KeyValue',
+        'tel'         => '\\Kavro\\Fields\\Tel\\Tel',
+        'month'       => '\\Kavro\\Fields\\Month\\Month',
+        'week'        => '\\Kavro\\Fields\\Week\\Week',
+        'readonly'    => '\\Kavro\\Fields\\Readonly\\KavroReadonly',
+        'copy'        => '\\Kavro\\Fields\\Copy\\Copy',
+        'button'      => '\\Kavro\\Fields\\Button\\Button',
+        'html'        => '\\Kavro\\Fields\\Html\\Html',
+        'oembed'      => '\\Kavro\\Fields\\Oembed\\Oembed',
     );
 
     /**
@@ -93,7 +101,7 @@ class Fields {
     public static function render( $field, $value, $unique ) {
         $type = isset( $field['type'] ) ? sanitize_key( $field['type'] ) : 'text';
 
-        if ( 'hidden' !== $type && empty( $field['id'] ) && ! in_array( $type, array( 'content', 'heading', 'subheading', 'divider', 'notice' ), true ) ) {
+        if ( 'hidden' !== $type && empty( $field['id'] ) && ! in_array( $type, array( 'content', 'heading', 'subheading', 'divider', 'notice', 'html' ), true ) ) {
             return;
         }
 

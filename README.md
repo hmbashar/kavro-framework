@@ -12,6 +12,7 @@ Kavro Framework is a modern WordPress option framework for themes and plugins. I
 - **Author URI:** https://hmbashar.com
 - **License:** GPLv2 or later
 - **Text Domain:** `kavro-framework`
+- **Copyright:** © Md Abul Bashar — https://hmbashar.com — https://facebook.com/hmbashar
 
 ## Highlights
 
@@ -25,7 +26,7 @@ Kavro Framework is a modern WordPress option framework for themes and plugins. I
 - WordPress media uploader support
 - WordPress color picker support
 - Repeater/group support
-- Premium field UI for media, gallery, typography, sorter, accordion, tabbed, backup, and structured fields
+- Premium field UI for media, gallery, typography, sorter, accordion, tabbed, backup, import/export, and structured fields
 
 ## Why there is no `parent` key
 
@@ -149,3 +150,21 @@ The admin interface includes a premium refinement CSS layer that intentionally o
 ## Field Documentation
 
 See [`docs/fields.md`](docs/fields.md) for field examples and supported field types.
+
+
+## Import / Export
+
+Kavro includes secure settings import/export tools inside each options dashboard. Export downloads the current option array as JSON. Import accepts either a `.json` file or pasted JSON and replaces the current saved values after nonce and capability checks.
+
+## Demo Coverage
+
+The demo file at [`examples/basic-usage.php`](examples/basic-usage.php) includes at least one example for every built-in field registered in `classes/Fields.php`.
+
+## Copyright
+
+Copyright © Md Abul Bashar. Website: https://hmbashar.com. Facebook: https://facebook.com/hmbashar.
+
+
+## Preserve Active Section
+
+Kavro keeps the current nested section hash during save, so users return to the same panel after WordPress reloads the settings page.
