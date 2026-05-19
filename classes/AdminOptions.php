@@ -237,11 +237,13 @@ class AdminOptions {
      * @return void
      */
     public function export_settings() {
-        if ( ! current_user_can( $this->args['menu_capability'] ) ) {
-            wp_die( esc_html__( 'You do not have permission to export these settings.', 'kavro-framework' ) );
+        if ( ! Security::can( $this->args['menu_capability'] ) ) {
+            Security::wp_die_permission( __( 'You do not have permission to export these settings.', 'kavro-framework' ) );
         }
 
-        check_admin_referer( 'kavro_export_' . $this->unique );
+        if ( ! Security::verify_nonce_from_request( $_REQUEST, '_wpnonce', 'kavro_export_' . $this->unique ) ) {
+            Security::wp_die_nonce();
+        }
 
         $payload = array(
             'generator'  => 'Kavro Framework',
@@ -264,16 +266,24 @@ class AdminOptions {
      * @return void
      */
     public function import_settings() {
-        if ( ! current_user_can( $this->args['menu_capability'] ) ) {
-            wp_die( esc_html__( 'You do not have permission to import these settings.', 'kavro-framework' ) );
+        if ( ! Security::can( $this->args['menu_capability'] ) ) {
+            Security::wp_die_permission( __( 'You do not have permission to import these settings.', 'kavro-framework' ) );
         }
 
-        check_admin_referer( 'kavro_import_' . $this->unique );
+        if ( ! Security::verify_nonce_from_request( $_REQUEST, '_wpnonce', 'kavro_import_' . $this->unique ) ) {
+            Security::wp_die_nonce();
+        }
 
         $raw = '';
 
         if ( ! empty( $_FILES['kavro_import_file']['tmp_name'] ) ) {
-            $raw = file_get_contents( $_FILES['kavro_import_file']['tmp_name'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+            $upload_check = Security::validate_import_upload( $_FILES['kavro_import_file'] );
+
+            if ( is_wp_error( $upload_check ) ) {
+                $this->redirect_after_import( $upload_check->get_error_code() );
+            }
+
+            $raw = file_get_contents( $_FILES['kavro_import_file']['tmp_name'] ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
         }
 
         if ( empty( $raw ) && isset( $_POST['kavro_import_json'] ) ) {
@@ -290,12 +300,19 @@ class AdminOptions {
             $status = 'imported';
         }
 
-        $redirect = add_query_arg(
-            array(
-                'page'         => $this->args['menu_slug'],
-                'kavro_status' => $status,
-            ),
-            admin_url( 'admin.php' )
+        $this->redirect_after_import( $status );
+    }
+
+    /**
+     * Redirect back to the import/export tools panel after an import attempt.
+     *
+     * @param string $status Import result status.
+     * @return never
+     */
+    protected function redirect_after_import( $status ) {
+        $redirect = Security::admin_page_url(
+            $this->args['menu_slug'],
+            array( 'kavro_status' => sanitize_key( $status ) )
         );
 
         wp_safe_redirect( $redirect . '#__kavro_tools' );
@@ -313,27 +330,23 @@ class AdminOptions {
      * @return void
      */
     public function reset_settings() {
-        if ( ! current_user_can( $this->args['menu_capability'] ) ) {
-            wp_die( esc_html__( 'You do not have permission to reset these settings.', 'kavro-framework' ) );
+        if ( ! Security::can( $this->args['menu_capability'] ) ) {
+            Security::wp_die_permission( __( 'You do not have permission to reset these settings.', 'kavro-framework' ) );
         }
 
-        $nonce = isset( $_POST['kavro_reset_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['kavro_reset_nonce'] ) ) : '';
-        if ( ! wp_verify_nonce( $nonce, 'kavro_reset_' . $this->unique ) ) {
-            wp_die( esc_html__( 'Reset verification failed. Please try again.', 'kavro-framework' ) );
+        if ( ! Security::verify_nonce_from_request( $_POST, 'kavro_reset_nonce', 'kavro_reset_' . $this->unique ) ) {
+            Security::wp_die_nonce( __( 'Reset verification failed. Please try again.', 'kavro-framework' ) );
         }
 
         delete_option( $this->unique );
 
         $active = isset( $_POST['kavro_active_section'] ) ? sanitize_text_field( wp_unslash( $_POST['kavro_active_section'] ) ) : '';
-        $redirect = add_query_arg(
-            array_filter(
-                array(
-                    'page'          => $this->args['menu_slug'],
-                    'kavro_status'  => 'reset',
-                    'kavro_section' => $active,
-                )
-            ),
-            admin_url( 'admin.php' )
+        $redirect = Security::admin_page_url(
+            $this->args['menu_slug'],
+            array(
+                'kavro_status'  => 'reset',
+                'kavro_section' => $active,
+            )
         );
 
         wp_safe_redirect( $redirect );
@@ -351,20 +364,14 @@ class AdminOptions {
      * @return void
      */
     protected function verify_ajax_request() {
-        if ( ! current_user_can( $this->args['menu_capability'] ) ) {
-            wp_send_json_error(
-                array( 'message' => __( 'You do not have permission to update these settings.', 'kavro-framework' ) ),
-                403
-            );
+        if ( ! Security::can( $this->args['menu_capability'] ) ) {
+            Security::ajax_permission_error( __( 'You do not have permission to update these settings.', 'kavro-framework' ) );
         }
 
         $nonce = isset( $_POST['kavro_ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['kavro_ajax_nonce'] ) ) : '';
 
         if ( ! wp_verify_nonce( $nonce, 'kavro_ajax_' . $this->unique ) ) {
-            wp_send_json_error(
-                array( 'message' => __( 'Security verification failed. Please refresh the page and try again.', 'kavro-framework' ) ),
-                403
-            );
+            Security::ajax_nonce_error();
         }
     }
 
@@ -427,6 +434,8 @@ class AdminOptions {
             echo '<div class="kavro-notice kavro-notice-success">' . esc_html__( 'Settings imported successfully.', 'kavro-framework' ) . '</div>';
         } elseif ( 'invalid' === $status ) {
             echo '<div class="kavro-notice kavro-notice-error">' . esc_html__( 'Import failed. Please provide valid JSON.', 'kavro-framework' ) . '</div>';
+        } elseif ( in_array( $status, array( 'kavro_upload_error', 'kavro_upload_too_large', 'kavro_upload_type', 'kavro_upload_missing' ), true ) ) {
+            echo '<div class="kavro-notice kavro-notice-error">' . esc_html__( 'Import failed. Please upload a valid JSON file under the allowed size limit.', 'kavro-framework' ) . '</div>';
         }
 
         echo '<div class="kavro-tools-grid">';

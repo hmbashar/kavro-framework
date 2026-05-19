@@ -14,8 +14,21 @@
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-define( 'KAVRO_VERSION', '1.0.0' );
-define( 'KAVRO_EDITION', 'free' );
+if ( ! defined( 'KAVRO_VERSION' ) ) {
+    define( 'KAVRO_VERSION', '1.0.0' );
+}
+
+if ( ! defined( 'KAVRO_EDITION' ) ) {
+    define( 'KAVRO_EDITION', 'free' );
+}
+
+if ( ! defined( 'KAVRO_LOAD_EXAMPLES' ) ) {
+    /**
+     * Development/test convenience. Set this to false before packaging a
+     * production or WordPress.org build.
+     */
+    define( 'KAVRO_LOAD_EXAMPLES', true );
+}
 define( 'KAVRO_FILE', __FILE__ );
 define( 'KAVRO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'KAVRO_URL', plugin_dir_url( __FILE__ ) );
@@ -96,6 +109,10 @@ add_action( 'plugins_loaded', array( 'KAVRO', 'boot' ) );
  * @return void
  */
 function kavro_load_demo_files() {
+    if ( ! defined( 'KAVRO_LOAD_EXAMPLES' ) || ! KAVRO_LOAD_EXAMPLES ) {
+        return;
+    }
+
     require_once KAVRO_PATH . 'examples/basic-usage.php';
 }
 add_action( 'init', 'kavro_load_demo_files', 10 );

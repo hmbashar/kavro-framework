@@ -22,3 +22,10 @@ Kavro now includes a module registry for clean Free/Pro separation. See [`free-p
 - [Validation and Sanitization](validation.md)
 
 - [Performance and asset loading](performance.md)
+
+
+## Hardening / QA / Release
+
+- [Security Hardening](docs/security.md)
+- [Stability QA Checklist](docs/stability-qa.md)
+- [Free vs Pro Separation](docs/release-separation.md)

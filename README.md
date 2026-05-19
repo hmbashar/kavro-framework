@@ -86,3 +86,10 @@ Kavro now includes a module registry for clean Free/Pro separation. See [`docs/f
 Kavro admin options now save without a page reload while preserving WordPress security checks. JavaScript submits to `admin-ajax.php`; PHP verifies capability/nonce, sanitizes the field schema, and stores the option. The standard Settings API form remains as fallback.
 
 - [Performance and asset loading](docs/performance.md)
+
+
+## Hardening / QA / Release
+
+- [Security Hardening](docs/security.md)
+- [Stability QA Checklist](docs/stability-qa.md)
+- [Free vs Pro Separation](docs/release-separation.md)

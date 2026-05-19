@@ -204,3 +204,16 @@ if ( ! function_exists( 'kavro_get_modules' ) ) {
         return class_exists( 'KAVRO' ) ? KAVRO::getModules() : array();
     }
 }
+
+
+if ( ! function_exists( 'kavro_is_module_available' ) ) {
+    /**
+     * Check if a Kavro module is registered and available in the current edition.
+     *
+     * @param string $module Module key.
+     * @return bool
+     */
+    function kavro_is_module_available( $module ) {
+        return class_exists( 'KAVRO' ) ? KAVRO::isModuleAvailable( $module ) : false;
+    }
+}
