@@ -43,6 +43,7 @@ if ( class_exists( 'KAVRO' ) ) {
                     array( 'id' => 'brand_colors', 'type' => 'color_group', 'title' => 'Brand Colors', 'options' => array( 'primary' => 'Primary', 'secondary' => 'Secondary', 'accent' => 'Accent' ), 'default' => array( 'primary' => '#5b5cf6', 'secondary' => '#06b6d4', 'accent' => '#f97316' ) ),
                     array( 'id' => 'brand_palette', 'type' => 'palette', 'title' => 'Palette', 'default' => 'indigo', 'options' => array( 'indigo' => array( '#4f46e5', '#06b6d4', '#111827' ), 'rose' => array( '#e11d48', '#fb7185', '#1f2937' ), 'emerald' => array( '#059669', '#34d399', '#0f172a' ) ) ),
                     array( 'id' => 'brand_name', 'type' => 'text', 'title' => 'Brand Name', 'default' => 'Kavro' ),
+                    array( 'id' => 'theme_mode_preview', 'type' => 'image_select', 'title' => 'Theme Preview', 'default' => 'light', 'options' => array( 'light' => array( 'label' => 'Light', 'image' => 'https://placehold.co/320x190/f8fafc/111827?text=Light' ), 'dark' => array( 'label' => 'Dark', 'image' => 'https://placehold.co/320x190/111827/f8fafc?text=Dark' ), 'gradient' => array( 'label' => 'Gradient', 'image' => 'https://placehold.co/320x190/635bff/ffffff?text=Gradient' ) ) ),
                 ),
                 'children' => array(
                     array(
@@ -89,6 +90,7 @@ if ( class_exists( 'KAVRO' ) ) {
             array( 'id' => 'card_border', 'type' => 'border', 'title' => 'Card Border', 'default' => array( 'width' => '1', 'style' => 'solid', 'color' => '#e2e8f0', 'radius' => '20' ) ),
             array( 'id' => 'border_radius', 'type' => 'range', 'title' => 'Border Radius', 'default' => '16', 'min' => '0', 'max' => '60', 'step' => '1' ),
             array( 'id' => 'custom_css', 'type' => 'code', 'title' => 'Custom CSS', 'default' => '.site-header { }' ),
+            array( 'id' => 'link_colors', 'type' => 'link_color', 'title' => 'Link Colors', 'default' => array( 'normal' => '#4f46e5', 'hover' => '#06b6d4', 'active' => '#111827' ) ),
         ),
         'children' => array(
             array(
@@ -111,6 +113,8 @@ if ( class_exists( 'KAVRO' ) ) {
             array( 'id' => 'api_key', 'type' => 'password', 'title' => 'API Key' ),
             array( 'id' => 'launch_date', 'type' => 'date', 'title' => 'Launch Date' ),
             array( 'id' => 'launch_time', 'type' => 'time', 'title' => 'Launch Time' ),
+            array( 'id' => 'maintenance_until', 'type' => 'datetime', 'title' => 'Maintenance Until' ),
+            array( 'id' => 'custom_variables', 'type' => 'key_value', 'title' => 'Custom Variables', 'default' => array( array( 'key' => 'environment', 'value' => 'production' ), array( 'key' => 'cache', 'value' => 'enabled' ) ) ),
             array( 'id' => 'beta_toggle', 'type' => 'toggle', 'title' => 'Beta Toggle', 'default' => '1' ),
             array( 'id' => 'cta_items', 'type' => 'repeater', 'title' => 'CTA Items', 'fields' => array(
                 array( 'id' => 'title', 'type' => 'text', 'title' => 'Title' ),

@@ -76,6 +76,10 @@ class Fields {
         'border'      => '\\Kavro\\Fields\\Border\\Border',
         'color_group' => '\\Kavro\\Fields\\ColorGroup\\ColorGroup',
         'backup'      => '\\Kavro\\Fields\\Backup\\Backup',
+        'datetime'    => '\\Kavro\\Fields\\DateTime\\DateTime',
+        'image_select'=> '\\Kavro\\Fields\\ImageSelect\\ImageSelect',
+        'link_color'  => '\\Kavro\\Fields\\LinkColor\\LinkColor',
+        'key_value'   => '\\Kavro\\Fields\\KeyValue\\KeyValue',
     );
 
     /**

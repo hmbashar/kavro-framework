@@ -215,7 +215,7 @@ class AdminOptions {
         echo '<main class="kavro-main"><form method="post" action="options.php">';
         settings_fields( $this->unique . '_group' );
 
-        echo '<div class="kavro-topbar"><div><h1>' . esc_html( $this->args['menu_title'] ) . '</h1><p>Configure your theme or plugin settings with a premium Kavro dashboard.</p></div><button type="submit" class="button button-primary kavro-save">Save Changes</button></div>';
+        echo '<div class="kavro-topbar"><div><h1>' . esc_html( $this->args['menu_title'] ) . '</h1><p>Configure your theme or plugin settings with a premium Kavro dashboard.</p></div><div class="kavro-actions"><button type="submit" class="button button-primary kavro-save">Save Changes</button><span class="kavro-save-status" aria-live="polite">Saving...</span></div></div>';
 
         foreach ( $this->flat_sections as $slug => $section ) {
             echo '<section class="kavro-section" data-kavro-section="' . esc_attr( $slug ) . '"><div class="kavro-card">';
@@ -239,7 +239,7 @@ class AdminOptions {
             echo '</div></section>';
         }
 
-        echo '<div class="kavro-footer"><span>' . wp_kses_post( $this->args['footer_credit'] ) . '</span><button type="submit" class="button button-primary kavro-save">Save Changes</button></div>';
+        echo '<div class="kavro-footer"><span>' . esc_html( $this->args['footer_credit'] ) . '</span><button type="submit" class="button button-primary kavro-save">Save Changes</button></div>';
         echo '</form></main></div></div>';
     }
 }

@@ -265,3 +265,18 @@ array(
   ),
 )
 ```
+
+
+## Additional Premium Fields
+
+### image_select
+Visual radio picker for layout/theme choices.
+
+### link_color
+Stores normal, hover, and active link colors in one array.
+
+### datetime
+Native `datetime-local` input for combined date/time settings.
+
+### key_value
+Repeatable key/value rows for custom variables, labels, or developer settings.

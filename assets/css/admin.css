@@ -75,3 +75,147 @@
 
 @media(max-width:1100px){.kavro-shell{grid-template-columns:290px minmax(0,1fr)}.kavro-field{grid-template-columns:220px minmax(0,1fr)}}
 @media(max-width:960px){.kavro-shell{grid-template-columns:1fr}.kavro-sidebar{position:relative;top:0;max-height:none}.kavro-main{max-height:none}.kavro-field{grid-template-columns:1fr;gap:10px}.kavro-topbar{align-items:flex-start;flex-direction:column}.kavro-sorter{grid-template-columns:1fr}}
+
+
+/* --------------------------------------------------------------------------
+ * Kavro v1.0.0 premium refinement layer
+ * --------------------------------------------------------------------------
+ * This section intentionally uses stronger selectors and a few !important
+ * declarations to win against WordPress core admin form styles. It fixes low
+ * contrast sidebar labels, upgrades native-looking buttons, and gives every
+ * field control a unified premium surface.
+ */
+.kavro-shell{
+  background:linear-gradient(135deg,#eef2ff 0%,#f8fafc 42%,#ecfeff 100%) !important;
+}
+.kavro-sidebar{
+  background:#0b1020 !important;
+  background-image:radial-gradient(circle at 10% 0%,rgba(99,91,255,.55),transparent 34%),radial-gradient(circle at 95% 18%,rgba(6,182,212,.32),transparent 28%),linear-gradient(180deg,#0b1020 0%,#111827 58%,#08111f 100%) !important;
+  color:#f8fafc !important;
+  box-shadow:inset -1px 0 0 rgba(255,255,255,.08),24px 0 80px rgba(15,23,42,.08);
+}
+.kavro-brand strong,
+.kavro-sidebar .kavro-nav-row a,
+.kavro-sidebar .kavro-nav-row a span{
+  color:#f8fafc !important;
+  opacity:1 !important;
+  text-shadow:0 1px 18px rgba(0,0,0,.16);
+}
+.kavro-brand small{color:#dbeafe !important;background:rgba(255,255,255,.12) !important;}
+.kavro-sidebar .kavro-nav-row a:not(.is-active){color:#dce7f7 !important;}
+.kavro-sidebar .kavro-nav-item[data-kavro-depth="1"]>.kavro-nav-row a:not(.is-active){color:#e7eefb !important;}
+.kavro-sidebar .kavro-nav-item[data-kavro-depth="2"]>.kavro-nav-row a:not(.is-active),
+.kavro-sidebar .kavro-nav-item[data-kavro-depth="3"]>.kavro-nav-row a:not(.is-active),
+.kavro-sidebar .kavro-nav-item[data-kavro-depth="4"]>.kavro-nav-row a:not(.is-active){color:#cdd9ea !important;}
+.kavro-sidebar .kavro-nav-row a.is-active{
+  color:#fff !important;
+  background:linear-gradient(135deg,#6d5dfc 0%,#13b7d1 100%) !important;
+  box-shadow:0 16px 38px rgba(34,211,238,.23),inset 0 1px 0 rgba(255,255,255,.24) !important;
+}
+.kavro-nav-toggle{background:rgba(255,255,255,.13) !important;backdrop-filter:blur(12px);}
+.kavro-nav-toggle:before,.kavro-nav-toggle:after{background:#fff !important;}
+.kavro-nav-children>.kavro-nav-list{border-left-color:rgba(255,255,255,.18) !important;}
+
+/* Premium controls: override WordPress default-looking buttons and inputs. */
+.kavro-field-control .button,
+.kavro-field-control button,
+.kavro-repeater-add,
+.kavro-media-upload,
+.kavro-media-remove,
+.kavro-gallery-upload,
+.kavro-gallery-clear,
+.kavro-backup-import,
+.kavro-backup-export{
+  border:1px solid #d7def0 !important;
+  border-radius:14px !important;
+  min-height:42px !important;
+  padding:8px 15px !important;
+  color:#111827 !important;
+  background:linear-gradient(180deg,#ffffff 0%,#f5f8ff 100%) !important;
+  box-shadow:0 10px 24px rgba(15,23,42,.07),inset 0 1px 0 rgba(255,255,255,.8) !important;
+  font-weight:850 !important;
+  line-height:1.2 !important;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease !important;
+}
+.kavro-field-control .button:hover,
+.kavro-field-control button:hover{
+  transform:translateY(-1px);
+  border-color:#bfc9ff !important;
+  box-shadow:0 14px 30px rgba(79,70,229,.12),inset 0 1px 0 rgba(255,255,255,.9) !important;
+}
+.kavro-field-control .button-primary,
+.kavro-backup-export{
+  color:#fff !important;
+  border-color:transparent !important;
+  background:linear-gradient(135deg,#635bff,#06b6d4) !important;
+}
+.kavro-field-control input[type=text],
+.kavro-field-control input[type=email],
+.kavro-field-control input[type=url],
+.kavro-field-control input[type=password],
+.kavro-field-control input[type=number],
+.kavro-field-control input[type=date],
+.kavro-field-control input[type=datetime-local],
+.kavro-field-control input[type=time],
+.kavro-field-control select,
+.kavro-field-control textarea{
+  border:1px solid #d8e1ef !important;
+  border-radius:16px !important;
+  background:linear-gradient(180deg,#ffffff,#f9fbff) !important;
+  color:#0f172a !important;
+  box-shadow:0 12px 30px rgba(15,23,42,.045),inset 0 1px 0 rgba(255,255,255,.9) !important;
+}
+.kavro-field-control input:focus,
+.kavro-field-control select:focus,
+.kavro-field-control textarea:focus{
+  border-color:#756cff !important;
+  box-shadow:0 0 0 4px rgba(99,91,255,.16),0 14px 30px rgba(99,91,255,.08) !important;
+}
+.kavro-field-control input[type=color]{
+  width:58px !important;height:42px !important;border-radius:14px !important;padding:4px !important;border:1px solid #d8e1ef !important;background:#fff !important;box-shadow:0 8px 20px rgba(15,23,42,.07) !important;
+}
+.kavro-field-control input[type=checkbox],
+.kavro-field-control input[type=radio]{
+  border-color:#cbd5e1 !important;
+  box-shadow:0 4px 10px rgba(15,23,42,.08) !important;
+}
+.kavro-field-control input[type=checkbox]:checked,
+.kavro-field-control input[type=radio]:checked{background-color:#635bff !important;border-color:#635bff !important;}
+.kavro-card{background:rgba(255,255,255,.9) !important;border:1px solid rgba(226,232,240,.9) !important;}
+.kavro-field{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(248,250,252,.08));}
+.kavro-field:hover{background:linear-gradient(180deg,rgba(99,91,255,.025),rgba(6,182,212,.018));}
+
+/* Premium field shells. */
+.kavro-media,.kavro-gallery,.kavro-backup,.kavro-fieldset,.kavro-group,.kavro-accordion,.kavro-tabs-field,.kavro-sortable-wrap,.kavro-sorter-wrap,.kavro-key-value,.kavro-link-color,.kavro-image-select{
+  max-width:760px;
+  border:1px solid #e2e8f0;
+  border-radius:22px;
+  background:linear-gradient(180deg,#fff,#f8fbff);
+  box-shadow:0 18px 46px rgba(15,23,42,.065);
+  padding:18px;
+}
+.kavro-media input,.kavro-gallery input{margin-bottom:12px;}
+.kavro-media-preview img{max-width:180px;border-radius:18px;margin-top:14px;border:1px solid #e2e8f0;box-shadow:0 15px 30px rgba(15,23,42,.12);}
+.kavro-gallery-preview{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.kavro-gallery-preview img{width:74px;height:74px;object-fit:cover;border-radius:16px;border:1px solid #e2e8f0;box-shadow:0 10px 20px rgba(15,23,42,.1);}
+.kavro-code textarea,.kavro-field-code textarea{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:#0b1020 !important;color:#dbeafe !important;border-color:#1e293b !important;}
+.kavro-subheading{display:inline-flex;align-items:center;gap:9px;padding:12px 16px;border-radius:16px;background:linear-gradient(135deg,rgba(99,91,255,.12),rgba(6,182,212,.1));color:#4f46e5;font-size:13px;font-weight:950;letter-spacing:.05em;text-transform:uppercase;}
+.kavro-divider{height:1px;background:linear-gradient(90deg,transparent,#dbe4ef,transparent);margin:10px 0;}
+.kavro-notice{border-radius:18px !important;border:1px solid #dbe4ef !important;background:linear-gradient(180deg,#fff,#f8fbff) !important;box-shadow:0 14px 34px rgba(15,23,42,.06) !important;padding:16px 18px !important;}
+.kavro-palette,.kavro-image-select-grid{display:flex;flex-wrap:wrap;gap:12px;}
+.kavro-palette span,.kavro-image-select-card{cursor:pointer;border:2px solid transparent;border-radius:18px;box-shadow:0 12px 24px rgba(15,23,42,.08);transition:.2s;overflow:hidden;background:#fff;}
+.kavro-palette input:checked+span,.kavro-image-select input:checked+.kavro-image-select-card{border-color:#635bff;box-shadow:0 0 0 4px rgba(99,91,255,.14),0 18px 34px rgba(79,70,229,.18);transform:translateY(-1px);}
+.kavro-image-select input{display:none;}
+.kavro-image-select-card img{display:block;width:152px;height:92px;object-fit:cover;}
+.kavro-image-select-card strong{display:block;padding:10px 12px;font-size:12px;color:#111827;}
+.kavro-link-color-row,.kavro-key-value-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:center;margin-bottom:10px;}
+.kavro-link-color-row{grid-template-columns:1fr 120px 120px;}
+.kavro-datetime-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;max-width:590px;}
+.kavro-save-status{display:inline-flex;align-items:center;margin-left:12px;font-weight:800;color:#10b981;opacity:0;transition:opacity .2s ease;}
+.kavro-save-status.is-visible{opacity:1;}
+
+@media (max-width: 960px){
+  .kavro-shell{grid-template-columns:1fr;}
+  .kavro-sidebar{position:relative;top:auto;max-height:none;}
+  .kavro-field{grid-template-columns:1fr;gap:12px;}
+}

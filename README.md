@@ -138,3 +138,14 @@ KAVRO::createOptions( $prefix, $args );
 KAVRO::createSection( $prefix, $section );
 kavro_get_option( $prefix, $key, $default );
 ```
+
+
+## Saving & Premium UI QA
+
+Kavro saves option values through the native WordPress Settings API using `register_setting()` and `options.php`. Most fields post into one option array, for example `my_kavro_options[site_badge]`. Boolean fields include hidden fallback inputs so turning a switch off is saved correctly.
+
+The admin interface includes a premium refinement CSS layer that intentionally overrides WordPress default admin button/input styles inside `.kavro-field-control`, so media buttons, upload buttons, backup buttons, and compound fields keep a consistent Kavro look.
+
+## Field Documentation
+
+See [`docs/fields.md`](docs/fields.md) for field examples and supported field types.

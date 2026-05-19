@@ -202,4 +202,62 @@
     initPremiumFields();
     $(window).on('resize', refreshOpenHeights);
   });
+
+  /**
+   * Provide a small premium save interaction. WordPress still performs the
+   * real option save through options.php; this only gives instant UI feedback
+   * before the browser navigates.
+   */
+  $(document).on('submit', '.kavro-main form', function(){
+    var $form = $(this);
+    if (!$form.find('.kavro-save-status').length) {
+      $form.find('.kavro-topbar').append('<span class="kavro-save-status is-visible">Saving...</span>');
+    } else {
+      $form.find('.kavro-save-status').addClass('is-visible').text('Saving...');
+    }
+  });
+
+  /**
+   * Backup helpers: export the current form payload into a JSON textarea and
+   * allow importing JSON back into simple matching fields for demo testing.
+   */
+  $(document).on('click', '.kavro-backup-export', function(e){
+    e.preventDefault();
+    var $wrap = $(this).closest('.kavro-backup');
+    var data = {};
+    $('.kavro-main form').serializeArray().forEach(function(item){ data[item.name] = item.value; });
+    $wrap.find('textarea').val(JSON.stringify(data, null, 2)).trigger('change');
+  });
+
+  $(document).on('click', '.kavro-backup-import', function(e){
+    e.preventDefault();
+    var $wrap = $(this).closest('.kavro-backup');
+    try {
+      var data = JSON.parse($wrap.find('textarea').val() || '{}');
+      Object.keys(data).forEach(function(name){ $('[name="'+name.replace(/"/g,'\\"')+'"]').val(data[name]).trigger('change'); });
+    } catch(err) {
+      window.alert('Invalid JSON payload.');
+    }
+  });
+
+
+  /** Add/remove rows for the KeyValue field. */
+  $(document).on('click', '.kavro-kv-add', function(e){
+    e.preventDefault();
+    var $wrap = $(this).closest('[data-kavro-key-value]');
+    var $last = $wrap.find('.kavro-key-value-row:last');
+    var $clone = $last.clone();
+    var index = $wrap.find('.kavro-key-value-row').length;
+    $clone.find('input').each(function(){
+      var name = $(this).attr('name').replace(/\[\d+\]/, '['+index+']');
+      $(this).attr('name', name).val('');
+    });
+    $clone.insertBefore($(this));
+  });
+  $(document).on('click', '.kavro-kv-remove', function(e){
+    e.preventDefault();
+    var $rows = $(this).closest('[data-kavro-key-value]').find('.kavro-key-value-row');
+    if ($rows.length > 1) { $(this).closest('.kavro-key-value-row').remove(); }
+  });
+
 })(jQuery);
