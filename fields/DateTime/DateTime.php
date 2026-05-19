@@ -1,8 +1,8 @@
 <?php
 /**
- * Combined date and time picker field.
+ * Premium date and time picker field.
  *
- * @package Kavro\Fields
+ * @package Kavro\Fields\DateTime
  */
 
 namespace Kavro\Fields\DateTime;
@@ -24,11 +24,10 @@ class DateTime extends AbstractField {
      */
     public function render() {
         printf(
-            '<div class="kavro-datetime-wrap"><input type="datetime-local" id="kavro-%1$s" name="%2$s" value="%3$s"></div>',
+            '<div class="kavro-picker-field"><input type="text" id="kavro-%1$s" name="%2$s" value="%3$s" placeholder="YYYY-MM-DDTHH:MM" data-kavro-picker="datetime" autocomplete="off"><span class="dashicons dashicons-calendar"></span></div>',
             esc_attr( $this->id ),
             esc_attr( $this->name ),
             esc_attr( $this->value )
         );
     }
-
 }

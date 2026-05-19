@@ -179,10 +179,124 @@
     });
   }
 
+
+  /** Read a query-string parameter without depending on modern browser features. */
+  function getQueryParam(name){
+    var match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match ? decodeURIComponent(match[1].replace(/\+/g, ' ')) : '';
+  }
+
+  /** Return the currently active Kavro section slug. */
+  function getCurrentSection(){
+    return $('.kavro-nav-row a.is-active').data('kavro-tab') || window.location.hash.substring(1) || getQueryParam('kavro_section') || '';
+  }
+
+  /**
+   * Preserve the selected Kavro section across WordPress Settings API saves.
+   *
+   * WordPress receives no URL hash fragment on form submit, so Kavro injects
+   * the active section into the generated _wp_http_referer URL. After options.php
+   * redirects back, init code reads kavro_section and activates the same panel.
+   */
+  function setReturnHash(){
+    var tab = getCurrentSection();
+    if(!tab){ return; }
+
+    $('.kavro-active-section').val(tab);
+
+    var $referer = $('input[name="_wp_http_referer"]');
+    if(!$referer.length){ return; }
+
+    var url = $referer.val() || window.location.href;
+    url = url.split('#')[0].replace(/([?&])kavro_section=[^&]*(&?)/, function(match, prefix, suffix){
+      return suffix ? prefix : '';
+    }).replace(/[?&]$/, '');
+    url += (url.indexOf('?') === -1 ? '?' : '&') + 'kavro_section=' + encodeURIComponent(tab);
+    $referer.val(url);
+  }
+
+  /** Remove Kavro's temporary section query argument after the UI is restored. */
+  function cleanSectionUrl(){
+    if(!window.history || !window.history.replaceState || window.location.search.indexOf('kavro_section=') === -1){ return; }
+    var params = window.location.search.substring(1).split('&').filter(function(part){ return part.indexOf('kavro_section=') !== 0; });
+    var clean = window.location.pathname + (params.length ? '?' + params.join('&') : '') + window.location.hash;
+    window.history.replaceState({}, document.title, clean);
+  }
+
+  /** Initialize a lightweight premium Kavro date/time picker. */
+  function initKavroPicker(){
+    var $picker = $('<div class="kavro-picker" aria-hidden="true"></div>').appendTo('body');
+    var activeInput = null;
+
+    function pad(value){ return String(value).padStart(2, '0'); }
+    function today(){ var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()); }
+    function nowTime(){ var d = new Date(); return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+
+    function render($input){
+      var mode = $input.data('kavro-picker');
+      var value = $input.val() || '';
+      var parts = value.split(/[T ]/);
+      var dateValue = parts[0] || today();
+      var timeValue = (parts[1] || nowTime()).substring(0,5);
+      var html = '<div class="kavro-picker-card">';
+      html += '<div class="kavro-picker-title">Choose ' + (mode === 'time' ? 'Time' : mode === 'datetime' ? 'Date & Time' : 'Date') + '</div>';
+      if(mode === 'date' || mode === 'datetime'){
+        html += '<input class="kavro-picker-date" type="date" value="'+dateValue+'">';
+      }
+      if(mode === 'time' || mode === 'datetime'){
+        html += '<input class="kavro-picker-time" type="time" value="'+timeValue+'">';
+      }
+      html += '<div class="kavro-picker-actions"><button type="button" class="kavro-picker-today">Today</button><button type="button" class="kavro-picker-clear">Clear</button><button type="button" class="kavro-picker-apply">Apply</button></div>';
+      html += '</div>';
+      $picker.html(html);
+    }
+
+    function place($input){
+      var o = $input.offset();
+      $picker.css({ top: o.top + $input.outerHeight() + 10, left: o.left, minWidth: Math.max(280, $input.outerWidth()) });
+    }
+
+    function apply(){
+      if(!activeInput){ return; }
+      var $input = $(activeInput);
+      var mode = $input.data('kavro-picker');
+      var d = $picker.find('.kavro-picker-date').val() || today();
+      var t = $picker.find('.kavro-picker-time').val() || nowTime();
+      var value = mode === 'date' ? d : mode === 'time' ? t : d + 'T' + t;
+      $input.val(value).trigger('change');
+      closePicker();
+    }
+
+    function closePicker(){
+      $picker.removeClass('is-open').attr('aria-hidden','true');
+      activeInput = null;
+    }
+
+    $(document).on('focus click', '[data-kavro-picker]', function(e){
+      activeInput = this;
+      var $input = $(this);
+      render($input);
+      place($input);
+      $picker.addClass('is-open').attr('aria-hidden','false');
+    });
+
+    $(window).on('resize scroll', function(){ if(activeInput){ place($(activeInput)); } });
+    $(document).on('click', '.kavro-picker-apply', apply);
+    $(document).on('click', '.kavro-picker-clear', function(){ if(activeInput){ $(activeInput).val('').trigger('change'); } closePicker(); });
+    $(document).on('click', '.kavro-picker-today', function(){
+      $picker.find('.kavro-picker-date').val(today());
+      $picker.find('.kavro-picker-time').val(nowTime());
+    });
+    $(document).on('mousedown', function(e){
+      if(activeInput && !$(e.target).closest('.kavro-picker,[data-kavro-picker]').length){ closePicker(); }
+    });
+  }
+
   /** Boot all Kavro admin behavior after the WordPress admin screen is ready. */
   $(function(){
     $('.kavro-color').wpColorPicker();
-    activate(window.location.hash ? window.location.hash.substring(1) : null);
+    activate(window.location.hash ? window.location.hash.substring(1) : getQueryParam('kavro_section'));
+    cleanSectionUrl();
 
     $(document).on('click','[data-kavro-tab]',function(e){
       e.preventDefault();
@@ -201,6 +315,7 @@
     initMedia();
     initRepeater();
     initPremiumFields();
+    initKavroPicker();
     $(window).on('resize', refreshOpenHeights);
   });
 
