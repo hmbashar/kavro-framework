@@ -168,3 +168,36 @@ Copyright © Md Abul Bashar. Website: https://hmbashar.com. Facebook: https://fa
 ## Preserve Active Section
 
 Kavro keeps the current nested section hash during save, so users return to the same panel after WordPress reloads the settings page.
+
+## Latest Field Expansion
+
+This build adds more premium field controls: `unit`, `gradient`, `box_shadow`, `link_group`, `social_links`, `rating`, `progress`, `map`, `text_list`, `embed`, and `json`.
+
+See the full field reference in [`docs/fields.md`](docs/fields.md) and working examples in [`examples/basic-usage.php`](examples/basic-usage.php).
+
+
+## WP Content Fields
+
+The demo includes post, page, CPT, taxonomy, term, user, role, menu, sidebar, and template selectors. See `docs/fields.md` and `examples/basic-usage.php`.
+
+
+### Custom and Select2 Fields
+
+- `custom` — render developer-defined field markup using `html`, a PHP `callback`, or the `kavro_custom_field_{field_id}` action.
+- `select2` / `enhanced_select` — premium searchable select field. Supports `options`, `placeholder`, and `multiple`.
+- Any normal `select` can use the enhanced UI by adding `'select2' => true`.
+
+Example:
+
+```php
+array(
+  'id'       => 'modules',
+  'type'     => 'select2',
+  'title'    => 'Modules',
+  'multiple' => true,
+  'options'  => array(
+    'admin'   => 'Admin Options',
+    'metabox' => 'Metabox',
+  ),
+)
+```

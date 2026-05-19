@@ -88,6 +88,33 @@ class Fields {
         'button'      => '\\Kavro\\Fields\\Button\\Button',
         'html'        => '\\Kavro\\Fields\\Html\\Html',
         'oembed'      => '\\Kavro\\Fields\\Oembed\\Oembed',
+        'unit'        => '\\Kavro\\Fields\\Unit\\Unit',
+        'gradient'    => '\\Kavro\\Fields\\Gradient\\Gradient',
+        'box_shadow'  => '\\Kavro\\Fields\\BoxShadow\\BoxShadow',
+        'link_group'  => '\\Kavro\\Fields\\LinkGroup\\LinkGroup',
+        'social_links'=> '\\Kavro\\Fields\\SocialLinks\\SocialLinks',
+        'rating'      => '\\Kavro\\Fields\\Rating\\Rating',
+        'progress'    => '\\Kavro\\Fields\\Progress\\Progress',
+        'map'         => '\\Kavro\\Fields\\Map\\Map',
+        'text_list'   => '\\Kavro\\Fields\\TextList\\TextList',
+        'embed'       => '\\Kavro\\Fields\\Embed\\Embed',
+        'json'        => '\\Kavro\\Fields\\Json\\Json',
+        'post_select'       => '\\Kavro\\Fields\\WPContent\\WPContent',
+        'post_checkbox'     => '\\Kavro\\Fields\\WPContent\\WPContent',
+        'post_radio'        => '\\Kavro\\Fields\\WPContent\\WPContent',
+        'post_autocomplete' => '\\Kavro\\Fields\\WPContent\\WPContent',
+        'post_relation'     => '\\Kavro\\Fields\\WPContent\\WPContent',
+        'page_select'       => '\\Kavro\\Fields\\WPContent\\WPContent',
+        'cpt_select'        => '\\Kavro\\Fields\\WPContent\\WPContent',
+        'taxonomy_select'   => '\\Kavro\\Fields\\WPTaxonomy\\WPTaxonomy',
+        'taxonomy_checkbox' => '\\Kavro\\Fields\\WPTaxonomy\\WPTaxonomy',
+        'taxonomy_radio'    => '\\Kavro\\Fields\\WPTaxonomy\\WPTaxonomy',
+        'term_relation'     => '\\Kavro\\Fields\\WPTaxonomy\\WPTaxonomy',
+        'user_select'       => '\\Kavro\\Fields\\WPSystem\\WPSystem',
+        'role_select'       => '\\Kavro\\Fields\\WPSystem\\WPSystem',
+        'menu_select'       => '\\Kavro\\Fields\\WPSystem\\WPSystem',
+        'sidebar_select'    => '\\Kavro\\Fields\\WPSystem\\WPSystem',
+        'template_select'   => '\\Kavro\\Fields\\WPSystem\\WPSystem',
     );
 
     /**
@@ -106,6 +133,35 @@ class Fields {
         }
 
         $class = isset( self::$map[ $type ] ) ? self::$map[ $type ] : self::$map['text'];
+
+        // Content-aware aliases automatically receive sensible query defaults.
+        if ( in_array( $type, array( 'post_checkbox', 'post_radio', 'post_autocomplete', 'post_relation' ), true ) ) {
+            $field['post_type'] = isset( $field['post_type'] ) ? $field['post_type'] : 'post';
+        }
+        if ( 'page_select' === $type ) {
+            $field['post_type'] = 'page';
+        }
+        if ( 'cpt_select' === $type ) {
+            $field['post_type'] = isset( $field['post_type'] ) ? $field['post_type'] : get_post_types( array( 'public' => true ), 'names' );
+        }
+        if ( 'post_checkbox' === $type ) { $field['variant'] = 'checkbox'; }
+        if ( 'post_radio' === $type ) { $field['variant'] = 'radio'; }
+        if ( 'post_autocomplete' === $type ) { $field['variant'] = 'autocomplete'; }
+        if ( 'post_relation' === $type ) { $field['variant'] = 'relation'; }
+        if ( 'taxonomy_select' === $type ) { $field['mode'] = 'taxonomies'; }
+        if ( 'taxonomy_checkbox' === $type ) { $field['variant'] = 'checkbox'; }
+        if ( 'taxonomy_radio' === $type ) { $field['variant'] = 'radio'; }
+        if ( 'term_relation' === $type ) { $field['variant'] = 'relation'; }
+        if ( in_array( $type, array( 'user_select', 'role_select', 'menu_select', 'sidebar_select', 'template_select' ), true ) ) {
+            $source_map = array(
+                'user_select'     => 'users',
+                'role_select'     => 'roles',
+                'menu_select'     => 'menus',
+                'sidebar_select'  => 'sidebars',
+                'template_select' => 'templates',
+            );
+            $field['source'] = $source_map[ $type ];
+        }
 
         if ( class_exists( $class ) ) {
             $instance = new $class( $field, $value, $unique );

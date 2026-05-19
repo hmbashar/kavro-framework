@@ -74,5 +74,4 @@ if (!class_exists('KAVRO')) {
 
 add_action('plugins_loaded', array('KAVRO', 'boot'));
 
-
 require_once KAVRO_PATH . 'examples/basic-usage.php';

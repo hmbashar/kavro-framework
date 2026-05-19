@@ -301,3 +301,121 @@ Import/export tools are rendered automatically by the admin options controller. 
 - `button` - URL input with premium preview button.
 - `html` - safe HTML preview card.
 - `oembed` - oEmbed URL helper field.
+
+## Extended Fields Added
+
+The following premium-style fields were added after the import/export build. Each one has at least one working example in `examples/basic-usage.php` under the **Extended Fields** section.
+
+- `unit` - numeric value with selectable unit suffix such as `px`, `%`, `rem`, `vw`.
+- `gradient` - two-color linear gradient builder with direction selector and live preview.
+- `box_shadow` - compound shadow builder with x, y, blur, spread, color, and inset option.
+- `link_group` - grouped CTA/link control with label, URL, and target.
+- `social_links` - profile URL fields for common networks.
+- `rating` - premium star rating selector.
+- `progress` - range input with live progress meter.
+- `map` - latitude, longitude, and zoom coordinate control.
+- `text_list` - newline-separated list field.
+- `embed` - code-style textarea for embed snippets.
+- `json` - code-style textarea for JSON configuration.
+
+### Example: Unit
+
+```php
+array(
+  'id'      => 'hero_max_width',
+  'type'    => 'unit',
+  'title'   => 'Hero Max Width',
+  'default' => array( 'value' => '1280', 'unit' => 'px' ),
+  'units'   => array( 'px' => 'px', '%' => '%', 'rem' => 'rem' ),
+)
+```
+
+### Example: Gradient
+
+```php
+array(
+  'id'      => 'brand_gradient',
+  'type'    => 'gradient',
+  'title'   => 'Brand Gradient',
+  'default' => array(
+    'from'      => '#6d5dfc',
+    'to'        => '#10b6d8',
+    'direction' => '135deg',
+  ),
+)
+```
+
+### Example: Box Shadow
+
+```php
+array(
+  'id'    => 'card_shadow',
+  'type'  => 'box_shadow',
+  'title' => 'Card Shadow',
+)
+```
+
+### Example: Social Links
+
+```php
+array(
+  'id'    => 'profile_links',
+  'type'  => 'social_links',
+  'title' => 'Social Links',
+)
+```
+
+
+## WordPress Content Fields
+
+Kavro includes content-aware selectors for WordPress data. Every field below is demonstrated in `examples/basic-usage.php` under **WP Content Fields**.
+
+- `post_select` — dropdown for posts or configured post types.
+- `post_checkbox` — multi-select posts with checkbox cards.
+- `post_radio` — single post selection with radio cards.
+- `post_autocomplete` — searchable post selector.
+- `post_relation` — multiple post/page/CPT relationship selector.
+- `page_select` — dropdown for pages.
+- `cpt_select` — dropdown for one or more custom post types.
+- `taxonomy_select` — dropdown of public taxonomies.
+- `taxonomy_checkbox` — multi-select terms with checkbox cards.
+- `taxonomy_radio` — single term selection with radio cards.
+- `term_relation` — searchable multiple term relationship selector.
+- `user_select` — dropdown of WordPress users.
+- `role_select` — dropdown of registered roles.
+- `menu_select` — dropdown of nav menus.
+- `sidebar_select` — dropdown of registered sidebars.
+- `template_select` — dropdown of theme page templates.
+
+Example:
+
+```php
+array(
+    'id'        => 'featured_posts',
+    'type'      => 'post_relation',
+    'title'     => 'Featured Posts',
+    'post_type' => array( 'post', 'page' ),
+)
+```
+
+
+### Custom and Select2 Fields
+
+- `custom` — render developer-defined field markup using `html`, a PHP `callback`, or the `kavro_custom_field_{field_id}` action.
+- `select2` / `enhanced_select` — premium searchable select field. Supports `options`, `placeholder`, and `multiple`.
+- Any normal `select` can use the enhanced UI by adding `'select2' => true`.
+
+Example:
+
+```php
+array(
+  'id'       => 'modules',
+  'type'     => 'select2',
+  'title'    => 'Modules',
+  'multiple' => true,
+  'options'  => array(
+    'admin'   => 'Admin Options',
+    'metabox' => 'Metabox',
+  ),
+)
+```

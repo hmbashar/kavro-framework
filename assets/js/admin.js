@@ -397,3 +397,233 @@
   });
 
 })(jQuery);
+
+/**
+ * Extended field polish.
+ *
+ * Keeps visual previews such as progress meters and gradients in sync while the
+ * user edits values, without requiring a page reload.
+ */
+(function ($) {
+  'use strict';
+
+  $(document).on('input change', '.kavro-progress-field input[type="range"]', function () {
+    var value = this.value || 0;
+    var $field = $(this).closest('.kavro-progress-field');
+    $field.find('.kavro-progress-track span').css('width', value + '%');
+    $field.find('strong').text(value + '%');
+  });
+
+  $(document).on('input change', '.kavro-gradient-field input, .kavro-gradient-field select', function () {
+    var $field = $(this).closest('.kavro-gradient-field');
+    var from = $field.find('input[name$="[from]"]').val() || '#6d5dfc';
+    var to = $field.find('input[name$="[to]"]').val() || '#10b6d8';
+    var direction = $field.find('select[name$="[direction]"]').val() || '135deg';
+    $field.find('.kavro-gradient-preview').css('background', 'linear-gradient(' + direction + ',' + from + ',' + to + ')');
+  });
+})(jQuery);
+
+/**
+ * Rating field visual state controller.
+ *
+ * The radio buttons remain responsible for saving values. This layer only keeps
+ * the premium star UI synchronized for hover, click, keyboard, and reload states.
+ */
+(function ($) {
+  'use strict';
+
+  function paint($rating, value, hover) {
+    value = parseInt(value || 0, 10);
+    $rating.find('.kavro-rating-star').each(function () {
+      var $star = $(this);
+      var rating = parseInt($star.data('rating') || 0, 10);
+      $star.toggleClass(hover ? 'is-hover' : 'is-active', rating <= value);
+    });
+  }
+
+  function selectedValue($rating) {
+    return $rating.find('input:checked').val() || 0;
+  }
+
+  function refresh($rating) {
+    $rating.find('.kavro-rating-star').removeClass('is-hover');
+    paint($rating, selectedValue($rating), false);
+  }
+
+  $(function () {
+    $('[data-kavro-rating]').each(function () {
+      refresh($(this));
+    });
+  });
+
+  $(document).on('mouseenter', '.kavro-rating-star', function () {
+    var $star = $(this);
+    var $rating = $star.closest('[data-kavro-rating]');
+    $rating.find('.kavro-rating-star').removeClass('is-hover');
+    paint($rating, $star.data('rating'), true);
+  });
+
+  $(document).on('mouseleave', '[data-kavro-rating]', function () {
+    refresh($(this));
+  });
+
+  $(document).on('click change keyup', '.kavro-rating-star input', function () {
+    refresh($(this).closest('[data-kavro-rating]'));
+  });
+})(jQuery);
+
+
+/**
+ * Filter Kavro smart select options as the user types.
+ *
+ * This lightweight progressive enhancement keeps the field dependency-free
+ * while still making long post, term, user, and relationship lists easier to scan.
+ */
+document.addEventListener('input', function (event) {
+  if (!event.target.classList || !event.target.classList.contains('kavro-smart-filter')) {
+    return;
+  }
+
+  var wrapper = event.target.closest('.kavro-smart-select');
+  var select = wrapper ? wrapper.querySelector('select') : null;
+  var query = event.target.value.toLowerCase();
+
+  if (!select) {
+    return;
+  }
+
+  Array.prototype.forEach.call(select.options, function (option) {
+    var text = option.textContent.toLowerCase();
+    option.hidden = query && text.indexOf(query) === -1;
+  });
+});
+
+/**
+ * Kavro Select2-style enhancement.
+ *
+ * This is a dependency-free searchable select interface designed for WordPress.org
+ * compatibility. It keeps the native select in the DOM for saving while rendering
+ * a polished, keyboard-friendly visual control on top of it.
+ */
+(function ($) {
+  'use strict';
+
+  function selectedLabels(select) {
+    return Array.prototype.filter.call(select.options, function (option) {
+      return option.selected && option.value !== '';
+    }).map(function (option) { return option.textContent; });
+  }
+
+  function refresh($wrap) {
+    var select = $wrap.find('select')[0];
+    var labels = selectedLabels(select);
+    var placeholder = $(select).data('placeholder') || 'Select option';
+    var text = labels.length ? labels.join(', ') : placeholder;
+    $wrap.find('.kavro-select2-value').text(text).toggleClass('is-placeholder', !labels.length);
+
+    $wrap.find('.kavro-select2-option').each(function () {
+      var value = $(this).data('value').toString();
+      var option = Array.prototype.filter.call(select.options, function (opt) {
+        return opt.value.toString() === value;
+      })[0];
+      $(this).toggleClass('is-selected', !!(option && option.selected));
+    });
+  }
+
+  function build(select) {
+    var $select = $(select);
+    if ($select.data('kavro-select2-ready')) {
+      return;
+    }
+
+    $select.data('kavro-select2-ready', true).addClass('kavro-select2-native');
+
+    var multiple = select.multiple;
+    var placeholder = $select.data('placeholder') || 'Select option';
+    var html = '<div class="kavro-select2-wrap" data-kavro-select2-wrap>';
+    html += '<button type="button" class="kavro-select2-control" aria-expanded="false">';
+    html += '<span class="kavro-select2-value is-placeholder">' + placeholder + '</span><span class="dashicons dashicons-arrow-down-alt2"></span></button>';
+    html += '<div class="kavro-select2-dropdown" aria-hidden="true"><input type="search" class="kavro-select2-search" placeholder="Search..."><div class="kavro-select2-options">';
+
+    Array.prototype.forEach.call(select.options, function (option) {
+      if (option.value === '') { return; }
+      html += '<button type="button" class="kavro-select2-option" data-value="' + option.value.replace(/"/g, '&quot;') + '">' + option.textContent + '</button>';
+    });
+
+    html += '</div></div></div>';
+    var $wrap = $(html);
+    $select.after($wrap);
+    $wrap.prepend($select);
+    $wrap.toggleClass('is-multiple', multiple);
+    refresh($wrap);
+  }
+
+  function closeAll(except) {
+    $('[data-kavro-select2-wrap]').not(except || []).removeClass('is-open')
+      .find('.kavro-select2-control').attr('aria-expanded', 'false').end()
+      .find('.kavro-select2-dropdown').attr('aria-hidden', 'true');
+  }
+
+  function initializeSelect2(context) {
+    $(context || document).find('select[data-kavro-select2], select.kavro-select2').each(function () {
+      build(this);
+    });
+  }
+
+  $(function () {
+    initializeSelect2(document);
+  });
+
+  $(document).on('click', '.kavro-select2-control', function (event) {
+    event.preventDefault();
+    var $wrap = $(this).closest('[data-kavro-select2-wrap]');
+    var open = !$wrap.hasClass('is-open');
+    closeAll($wrap);
+    $wrap.toggleClass('is-open', open);
+    $(this).attr('aria-expanded', open ? 'true' : 'false');
+    $wrap.find('.kavro-select2-dropdown').attr('aria-hidden', open ? 'false' : 'true');
+    if (open) {
+      $wrap.find('.kavro-select2-search').val('').trigger('input').trigger('focus');
+    }
+  });
+
+  $(document).on('input', '.kavro-select2-search', function () {
+    var query = this.value.toLowerCase();
+    $(this).siblings('.kavro-select2-options').find('.kavro-select2-option').each(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(query) !== -1);
+    });
+  });
+
+  $(document).on('click', '.kavro-select2-option', function (event) {
+    event.preventDefault();
+    var $optionButton = $(this);
+    var $wrap = $optionButton.closest('[data-kavro-select2-wrap]');
+    var select = $wrap.find('select')[0];
+    var value = $optionButton.data('value').toString();
+
+    Array.prototype.forEach.call(select.options, function (option) {
+      if (option.value.toString() === value) {
+        option.selected = select.multiple ? !option.selected : true;
+      } else if (!select.multiple) {
+        option.selected = false;
+      }
+    });
+
+    $(select).trigger('change');
+    refresh($wrap);
+
+    if (!select.multiple) {
+      closeAll();
+    }
+  });
+
+  $(document).on('change', 'select[data-kavro-select2], select.kavro-select2', function () {
+    refresh($(this).closest('[data-kavro-select2-wrap]'));
+  });
+
+  $(document).on('mousedown', function (event) {
+    if (!$(event.target).closest('[data-kavro-select2-wrap]').length) {
+      closeAll();
+    }
+  });
+})(jQuery);

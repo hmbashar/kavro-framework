@@ -179,4 +179,120 @@ if ( class_exists( 'KAVRO' ) ) {
         ),
     ) );
 
+
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'extended-fields',
+        'title'    => 'Extended Fields',
+        'subtitle' => 'Additional advanced controls for layout, branding, marketing, and structured data.',
+        'fields'   => array(
+            array( 'type' => 'subheading', 'content' => 'Visual Design Controls' ),
+            array( 'id' => 'hero_max_width', 'type' => 'unit', 'title' => 'Hero Max Width', 'default' => array( 'value' => '1280', 'unit' => 'px' ), 'units' => array( 'px' => 'px', '%' => '%', 'rem' => 'rem', 'vw' => 'vw' ) ),
+            array( 'id' => 'brand_gradient', 'type' => 'gradient', 'title' => 'Brand Gradient', 'default' => array( 'from' => '#6d5dfc', 'to' => '#10b6d8', 'direction' => '135deg' ) ),
+            array( 'id' => 'card_shadow', 'type' => 'box_shadow', 'title' => 'Card Shadow', 'default' => array( 'x' => '0', 'y' => '24', 'blur' => '60', 'spread' => '0', 'color' => 'rgba(15,23,42,.16)' ) ),
+            array( 'id' => 'completion_score', 'type' => 'progress', 'title' => 'Completion Score', 'default' => '72' ),
+            array( 'id' => 'quality_rating', 'type' => 'rating', 'title' => 'Quality Rating', 'default' => '5', 'max' => 5 ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Marketing & Content' ),
+            array( 'id' => 'primary_cta', 'type' => 'link_group', 'title' => 'Primary CTA', 'default' => array( 'label' => 'Get Started', 'url' => 'https://hmbashar.com', 'target' => '_blank' ) ),
+            array( 'id' => 'profile_links', 'type' => 'social_links', 'title' => 'Social Links', 'default' => array( 'facebook' => 'https://facebook.com/hmbashar', 'github' => 'https://github.com/hmbashar' ) ),
+            array( 'id' => 'feature_bullets', 'type' => 'text_list', 'title' => 'Feature Bullets', 'default' => "Fast setup\nPremium UI\nNested settings" ),
+            array( 'id' => 'tracking_embed', 'type' => 'embed', 'title' => 'Tracking Embed Code', 'default' => '<!-- Paste analytics/embed code here -->' ),
+            array( 'id' => 'schema_json', 'type' => 'json', 'title' => 'Schema JSON', 'default' => '{"@type":"SoftwareApplication","name":"Kavro Framework"}' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Location Data' ),
+            array( 'id' => 'office_location', 'type' => 'map', 'title' => 'Office Coordinates', 'default' => array( 'lat' => '23.8103', 'lng' => '90.4125', 'zoom' => '12' ) ),
+        ),
+    ) );
+
+
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'wp-content-fields',
+        'title'    => 'WP Content Fields',
+        'subtitle' => 'Post, page, custom post type, taxonomy, term, user, role, menu, sidebar, and template selectors.',
+        'fields'   => array(
+            array( 'type' => 'subheading', 'content' => 'Posts & Pages' ),
+            array( 'id' => 'demo_post_select', 'type' => 'post_select', 'title' => 'Post Select', 'post_type' => 'post', 'desc' => 'Dropdown populated from published posts.' ),
+            array( 'id' => 'demo_post_checkbox', 'type' => 'post_checkbox', 'title' => 'Post Checkbox', 'post_type' => 'post', 'desc' => 'Multiple post selection using premium checkbox cards.' ),
+            array( 'id' => 'demo_post_radio', 'type' => 'post_radio', 'title' => 'Post Radio', 'post_type' => 'post', 'desc' => 'Single post selection using radio cards.' ),
+            array( 'id' => 'demo_post_autocomplete', 'type' => 'post_autocomplete', 'title' => 'Post Autocomplete', 'post_type' => 'post', 'desc' => 'Searchable post selector.' ),
+            array( 'id' => 'demo_post_relation', 'type' => 'post_relation', 'title' => 'Post Relation', 'post_type' => array( 'post', 'page' ), 'desc' => 'Multiple relationship selector across posts and pages.' ),
+            array( 'id' => 'demo_page_select', 'type' => 'page_select', 'title' => 'Page Select', 'desc' => 'Dropdown populated from pages.' ),
+            array( 'id' => 'demo_cpt_select', 'type' => 'cpt_select', 'title' => 'CPT Select', 'post_type' => array( 'post', 'page' ), 'desc' => 'Select from one or more public post types. Replace with your CPT slug, e.g. portfolio.' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Taxonomies & Terms' ),
+            array( 'id' => 'demo_taxonomy_select', 'type' => 'taxonomy_select', 'title' => 'Taxonomy Select', 'desc' => 'Dropdown populated from public taxonomies.' ),
+            array( 'id' => 'demo_taxonomy_checkbox', 'type' => 'taxonomy_checkbox', 'title' => 'Taxonomy Checkbox', 'taxonomy' => 'category', 'desc' => 'Multiple term selection from categories.' ),
+            array( 'id' => 'demo_taxonomy_radio', 'type' => 'taxonomy_radio', 'title' => 'Taxonomy Radio', 'taxonomy' => 'category', 'desc' => 'Single term selection from categories.' ),
+            array( 'id' => 'demo_term_relation', 'type' => 'term_relation', 'title' => 'Term Relation', 'taxonomy' => array( 'category', 'post_tag' ), 'desc' => 'Searchable multiple term relationship selector.' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'WordPress System Selectors' ),
+            array( 'id' => 'demo_user_select', 'type' => 'user_select', 'title' => 'User Select', 'desc' => 'Dropdown populated from WordPress users.' ),
+            array( 'id' => 'demo_role_select', 'type' => 'role_select', 'title' => 'Role Select', 'desc' => 'Dropdown populated from registered WordPress roles.' ),
+            array( 'id' => 'demo_menu_select', 'type' => 'menu_select', 'title' => 'Menu Select', 'desc' => 'Dropdown populated from navigation menus.' ),
+            array( 'id' => 'demo_sidebar_select', 'type' => 'sidebar_select', 'title' => 'Sidebar Select', 'desc' => 'Dropdown populated from registered sidebars.' ),
+            array( 'id' => 'demo_template_select', 'type' => 'template_select', 'title' => 'Template Select', 'desc' => 'Dropdown populated from the active theme page templates.' ),
+        ),
+    ) );
+
+
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'developer-fields',
+        'title'    => 'Developer Fields',
+        'subtitle' => 'Custom render callbacks and premium searchable Select2-style controls.',
+        'fields'   => array(
+            array( 'type' => 'subheading', 'content' => 'Custom Field Rendering' ),
+            array(
+                'id'    => 'demo_custom_html',
+                'type'  => 'custom',
+                'title' => 'Custom HTML Field',
+                'html'  => '<strong>Custom field output</strong><p>Use html, callback, or kavro_custom_field_{id} action to render custom UI.</p>',
+                'desc'  => 'This is useful when a theme/plugin needs a one-off custom control.',
+            ),
+            array(
+                'id'       => 'demo_custom_callback',
+                'type'     => 'custom',
+                'title'    => 'Custom Callback Field',
+                'callback' => function( $field, $value, $unique, $name, $id ) {
+                    printf(
+                        '<input type="text" id="kavro-%1$s" name="%2$s" value="%3$s" placeholder="Rendered by custom callback">',
+                        esc_attr( $id ),
+                        esc_attr( $name ),
+                        esc_attr( $value )
+                    );
+                },
+                'default'  => 'Callback rendered value',
+                'desc'     => 'The callback receives field, value, unique option key, input name, and field id.',
+            ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Select2-style Searchable Controls' ),
+            array(
+                'id'          => 'demo_select2_single',
+                'type'        => 'select2',
+                'title'       => 'Select2 Single',
+                'placeholder' => 'Choose a framework area',
+                'options'     => array( 'admin' => 'Admin Options', 'customizer' => 'Customizer', 'metabox' => 'Metabox', 'taxonomy' => 'Taxonomy', 'profile' => 'User Profile' ),
+                'desc'        => 'Dependency-free Kavro Select2-style searchable select.',
+            ),
+            array(
+                'id'          => 'demo_select2_multiple',
+                'type'        => 'select2',
+                'title'       => 'Select2 Multiple',
+                'multiple'    => true,
+                'placeholder' => 'Choose supported modules',
+                'options'     => array( 'options' => 'Options', 'fields' => 'Fields', 'backup' => 'Backup', 'import' => 'Import', 'export' => 'Export', 'api' => 'Developer API' ),
+                'default'     => array( 'options', 'fields' ),
+                'desc'        => 'Multiple values save as an array.',
+            ),
+            array(
+                'id'          => 'demo_select_enhanced',
+                'type'        => 'select',
+                'title'       => 'Normal Select With Select2 Enabled',
+                'select2'     => true,
+                'placeholder' => 'Choose UI style',
+                'options'     => array( 'glass' => 'Glass UI', 'minimal' => 'Minimal UI', 'premium' => 'Premium Gradient UI' ),
+                'desc'        => 'Any normal select can opt into the enhanced UI with select2 => true.',
+            ),
+        ),
+    ) );
+
 }

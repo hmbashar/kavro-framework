@@ -1,14 +1,15 @@
 <?php
 /**
- * Standard select field.
+ * Premium searchable select field.
  *
- * Supports normal select controls and optional Kavro Select2-style enhancement
- * through the `select2 => true` field argument.
+ * Kavro enhances this select with a local Select2-compatible UI. If a real
+ * Select2 implementation is already registered by another plugin/theme, Kavro
+ * will not conflict because the saved value still lives in a normal <select>.
  *
  * @package Kavro\Fields
  */
 
-namespace Kavro\Fields\Select;
+namespace Kavro\Fields\Select2;
 
 use Kavro\AbstractField;
 
@@ -16,26 +17,25 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class Select extends AbstractField {
-    /** Render the select control. */
+class Select2 extends AbstractField {
+    /** Render a searchable single/multiple select control. */
     public function render() {
-        $is_select2  = (bool) $this->attr( 'select2', false );
         $multiple    = (bool) $this->attr( 'multiple', false );
         $placeholder = $this->attr( 'placeholder', __( 'Select option', 'kavro-framework' ) );
         $selected    = is_array( $this->value ) ? array_map( 'strval', $this->value ) : array( (string) $this->value );
         $name        = $multiple ? $this->name . '[]' : $this->name;
-        $classes     = $is_select2 ? 'kavro-select2' : '';
+        $classes     = 'kavro-select2';
 
         printf(
-            '<select id="kavro-%1$s" class="%2$s" name="%3$s"%4$s%5$s>',
+            '<select id="kavro-%1$s" class="%2$s" name="%3$s" data-kavro-select2 data-placeholder="%4$s"%5$s>',
             esc_attr( $this->id ),
             esc_attr( $classes ),
             esc_attr( $name ),
-            $multiple ? ' multiple' : '',
-            $is_select2 ? ' data-kavro-select2 data-placeholder="' . esc_attr( $placeholder ) . '"' : ''
+            esc_attr( $placeholder ),
+            $multiple ? ' multiple' : ''
         );
 
-        if ( ! $multiple && $placeholder ) {
+        if ( ! $multiple ) {
             printf( '<option value="">%s</option>', esc_html( $placeholder ) );
         }
 
