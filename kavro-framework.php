@@ -12,41 +12,63 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if (!defined('ABSPATH')) {
+    exit;
+}
 
-define( 'KAVRO_VERSION', '1.0.0' );
-define( 'KAVRO_FILE', __FILE__ );
-define( 'KAVRO_PATH', plugin_dir_path( __FILE__ ) );
-define( 'KAVRO_URL', plugin_dir_url( __FILE__ ) );
+define('KAVRO_VERSION', '1.0.0');
+define('KAVRO_FILE', __FILE__);
+define('KAVRO_PATH', plugin_dir_path(__FILE__));
+define('KAVRO_URL', plugin_dir_url(__FILE__));
 
 $kavro_autoload = KAVRO_PATH . 'vendor/autoload.php';
-if ( file_exists( $kavro_autoload ) ) {
+if (file_exists($kavro_autoload)) {
     require_once $kavro_autoload;
 } else {
-    spl_autoload_register( function( $class ) {
+    spl_autoload_register(function ($class) {
         $maps = array(
             'Kavro\\Fields\\' => KAVRO_PATH . 'fields/',
-            'Kavro\\'         => KAVRO_PATH . 'classes/',
+            'Kavro\\' => KAVRO_PATH . 'classes/',
         );
-        foreach ( $maps as $prefix => $base ) {
-            if ( 0 !== strpos( $class, $prefix ) ) { continue; }
-            $relative = substr( $class, strlen( $prefix ) );
-            $file = $base . str_replace( '\\', '/', $relative ) . '.php';
-            if ( file_exists( $file ) ) { require_once $file; }
+        foreach ($maps as $prefix => $base) {
+            if (0 !== strpos($class, $prefix)) {
+                continue;
+            }
+            $relative = substr($class, strlen($prefix));
+            $file = $base . str_replace('\\', '/', $relative) . '.php';
+            if (file_exists($file)) {
+                require_once $file;
+            }
             return;
         }
-    } );
+    });
 }
 
 require_once KAVRO_PATH . 'includes/functions.php';
 
-if ( ! class_exists( 'KAVRO' ) ) {
-    final class KAVRO {
-        public static function boot() { return \Kavro\Framework::boot(); }
-        public static function createOptions( $id, $args = array() ) { return \Kavro\Framework::createOptions( $id, $args ); }
-        public static function createSection( $id, $section ) { return \Kavro\Framework::createSection( $id, $section ); }
-        public static function createCustomizeOptions( $id, $args = array() ) { return \Kavro\Framework::createCustomizeOptions( $id, $args ); }
-        public static function createMetabox( $id, $args = array() ) { return \Kavro\Framework::createMetabox( $id, $args ); }
+if (!class_exists('KAVRO')) {
+    final class KAVRO
+    {
+        public static function boot()
+        {
+            return \Kavro\Framework::boot();
+        }
+        public static function createOptions($id, $args = array())
+        {
+            return \Kavro\Framework::createOptions($id, $args);
+        }
+        public static function createSection($id, $section)
+        {
+            return \Kavro\Framework::createSection($id, $section);
+        }
+        public static function createCustomizeOptions($id, $args = array())
+        {
+            return \Kavro\Framework::createCustomizeOptions($id, $args);
+        }
+        public static function createMetabox($id, $args = array())
+        {
+            return \Kavro\Framework::createMetabox($id, $args);
+        }
     }
 }
 
@@ -59,10 +81,15 @@ if ( ! class_exists( 'KAVRO' ) ) {
  *
  * @return void
  */
-function kavro_load_textdomain() {
-    load_plugin_textdomain( 'kavro-framework', false, dirname( plugin_basename( KAVRO_FILE ) ) . '/languages' );
+function kavro_load_textdomain()
+{
+    load_plugin_textdomain('kavro-framework', false, dirname(plugin_basename(KAVRO_FILE)) . '/languages');
 }
-add_action( 'init', 'kavro_load_textdomain', 0 );
+add_action('init', 'kavro_load_textdomain', 0);
+
+
+add_action('plugins_loaded', array('KAVRO', 'boot'));
+
 
 /**
  * Load local development demos.
@@ -72,10 +99,8 @@ add_action( 'init', 'kavro_load_textdomain', 0 );
  *
  * @return void
  */
-function kavro_load_development_demos() {
-    require_once KAVRO_PATH . 'examples/options-demo.php';
-    require_once KAVRO_PATH . 'examples/metabox-demo.php';
+function kavro_load_development_demos()
+{
+    require_once KAVRO_PATH . 'examples/basic-usage.php';
 }
-add_action( 'init', 'kavro_load_development_demos', 5 );
-
-add_action( 'plugins_loaded', array( 'KAVRO', 'boot' ) );
+add_action('init', 'kavro_load_development_demos', 5);

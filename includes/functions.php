@@ -31,3 +31,26 @@ if ( ! function_exists( 'kavro_get_option' ) ) {
         return isset( $options[ $key ] ) ? $options[ $key ] : $default;
     }
 }
+
+
+if ( ! function_exists( 'kavro_get_post_meta' ) ) {
+    /**
+     * Retrieve a saved Kavro metabox value from a post meta container.
+     *
+     * @param int    $post_id Post ID.
+     * @param string $unique  Metabox unique ID passed to KAVRO::createMetabox().
+     * @param string $key     Optional field ID. Leave empty to return all values.
+     * @param mixed  $default Default value when the meta/key is missing.
+     * @return mixed
+     */
+    function kavro_get_post_meta( $post_id, $unique, $key = '', $default = null ) {
+        $values = get_post_meta( absint( $post_id ), sanitize_key( $unique ), true );
+        $values = is_array( $values ) ? $values : array();
+
+        if ( '' === $key ) {
+            return $values;
+        }
+
+        return array_key_exists( $key, $values ) ? $values[ $key ] : $default;
+    }
+}

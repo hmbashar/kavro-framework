@@ -2,16 +2,16 @@
 /**
  * Kavro Framework demo loader.
  *
- * This file keeps backward compatibility for developers who previously loaded
- * `examples/basic-usage.php` directly. The real demos are split by module so
- * each framework feature is easier to read, copy, and customize.
+ * This file intentionally stays small. It loads the shared field examples first,
+ * then loads the dedicated options and metabox demos.
  *
- * @package Kavro
+ * @package Kavro\Examples
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+require_once __DIR__ . '/field-examples.php';
 require_once __DIR__ . '/options-demo.php';
 require_once __DIR__ . '/metabox-demo.php';
