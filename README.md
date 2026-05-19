@@ -18,6 +18,7 @@ Kavro is designed for theme and plugin developers who want a clean API, premium-
 | Plugin URI | https://github.com/hmbashar/kavro-framework |
 | License | GPLv2 or later |
 | Text Domain | `kavro-framework` |
+| Website | https://hmbashar.github.io/kavro-framework |
 
 ---
 
