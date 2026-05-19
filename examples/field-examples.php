@@ -200,6 +200,24 @@ if ( ! function_exists( 'kavro_demo_field_sections' ) ) {
                                             'desc' => 'Demo example for the time field.',
                                         ),
 
+                    // Field: month.
+                    array(
+                        'id'      => 'demo_month',
+                        'type'    => 'month',
+                        'title'   => 'Month',
+                        'default' => '2026-05',
+                        'desc'    => 'Demo example for the month field.',
+                    ),
+
+                    // Field: week.
+                    array(
+                        'id'      => 'demo_week',
+                        'type'    => 'week',
+                        'title'   => 'Week',
+                        'default' => '2026-W21',
+                        'desc'    => 'Demo example for the week field.',
+                    ),
+
                     // Field: email.
                     array(
                                             'id' => 'demo_email',
@@ -208,6 +226,16 @@ if ( ! function_exists( 'kavro_demo_field_sections' ) ) {
                                             'default' => 'hello@example.com',
                                             'desc' => 'Demo example for the email field.',
                                         ),
+
+                    // Field: tel.
+                    array(
+                        'id'          => 'demo_tel',
+                        'type'        => 'tel',
+                        'title'       => 'Telephone',
+                        'default'     => '+1 555 0100',
+                        'placeholder' => '+1 555 0100',
+                        'desc'        => 'Demo example for the tel field.',
+                    ),
 
                     // Field: url.
                     array(
@@ -449,6 +477,18 @@ if ( ! function_exists( 'kavro_demo_field_sections' ) ) {
                                             ),
                                             'desc' => 'Demo example for the border field.',
                                         ),
+
+                    // Field: color_picker_alpha.
+                    array(
+                        'id'      => 'demo_color_picker_alpha',
+                        'type'    => 'color_picker_alpha',
+                        'title'   => 'Color Picker Alpha',
+                        'default' => array(
+                            'color' => '#635bff',
+                            'alpha' => '0.85',
+                        ),
+                        'desc'    => 'Demo example for the color_picker_alpha field.',
+                    ),
 
                     // Field: color_group.
                     array(
@@ -1050,12 +1090,7 @@ if ( ! function_exists( 'kavro_demo_field_sections' ) ) {
                                             'id' => 'demo_layout_builder',
                                             'type' => 'layout_builder',
                                             'title' => 'Layout Builder',
-                                            'default' => array(
-                                                array(
-                                                    'label' => 'Example block',
-                                                    'type' => 'text',
-                                                ),
-                                            ),
+                                            'default' => 'sidebar',
                                             'desc' => 'Demo example for the layout_builder field.',
                                         ),
                 ),

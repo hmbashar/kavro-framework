@@ -45,3 +45,8 @@ Remove or comment the demo loader before production release.
 Copyright © Md Abul Bashar — https://hmbashar.com — https://facebook.com/hmbashar
 
 Licensed under GPLv2 or later.
+
+
+## Demo loading note
+
+The development build loads `examples/basic-usage.php` on `init` priority 10. Kavro runtime screens are created later on `init` priority 20, so option and metabox demos are registered before rendering while avoiding WordPress 6.7+ early translation notices. Remove this demo loader before production release.

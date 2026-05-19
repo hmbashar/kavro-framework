@@ -146,3 +146,7 @@ Each field has its own documentation file. The same field definitions can be use
 - [`system_info`](fields/system_info.md)
 - [`health_check`](fields/health_check.md)
 - [`onboarding_steps`](fields/onboarding_steps.md)
+
+- [tel](fields/tel.md)
+- [month](fields/month.md)
+- [color_picker_alpha](fields/color_picker_alpha.md)

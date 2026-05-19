@@ -49,3 +49,13 @@ $value = kavro_get_option( 'my_kavro_options', 'site_title', 'Default' );
 ## Demo file
 
 See [`examples/options-demo.php`](../examples/options-demo.php).
+
+
+## Demo registration timing
+
+For local testing, the options demo is loaded from `examples/basic-usage.php` on `init` priority 10. This is intentionally before Kavro builds option screens on priority 20, which ensures all demo sections appear in the admin panel.
+
+
+## Demo Coverage
+
+The demo loads `examples/field-examples.php`, so every registered Kavro field type has at least one example in both the options panel and metabox demo.

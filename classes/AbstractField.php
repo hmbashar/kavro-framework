@@ -144,6 +144,34 @@ abstract class AbstractField {
         return $attrs;
     }
 
+
+    /**
+     * Normalize scalar values for simple text/textarea/select controls.
+     *
+     * Complex defaults can be arrays when a field is shared between options and
+     * metabox demos. This helper prevents WordPress escaping helpers from
+     * receiving arrays and throwing PHP 8+ type errors.
+     *
+     * @param mixed $value    Raw value.
+     * @param mixed $fallback Fallback scalar.
+     * @return string
+     */
+    protected function scalar_value( $value = null, $fallback = '' ) {
+        if ( null === $value ) {
+            $value = $this->value;
+        }
+
+        if ( is_scalar( $value ) ) {
+            return (string) $value;
+        }
+
+        if ( is_array( $value ) ) {
+            return wp_json_encode( $value, JSON_UNESCAPED_SLASHES );
+        }
+
+        return is_scalar( $fallback ) ? (string) $fallback : '';
+    }
+
     /**
      * Normalize array values used by compound fields.
      *

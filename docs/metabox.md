@@ -46,3 +46,13 @@ metabox includes every registered field type for compatibility testing.
 ## Demo file
 
 See [`examples/metabox-demo.php`](../examples/metabox-demo.php).
+
+
+## Compatibility fix note
+
+Metabox fields use the same renderer as option fields. Complex fields that store arrays must render array data with compound inputs or JSON textareas instead of sending arrays directly to WordPress escaping helpers. The demo includes every field type so these differences can be tested quickly.
+
+
+## Demo Coverage
+
+The demo loads `examples/field-examples.php`, so every registered Kavro field type has at least one example in both the options panel and metabox demo.

@@ -1136,3 +1136,184 @@
 #poststuff .kavro-metabox select {
     max-width: 100%;
 }
+
+/* Structured cloneable rows: keeps nested field examples readable in options and metabox screens. */
+.kavro-cloneable-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+.kavro-cloneable-cell {
+  display: grid;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+}
+.kavro-cloneable-cell span {
+  letter-spacing: .01em;
+}
+.kavro-cloneable-row .kavro-clone-remove {
+  flex: 0 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+ * Palette and image-select radio polish.
+ * --------------------------------------------------------------------------
+ * These fields render their own visual cards/swatches. The native radio input
+ * must stay accessible in the DOM for saving, but should not be visible because
+ * WordPress core radio styles otherwise leak into the custom UI.
+ */
+.kavro-palette input[type="radio"],
+.kavro-image-select input[type="radio"] {
+  position: absolute !important;
+  opacity: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  min-width: 1px !important;
+  min-height: 1px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  pointer-events: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.kavro-palette {
+  align-items: center;
+  gap: 14px;
+}
+
+.kavro-palette label,
+.kavro-image-select label {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+
+.kavro-palette label span {
+  position: relative;
+  display: inline-flex;
+  min-height: 42px;
+  border: 2px solid #e2e8f0;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, .08);
+  overflow: hidden;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.kavro-palette label span:hover,
+.kavro-image-select-card:hover {
+  transform: translateY(-1px);
+  border-color: #c4b5fd;
+  box-shadow: 0 18px 36px rgba(79, 70, 229, .14);
+}
+
+.kavro-palette label span:after,
+.kavro-image-select-card:after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .96);
+  border: 1px solid rgba(148, 163, 184, .55);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, .12);
+  opacity: 0;
+  transform: scale(.86);
+  transition: opacity .18s ease, transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.kavro-palette input[type="radio"]:checked + span,
+.kavro-image-select input[type="radio"]:checked + .kavro-image-select-card {
+  border-color: #635bff !important;
+  box-shadow: 0 0 0 5px rgba(99, 91, 255, .16), 0 22px 44px rgba(79, 70, 229, .18) !important;
+}
+
+.kavro-palette input[type="radio"]:checked + span:after,
+.kavro-image-select input[type="radio"]:checked + .kavro-image-select-card:after {
+  opacity: 1;
+  transform: scale(1);
+  background: linear-gradient(135deg, #635bff, #06b6d4);
+  border-color: transparent;
+}
+
+.kavro-palette input[type="radio"]:checked + span:before,
+.kavro-image-select input[type="radio"]:checked + .kavro-image-select-card:before {
+  content: "✓";
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  z-index: 2;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.kavro-palette i {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+}
+
+.kavro-image-select {
+  width: 100%;
+  max-width: 860px;
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #ffffff, #f8fbff);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, .06);
+}
+
+.kavro-image-select-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px !important;
+}
+
+.kavro-image-select-card {
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  min-height: 148px;
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 20px !important;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, .07) !important;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.kavro-image-select-card img {
+  width: 100% !important;
+  height: 112px !important;
+  object-fit: cover;
+  background: #f8fafc;
+}
+
+.kavro-image-select-card strong {
+  padding: 12px 14px !important;
+  color: #111827;
+  font-size: 13px !important;
+  font-weight: 850;
+}
+
+/* Small performance win for long demo pages: the browser skips paint/layout work
+ * for field rows that are outside the viewport while preserving scroll height. */
+.kavro-field-row {
+  content-visibility: auto;
+  contain-intrinsic-size: 120px;
+}
