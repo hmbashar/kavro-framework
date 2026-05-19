@@ -1,6 +1,6 @@
 # Kavro Framework
 
-Kavro Framework is a modern WordPress option, field, metabox, customizer, taxonomy, profile, menu, widget, comment, and shortcode framework by **Md Abul Bashar**.
+Kavro Framework is a modern, lightweight WordPress framework for building premium admin interfaces and developer-facing option systems.
 
 - **Author:** Md Abul Bashar
 - **Website:** https://hmbashar.com
@@ -8,22 +8,45 @@ Kavro Framework is a modern WordPress option, field, metabox, customizer, taxono
 - **Plugin URI:** https://github.com/hmbashar/kavro-framework
 - **Version:** 1.0.0
 - **License:** GPLv2 or later
+- **Text Domain:** `kavro-framework`
 
-## Included Modules
+## Features
 
 - Admin options framework
-- Metabox framework for posts, pages, and custom post types
-- WordPress Customizer framework
-- Taxonomy options framework
-- User/profile options framework
-- Nav menu item options framework
-- Widget options framework
-- Comment options framework
-- Shortcode framework with generator UI
-- Shared premium field renderer
-- Import/export/reset controls
-- Nested section navigation using `children`
-- Composer PSR-4 autoload support
+- Metabox framework
+- Customizer framework
+- Taxonomy options
+- User/profile options
+- Nav menu item options
+- Widget options
+- Comment options
+- Shortcode framework
+- Large premium-style field library
+- Conditional logic
+- Cloneable fields
+- Import/export/reset tools
+- Secure AJAX option save/reset
+- Field-aware sanitization
+- Performance-aware asset loading
+- Free/Pro module architecture
+
+## Production Example Loading
+
+Examples are **disabled by default** in this WordPress.org-ready build.
+
+To test the bundled demos locally, add this before Kavro loads, for example in `wp-config.php`:
+
+```php
+define( 'KAVRO_LOAD_EXAMPLES', true );
+```
+
+The example loader will then include:
+
+```php
+require_once KAVRO_PATH . 'examples/basic-usage.php';
+```
+
+Do not enable demos on production websites unless you intentionally want the demo option pages, metaboxes, taxonomy fields, profile fields, widget fields, comment fields, nav menu fields, and shortcode examples to appear.
 
 ## Documentation
 
@@ -31,65 +54,51 @@ Kavro Framework is a modern WordPress option, field, metabox, customizer, taxono
 - [Metabox Framework](docs/metabox.md)
 - [Customizer Framework](docs/customizer.md)
 - [Taxonomy Options](docs/taxonomy.md)
-- [Profile Options](docs/profile.md)
+- [Profile/User Options](docs/profile.md)
 - [Nav Menu Options](docs/nav-menu.md)
 - [Widget Options](docs/widget.md)
 - [Comment Options](docs/comment.md)
 - [Shortcode Framework](docs/shortcode.md)
-- [Field Reference](docs/fields.md)
-- [Developer Notes](docs/developer-notes.md)
+- [Fields Reference](docs/fields.md)
+- [Validation & Sanitization](docs/validation.md)
+- [Security](docs/security.md)
+- [Performance](docs/performance.md)
+- [Free vs Pro Architecture](docs/free-pro.md)
+- [WordPress.org Readiness](docs/wordpress-org.md)
+- [Release Packaging](docs/release-packaging.md)
+- [Stability QA](docs/stability-qa.md)
 
-## Demo Files
-
-During development, the main plugin file loads:
+## Basic Usage
 
 ```php
-require_once KAVRO_PATH . 'examples/basic-usage.php';
+if ( class_exists( 'KAVRO' ) ) {
+
+    $prefix = 'my_kavro_options';
+
+    KAVRO::createOptions( $prefix, array(
+        'menu_title' => 'Kavro Options',
+        'menu_slug'  => 'kavro-options',
+    ) );
+
+    KAVRO::createSection( $prefix, array(
+        'title'  => 'General',
+        'fields' => array(
+            array(
+                'id'    => 'site_subtitle',
+                'type'  => 'text',
+                'title' => 'Site Subtitle',
+            ),
+        ),
+    ) );
+}
 ```
 
-The demo loader includes:
+## Release Notes
 
-- `examples/field-examples.php`
-- `examples/options-demo.php`
-- `examples/metabox-demo.php`
-- `examples/customizer-demo.php`
-- `examples/taxonomy-demo.php`
-- `examples/profile-demo.php`
-- `examples/nav-menu-demo.php`
-- `examples/widget-demo.php`
-- `examples/comment-demo.php`
-- `examples/shortcode-demo.php`
-
-Remove or comment the demo loader before production release.
-
-## Demo Loading Note
-
-The development build loads `examples/basic-usage.php` on `init` priority 10. Kavro runtime screens are created later on `init` priority 20, so demos register before rendering while avoiding WordPress 6.7+ early translation notices.
+See `readme.txt` for the WordPress.org formatted changelog, upgrade notice, requirements, tags, and installation instructions.
 
 ## Copyright
 
 Copyright © Md Abul Bashar — https://hmbashar.com — https://facebook.com/hmbashar
 
-Licensed under GPLv2 or later.
-
-
-## Free vs Pro Architecture
-
-Kavro now includes a module registry for clean Free/Pro separation. See [`docs/free-pro.md`](docs/free-pro.md) for details.
-
-
-- [Validation and Sanitization](docs/validation.md)
-
-
-### AJAX Save
-
-Kavro admin options now save without a page reload while preserving WordPress security checks. JavaScript submits to `admin-ajax.php`; PHP verifies capability/nonce, sanitizes the field schema, and stores the option. The standard Settings API form remains as fallback.
-
-- [Performance and asset loading](docs/performance.md)
-
-
-## Hardening / QA / Release
-
-- [Security Hardening](docs/security.md)
-- [Stability QA Checklist](docs/stability-qa.md)
-- [Free vs Pro Separation](docs/release-separation.md)
+Kavro Framework is licensed under GPLv2 or later.

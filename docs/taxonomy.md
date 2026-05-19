@@ -1,48 +1,17 @@
 # Taxonomy Options
 
-Kavro taxonomy options let you attach Kavro fields to taxonomy add/edit screens such as categories, tags, or custom taxonomies.
+Fields for category, tag, and custom taxonomy term screens.
 
-## Basic usage
-
-```php
-$prefix = 'my_taxonomy_options';
-
-KAVRO::createTaxonomyOptions(
-    $prefix,
-    array(
-        'taxonomy' => array( 'category', 'post_tag' ),
-    )
-);
-
-KAVRO::createSection(
-    $prefix,
-    array(
-        'title'  => 'Term Settings',
-        'fields' => array(
-            array(
-                'id'    => 'accent_color',
-                'type'  => 'color',
-                'title' => 'Accent Color',
-            ),
-            array(
-                'id'    => 'term_intro',
-                'type'  => 'textarea',
-                'title' => 'Intro Text',
-            ),
-        ),
-    )
-);
-```
-
-## Reading values
+## API
 
 ```php
-$accent = kavro_get_term_meta( $term_id, 'my_taxonomy_options', 'accent_color', '#635bff' );
+KAVRO::createTaxonomyOptions()
 ```
 
-## Notes
+## Recommended usage
 
-- Values are stored as a single term-meta array using the unique taxonomy option ID.
-- The demo file is located at `examples/taxonomy-demo.php`.
-- Use `taxonomy` to target custom taxonomies.
-- Most Kavro fields work in taxonomy screens, but very large builder fields should be used carefully because taxonomy edit screens have less space than the main options panel.
+Create a dedicated file in your plugin or theme, for example `examples/taxonomy-demo.php`, then register fields using normal Kavro field arrays.
+
+## Saving and sanitization
+
+This module uses Kavro's shared field renderer and field-aware sanitization where applicable. Always use unique field IDs and avoid reusing the same option/meta key for unrelated data.

@@ -1,68 +1,69 @@
-# Kavro Options Framework
+# Options Framework
 
-The options framework creates a premium WordPress admin settings page.
+The Options Framework creates a premium admin settings page and stores values in one WordPress option array.
 
-## Basic usage
+## Basic setup
 
 ```php
-$prefix = 'my_kavro_options';
+if ( class_exists( 'KAVRO' ) ) {
 
-KAVRO::createOptions( $prefix, array(
-    'menu_title' => 'Kavro Demo',
-    'menu_slug'  => 'kavro-demo',
-) );
+    $prefix = 'my_kavro_options';
 
-KAVRO::createSection( $prefix, array(
-    'title'  => 'General',
-    'fields' => array(
-        array(
-            'id'    => 'site_title',
-            'type'  => 'text',
-            'title' => 'Site Title',
+    KAVRO::createOptions( $prefix, array(
+        'menu_title' => 'Kavro Options',
+        'menu_slug'  => 'kavro-options',
+        'menu_icon'  => 'dashicons-admin-generic',
+        'capability' => 'manage_options',
+    ) );
+
+    KAVRO::createSection( $prefix, array(
+        'title'  => 'General',
+        'fields' => array(
+            array(
+                'id'    => 'site_title',
+                'type'  => 'text',
+                'title' => 'Site Title',
+            ),
         ),
-    ),
-) );
+    ) );
+}
 ```
 
 ## Nested sections
 
-Kavro does not require a `parent` key. Add child screens with `children`.
+Kavro uses `children` for nested admin navigation. You do not need a `parent` attribute.
 
 ```php
 KAVRO::createSection( $prefix, array(
-    'title'    => 'Main',
+    'title'    => 'Design',
     'children' => array(
         array(
-            'title' => 'Child',
-            'fields' => array(),
+            'title'  => 'Header',
+            'fields' => array(
+                array(
+                    'id'    => 'header_logo',
+                    'type'  => 'image',
+                    'title' => 'Logo',
+                ),
+            ),
         ),
     ),
 ) );
 ```
 
-## Reading values
+## Get saved value
 
 ```php
-$value = kavro_get_option( 'my_kavro_options', 'site_title', 'Default' );
+$options = get_option( 'my_kavro_options', array() );
+$value   = isset( $options['site_title'] ) ? $options['site_title'] : '';
 ```
 
-## Demo file
+Or use the helper:
 
-See [`examples/options-demo.php`](../examples/options-demo.php).
+```php
+$value = kavro_get_option( 'my_kavro_options', 'site_title', '' );
+```
 
+## AJAX save
 
-## Demo registration timing
-
-For local testing, the options demo is loaded from `examples/basic-usage.php` on `init` priority 10. This is intentionally before Kavro builds option screens on priority 20, which ensures all demo sections appear in the admin panel.
-
-
-## Demo Coverage
-
-The demo loads `examples/field-examples.php`, so every registered Kavro field type has at least one example in both the options panel and metabox demo.
-
-
-## AJAX Save
-
-Kavro option panels support non-reload AJAX saving by default. The normal WordPress Settings API form remains in place as a fallback when JavaScript is unavailable. The AJAX endpoint verifies the current user capability, validates a screen-specific nonce, sanitizes values through the registered Kavro field schema, and then updates the option value.
-
-Reset also supports AJAX and uses the same capability and nonce verification.
+Options support secure AJAX saving with normal WordPress form submission as fallback. Saving uses nonce, capability checks, and field-aware sanitization.
