@@ -347,3 +347,155 @@
 .kavro-button-preview{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:16px;padding:13px 18px;background:linear-gradient(135deg,#635bff,#09a8d9);color:#fff;text-decoration:none;font-weight:900;box-shadow:0 18px 35px rgba(99,91,255,.24);transition:transform .18s ease,box-shadow .18s ease;}
 .kavro-button-preview:hover{transform:translateY(-2px);box-shadow:0 22px 44px rgba(99,91,255,.3);color:#fff;}
 .kavro-html-preview{border:1px solid #e2e8f0;border-radius:20px;background:linear-gradient(180deg,#fff,#f8fafc);padding:18px;box-shadow:0 14px 32px rgba(15,23,42,.06);}
+
+/* --------------------------------------------------------------------------
+ * Native checkbox/radio reset
+ * --------------------------------------------------------------------------
+ * WordPress core styles native inputs very aggressively. These rules hide the
+ * real form controls only where Kavro renders a custom visual control, then use
+ * adjacent labels/spans to display one polished UI element. The real inputs stay
+ * in the DOM, remain submitted with the form, and can still receive state from
+ * the browser and Settings API.
+ */
+.kavro-switch input[type="checkbox"],
+.kavro-switcher input[type="checkbox"],
+.kavro-button-set input[type="radio"],
+.kavro-radio-group input[type="radio"],
+.kavro-radio-list input[type="radio"],
+.kavro-check input[type="checkbox"],
+.kavro-inline-check input[type="checkbox"],
+.kavro-check-grid input[type="checkbox"] {
+  position: absolute !important;
+  opacity: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  min-width: 1px !important;
+  min-height: 1px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  pointer-events: none !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.kavro-check,
+.kavro-inline-check,
+.kavro-check-grid label,
+.kavro-radio-group label,
+.kavro-radio-list label,
+.kavro-button-set label {
+  position: relative;
+  cursor: pointer !important;
+  user-select: none;
+}
+
+.kavro-check span,
+.kavro-inline-check span,
+.kavro-check-grid label span,
+.kavro-radio-group label span,
+.kavro-radio-list label span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #111827;
+  font-weight: 700;
+}
+
+.kavro-check span:before,
+.kavro-inline-check span:before,
+.kavro-check-grid label span:before,
+.kavro-radio-group label span:before,
+.kavro-radio-list label span:before {
+  content: "";
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, .08), inset 0 1px 0 rgba(255, 255, 255, .95);
+  transition: background .18s ease, border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.kavro-radio-group label span:before,
+.kavro-radio-list label span:before {
+  border-radius: 999px;
+}
+
+.kavro-check input[type="checkbox"]:checked + span:before,
+.kavro-inline-check input[type="checkbox"]:checked + span:before,
+.kavro-check-grid label input[type="checkbox"]:checked + span:before {
+  content: "✓";
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 950;
+  background: linear-gradient(135deg, #635bff, #06b6d4);
+  border-color: transparent;
+  box-shadow: 0 0 0 5px rgba(99, 91, 255, .16), 0 12px 24px rgba(79, 70, 229, .18);
+}
+
+.kavro-radio-group label input[type="radio"]:checked + span:before,
+.kavro-radio-list label input[type="radio"]:checked + span:before {
+  border-color: #635bff;
+  background: radial-gradient(circle at center, #635bff 0 34%, #ffffff 37% 100%);
+  box-shadow: 0 0 0 5px rgba(99, 91, 255, .16), 0 12px 24px rgba(79, 70, 229, .16);
+}
+
+.kavro-check:has(input:checked),
+.kavro-inline-check:has(input:checked),
+.kavro-check-grid label:has(input:checked),
+.kavro-radio-group label:has(input:checked),
+.kavro-radio-list label:has(input:checked) {
+  border-color: #a5b4fc !important;
+  background: linear-gradient(180deg, #ffffff, #f5fbff) !important;
+  box-shadow: 0 14px 32px rgba(79, 70, 229, .12) !important;
+}
+
+.kavro-button-set label span {
+  position: relative;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 18px !important;
+  cursor: pointer !important;
+}
+
+.kavro-button-set input[type="radio"]:checked + span {
+  background: linear-gradient(135deg, #111827, #334155) !important;
+  color: #ffffff !important;
+  border-color: #111827 !important;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, .18) !important;
+}
+
+.kavro-button-set input[type="radio"]:focus + span,
+.kavro-check input[type="checkbox"]:focus + span:before,
+.kavro-inline-check input[type="checkbox"]:focus + span:before,
+.kavro-radio-group input[type="radio"]:focus + span:before,
+.kavro-radio-list input[type="radio"]:focus + span:before {
+  box-shadow: 0 0 0 5px rgba(99, 91, 255, .18), 0 12px 24px rgba(79, 70, 229, .12) !important;
+}
+
+.kavro-field-control .button,
+.kavro-field-control button,
+.kavro-save,
+.kavro-nav-toggle,
+.kavro-nav-row a,
+.kavro-button-set label,
+.kavro-palette label,
+.kavro-image-select label,
+.kavro-media-upload,
+.kavro-media-remove,
+.kavro-gallery-upload,
+.kavro-gallery-clear,
+.kavro-backup-import,
+.kavro-backup-export {
+  cursor: pointer !important;
+}
