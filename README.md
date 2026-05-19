@@ -16,3 +16,8 @@ This is a responsive static HTML documentation/marketing website for Kavro Frame
 Upload these files to your GitHub Pages branch/root and enable Pages from repository settings.
 
 Created for Kavro Framework by Md Abul Bashar.
+
+
+## Smooth animation layer
+
+This build includes scroll reveal animations, animated navigation elevation, mobile megamenu interactions, code copy buttons, heading anchors, reading progress, and reduced-motion support for accessibility.
