@@ -473,3 +473,11 @@ Supported operators: `==`, `!=`, `contains`, `empty`, and `not_empty`.
 - `form_builder` - form schema builder field.
 - `menu_builder` - menu tree schema field.
 - `layout_builder` - visual layout choice field.
+
+
+## Added in this build
+
+- Reset button in the top action bar and footer.
+- Reset is nonce-protected and returns to the same active Kavro section.
+- New fields: `table`, `matrix`, `checklist`, `business_hours`, `timeline`, `seo_preview`, `open_graph`, `schema_markup`, `webhook`, `cron_schedule`, `capability_select`.
+- Each new field has at least one example in `examples/basic-usage.php`.

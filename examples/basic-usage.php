@@ -353,4 +353,30 @@ if ( class_exists( 'KAVRO' ) ) {
         ),
     ) );
 
+
+
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'workflow-utility-fields',
+        'title'    => 'Workflow Utility Fields',
+        'subtitle' => 'Table, matrix, checklist, SEO, Open Graph, schedule, webhook, and permission helper fields.',
+        'fields'   => array(
+            array( 'type' => 'subheading', 'content' => 'Data & Layout Utilities' ),
+            array( 'id' => 'demo_table', 'type' => 'table', 'title' => 'Simple Table', 'default' => array( 'rows' => array( array( 'label' => 'Starter', 'value' => '$19' ), array( 'label' => 'Pro', 'value' => '$49' ) ) ) ),
+            array( 'id' => 'demo_matrix', 'type' => 'matrix', 'title' => 'Responsive Matrix', 'rows' => array( 'header' => 'Header', 'content' => 'Content', 'footer' => 'Footer' ), 'columns' => array( 'desktop' => 'Desktop', 'tablet' => 'Tablet', 'mobile' => 'Mobile' ) ),
+            array( 'id' => 'demo_checklist', 'type' => 'checklist', 'title' => 'Launch Checklist', 'options' => array( 'docs' => 'Docs Ready', 'demo' => 'Demo Ready', 'tests' => 'Tests Passed', 'release' => 'Release Notes' ), 'default' => array( 'docs', 'demo' ) ),
+            array( 'id' => 'demo_timeline', 'type' => 'timeline', 'title' => 'Roadmap Timeline', 'default' => array( 'items' => array( array( 'date' => 'Q1', 'title' => 'Admin Options', 'desc' => 'Core option framework.' ), array( 'date' => 'Q2', 'title' => 'Metabox', 'desc' => 'Post/page metabox builder.' ) ) ) ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'SEO & Sharing' ),
+            array( 'id' => 'demo_seo_preview', 'type' => 'seo_preview', 'title' => 'SEO Preview', 'default' => array( 'title' => 'Kavro Framework', 'url' => 'https://hmbashar.com/kavro', 'description' => 'A modern WordPress options framework for developers.' ) ),
+            array( 'id' => 'demo_open_graph', 'type' => 'open_graph', 'title' => 'Open Graph Card' ),
+            array( 'id' => 'demo_schema_markup', 'type' => 'schema_markup', 'title' => 'Schema Markup JSON', 'default' => '{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Kavro Framework"}' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Operations' ),
+            array( 'id' => 'demo_business_hours', 'type' => 'business_hours', 'title' => 'Business Hours' ),
+            array( 'id' => 'demo_webhook', 'type' => 'webhook', 'title' => 'Webhook Endpoint', 'default' => array( 'method' => 'POST' ) ),
+            array( 'id' => 'demo_cron_schedule', 'type' => 'cron_schedule', 'title' => 'Cron Schedule', 'default' => array( 'frequency' => 'daily', 'time' => '09:00' ) ),
+            array( 'id' => 'demo_capability_select', 'type' => 'capability_select', 'title' => 'Required Capability', 'default' => 'manage_options' ),
+        ),
+    ) );
+
 }

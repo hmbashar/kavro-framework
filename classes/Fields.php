@@ -144,6 +144,17 @@ class Fields {
         'form_builder' => '\\Kavro\\Fields\\FormBuilder\\FormBuilder',
         'menu_builder' => '\\Kavro\\Fields\\MenuBuilder\\MenuBuilder',
         'layout_builder' => '\\Kavro\\Fields\\LayoutBuilder\\LayoutBuilder',
+        'table' => '\\Kavro\\Fields\\Table\\Table',
+        'matrix' => '\\Kavro\\Fields\\Matrix\\Matrix',
+        'checklist' => '\\Kavro\\Fields\\Checklist\\Checklist',
+        'business_hours' => '\\Kavro\\Fields\\BusinessHours\\BusinessHours',
+        'timeline' => '\\Kavro\\Fields\\Timeline\\Timeline',
+        'seo_preview' => '\\Kavro\\Fields\\SeoPreview\\SeoPreview',
+        'open_graph' => '\\Kavro\\Fields\\OpenGraph\\OpenGraph',
+        'schema_markup' => '\\Kavro\\Fields\\SchemaMarkup\\SchemaMarkup',
+        'webhook' => '\\Kavro\\Fields\\Webhook\\Webhook',
+        'cron_schedule' => '\\Kavro\\Fields\\CronSchedule\\CronSchedule',
+        'capability_select' => '\\Kavro\\Fields\\CapabilitySelect\\CapabilitySelect',
     );
 
     /**

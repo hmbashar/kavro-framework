@@ -212,3 +212,11 @@ See [`docs/fields.md`](docs/fields.md) for usage examples and configuration note
 ## Next Advanced Fields
 
 This build includes additional builder-style fields: `border_radius`, `box_model`, `dimensions_advanced`, `spacing_advanced`, `typography_advanced`, `color_picker_alpha`, `conditional_group`, `repeater_nested`, `query_builder`, `shortcode_builder`, `form_builder`, `menu_builder`, and `layout_builder`. The plugin currently loads `examples/basic-usage.php` from the main file for easy testing. Remove that require before production distribution.
+
+
+## Added in this build
+
+- Reset button in the top action bar and footer.
+- Reset is nonce-protected and returns to the same active Kavro section.
+- New fields: `table`, `matrix`, `checklist`, `business_hours`, `timeline`, `seo_preview`, `open_graph`, `schema_markup`, `webhook`, `cron_schedule`, `capability_select`.
+- Each new field has at least one example in `examples/basic-usage.php`.

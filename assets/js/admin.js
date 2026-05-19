@@ -165,6 +165,15 @@
       $(this).closest('.kavro-accordion-item').toggleClass('is-open');
     });
 
+    $(document).on('click','.kavro-add-row',function(e){
+      e.preventDefault();
+      var $wrap=$(this).closest('.kavro-table-field');
+      var index=$wrap.find('.kavro-table-row').length;
+      var base=$wrap.closest('.kavro-field').find('.kavro-table-row:first input:first').attr('name') || '';
+      base=base.replace(/\[rows\]\[\d+\]\[label\].*/, '');
+      $('<div class="kavro-table-row"><input type="text" name="'+base+'[rows]['+index+'][label]" placeholder="Label"><input type="text" name="'+base+'[rows]['+index+'][value]" placeholder="Value"></div>').insertBefore($(this));
+    });
+
     $(document).on('click','.kavro-tab-button',function(){
       var id=$(this).data('kavro-inline-tab');
       var $tabs=$(this).closest('.kavro-tabs-field');
@@ -324,13 +333,15 @@
    * real option save through options.php; this only gives instant UI feedback
    * before the browser navigates.
    */
-  $(document).on('submit', '.kavro-main form', function(){
+  $(document).on('submit', '.kavro-main form', function(e){
     setReturnHash();
+    var submitter = e.originalEvent && e.originalEvent.submitter ? $(e.originalEvent.submitter) : $();
+    var isReset = submitter.hasClass('kavro-reset');
     var $form = $(this);
     if (!$form.find('.kavro-save-status').length) {
       $form.find('.kavro-topbar').append('<span class="kavro-save-status is-visible">Saving...</span>');
     } else {
-      $form.find('.kavro-save-status').addClass('is-visible').text('Saving...');
+      $form.find('.kavro-save-status').addClass('is-visible').text(isReset ? 'Resetting...' : 'Saving...');
     }
   });
 

@@ -50,6 +50,7 @@ class AdminOptions {
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
         add_action( 'admin_post_kavro_export_' . $this->unique, array( $this, 'export_settings' ) );
         add_action( 'admin_post_kavro_import_' . $this->unique, array( $this, 'import_settings' ) );
+        add_action( 'admin_post_kavro_reset_' . $this->unique, array( $this, 'reset_settings' ) );
     }
 
     /**
@@ -275,6 +276,44 @@ class AdminOptions {
         exit;
     }
 
+
+    /**
+     * Reset this Kavro option container to an empty/default state.
+     *
+     * This endpoint is triggered from the dashboard topbar. It removes the saved
+     * option payload, then redirects back to the same active Kavro section so the
+     * developer can continue testing without losing their place in the UI.
+     *
+     * @return void
+     */
+    public function reset_settings() {
+        if ( ! current_user_can( $this->args['menu_capability'] ) ) {
+            wp_die( esc_html__( 'You do not have permission to reset these settings.', 'kavro-framework' ) );
+        }
+
+        $nonce = isset( $_POST['kavro_reset_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['kavro_reset_nonce'] ) ) : '';
+        if ( ! wp_verify_nonce( $nonce, 'kavro_reset_' . $this->unique ) ) {
+            wp_die( esc_html__( 'Reset verification failed. Please try again.', 'kavro-framework' ) );
+        }
+
+        delete_option( $this->unique );
+
+        $active = isset( $_POST['kavro_active_section'] ) ? sanitize_text_field( wp_unslash( $_POST['kavro_active_section'] ) ) : '';
+        $redirect = add_query_arg(
+            array_filter(
+                array(
+                    'page'          => $this->args['menu_slug'],
+                    'kavro_status'  => 'reset',
+                    'kavro_section' => $active,
+                )
+            ),
+            admin_url( 'admin.php' )
+        );
+
+        wp_safe_redirect( $redirect );
+        exit;
+    }
+
     /**
      * Render the import/export tools panel.
      *
@@ -333,8 +372,9 @@ class AdminOptions {
         echo '<main class="kavro-main"><form method="post" action="options.php">';
         settings_fields( $this->unique . '_group' );
         echo '<input type="hidden" name="kavro_active_section" class="kavro-active-section" value="">';
+        echo '<input type="hidden" name="kavro_reset_nonce" value="' . esc_attr( wp_create_nonce( 'kavro_reset_' . $this->unique ) ) . '">';
 
-        echo '<div class="kavro-topbar"><div><h1>' . esc_html( $this->args['menu_title'] ) . '</h1><p>Configure your theme or plugin settings with a premium Kavro dashboard.</p></div><div class="kavro-actions"><button type="submit" class="button button-primary kavro-save">Save Changes</button><span class="kavro-save-status" aria-live="polite">Saving...</span></div></div>';
+        echo '<div class="kavro-topbar"><div><h1>' . esc_html( $this->args['menu_title'] ) . '</h1><p>Configure your theme or plugin settings with a premium Kavro dashboard.</p></div><div class="kavro-actions"><button type="submit" name="action" value="kavro_reset_' . esc_attr( $this->unique ) . '" formmethod="post" formaction="' . esc_url( admin_url( 'admin-post.php' ) ) . '" class="button kavro-reset" onclick="return confirm(\'' . esc_js( __( 'Reset all saved Kavro settings for this panel?', 'kavro-framework' ) ) . '\');">Reset</button><button type="submit" class="button button-primary kavro-save">Save Changes</button><span class="kavro-save-status" aria-live="polite">Saving...</span></div></div>';
 
         foreach ( $this->flat_sections as $slug => $section ) {
             echo '<section class="kavro-section" data-kavro-section="' . esc_attr( $slug ) . '"><div class="kavro-card">';
@@ -358,7 +398,7 @@ class AdminOptions {
             echo '</div></section>';
         }
 
-        echo '<div class="kavro-footer"><span>' . esc_html( $this->args['footer_credit'] ) . '</span><button type="submit" class="button button-primary kavro-save">Save Changes</button></div>';
+        echo '<div class="kavro-footer"><span>' . esc_html( $this->args['footer_credit'] ) . '</span><div class="kavro-actions"><button type="submit" name="action" value="kavro_reset_' . esc_attr( $this->unique ) . '" formmethod="post" formaction="' . esc_url( admin_url( 'admin-post.php' ) ) . '" class="button kavro-reset" onclick="return confirm(\'' . esc_js( __( 'Reset all saved Kavro settings for this panel?', 'kavro-framework' ) ) . '\');">Reset</button><button type="submit" class="button button-primary kavro-save">Save Changes</button></div></div>';
         echo '</form>';
         $this->render_tools_section();
         echo '</main></div></div>';
