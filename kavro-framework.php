@@ -3,7 +3,7 @@
  * Plugin Name: Kavro Framework
  * Plugin URI: https://github.com/hmbashar/kavro-framework
  * Description: A modern lightweight WordPress options, fields, customizer and metabox framework foundation.
- * Version: 0.1.1
+ * Version: 0.1.2
  * Author: Md Abul Bashar
  * Author URI: https://hmbashar.com
  * Text Domain: kavro-framework
@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('KAVRO_VERSION', '0.1.1');
+define('KAVRO_VERSION', '0.1.2');
 define('KAVRO_FILE', __FILE__);
 define('KAVRO_PATH', plugin_dir_path(__FILE__));
 define('KAVRO_URL', plugin_dir_url(__FILE__));
@@ -76,6 +76,5 @@ if (!class_exists('KAVRO')) {
 }
 
 add_action('plugins_loaded', array('KAVRO', 'boot'));
-
 
 require_once KAVRO_PATH . 'examples/basic-usage.php';
