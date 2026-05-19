@@ -33,6 +33,15 @@ class Fields {
         'spacing'    => '\\Kavro\\Fields\\Spacing\\Spacing',
         'typography' => '\\Kavro\\Fields\\Typography\\Typography',
         'repeater'   => '\\Kavro\\Fields\\Repeater\\Repeater',
+        'multicheck' => '\Kavro\Fields\Multicheck\Multicheck',
+        'wysiwyg'    => '\Kavro\Fields\Wysiwyg\Wysiwyg',
+        'wp_editor'  => '\Kavro\Fields\Wysiwyg\Wysiwyg',
+        'link'       => '\Kavro\Fields\Link\Link',
+        'palette'    => '\Kavro\Fields\Palette\Palette',
+        'background' => '\Kavro\Fields\Background\Background',
+        'border'     => '\Kavro\Fields\Border\Border',
+        'color_group'=> '\Kavro\Fields\ColorGroup\ColorGroup',
+        'toggle'     => '\Kavro\Fields\Toggle\Toggle',
     );
 
     public static function render( $field, $value, $unique ) {

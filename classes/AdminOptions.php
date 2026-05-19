@@ -40,11 +40,11 @@ class AdminOptions {
         wp_enqueue_script( 'kavro-admin', KAVRO_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker', 'jquery-ui-sortable' ), KAVRO_VERSION, true );
     }
 
-    protected function prepare_sections( $sections, $depth = 0, $parent = '' ) {
+    protected function prepare_sections( $sections, $depth = 0, $path = '' ) {
         $prepared = array();
         foreach ( $sections as $index => $section ) {
             $base_slug = isset( $section['id'] ) ? sanitize_key( $section['id'] ) : sanitize_title( $section['title'] ?? 'section-' . $index );
-            $slug = $parent ? $parent . '/' . $base_slug : $base_slug;
+            $slug = $path ? $path . '/' . $base_slug : $base_slug;
             $section['_slug'] = $slug;
             $section['_depth'] = $depth;
             if ( ! empty( $section['children'] ) && is_array( $section['children'] ) ) {
