@@ -79,3 +79,8 @@ Kavro now includes a module registry for clean Free/Pro separation. See [`docs/f
 
 
 - [Validation and Sanitization](docs/validation.md)
+
+
+### AJAX Save
+
+Kavro admin options now save without a page reload while preserving WordPress security checks. JavaScript submits to `admin-ajax.php`; PHP verifies capability/nonce, sanitizes the field schema, and stores the option. The standard Settings API form remains as fallback.

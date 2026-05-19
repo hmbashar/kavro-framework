@@ -59,3 +59,10 @@ For local testing, the options demo is loaded from `examples/basic-usage.php` on
 ## Demo Coverage
 
 The demo loads `examples/field-examples.php`, so every registered Kavro field type has at least one example in both the options panel and metabox demo.
+
+
+## AJAX Save
+
+Kavro option panels support non-reload AJAX saving by default. The normal WordPress Settings API form remains in place as a fallback when JavaScript is unavailable. The AJAX endpoint verifies the current user capability, validates a screen-specific nonce, sanitizes values through the registered Kavro field schema, and then updates the option value.
+
+Reset also supports AJAX and uses the same capability and nonce verification.

@@ -72,3 +72,15 @@ Developers can still override field sanitization with:
     return $value;
 },
 ```
+
+
+## AJAX Security Flow
+
+The AJAX save/reset handlers use the same security model as the fallback WordPress form flow:
+
+1. `current_user_can()` checks the configured menu capability.
+2. `wp_verify_nonce()` checks a per-panel Kavro AJAX nonce.
+3. Submitted values are passed through `Fields::sanitize_values()`.
+4. Only sanitized values are written with `update_option()`.
+
+The fallback `options.php` submission remains available for no-JavaScript environments.

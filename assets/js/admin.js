@@ -329,20 +329,66 @@
   });
 
   /**
-   * Provide a small premium save interaction. WordPress still performs the
-   * real option save through options.php; this only gives instant UI feedback
-   * before the browser navigates.
+   * Save Kavro options through admin-ajax.php with the regular form submit as
+   * fallback. The PHP handler repeats capability checks, nonce verification,
+   * schema-aware sanitization, and option updates before returning JSON.
    */
-  $(document).on('submit', '.kavro-main form', function(e){
+  $(document).on('submit', '.kavro-options-form[data-kavro-ajax="1"]', function(e){
     setReturnHash();
+
+    var $form = $(this);
     var submitter = e.originalEvent && e.originalEvent.submitter ? $(e.originalEvent.submitter) : $();
     var isReset = submitter.hasClass('kavro-reset');
-    var $form = $(this);
-    if (!$form.find('.kavro-save-status').length) {
-      $form.find('.kavro-topbar').append('<span class="kavro-save-status is-visible">Saving...</span>');
-    } else {
-      $form.find('.kavro-save-status').addClass('is-visible').text(isReset ? 'Resetting...' : 'Saving...');
+    var config = window.KavroAdmin || {};
+    var messages = config.messages || {};
+
+    if(!config.ajaxUrl || !config.saveAction || !window.FormData){
+      return;
     }
+
+    if(isReset && !window.confirm(config.confirmReset || 'Reset all saved Kavro settings for this panel?')){
+      e.preventDefault();
+      return;
+    }
+
+    e.preventDefault();
+
+    var $status = $form.find('.kavro-save-status');
+    var $buttons = $form.find('.kavro-save, .kavro-reset');
+    var data = new FormData(this);
+
+    data.set('action', isReset ? config.resetAction : config.saveAction);
+    data.set('kavro_ajax_nonce', config.nonce || data.get('kavro_ajax_nonce') || '');
+    data.set('kavro_active_section', getCurrentSection());
+
+    $buttons.prop('disabled', true).addClass('is-busy');
+    $status.removeClass('is-error is-success').addClass('is-visible').text(isReset ? (messages.resetting || 'Resetting...') : (messages.saving || 'Saving...'));
+
+    $.ajax({
+      url: config.ajaxUrl,
+      method: 'POST',
+      data: data,
+      processData: false,
+      contentType: false,
+      dataType: 'json'
+    }).done(function(response){
+      if(response && response.success){
+        $status.removeClass('is-error').addClass('is-success').text(isReset ? (messages.reset || 'Reset complete') : (messages.saved || 'Saved'));
+        if(isReset){
+          $form.find('input[type="text"], input[type="email"], input[type="url"], input[type="number"], input[type="password"], input[type="tel"], textarea').val('').trigger('change');
+          $form.find('input[type="checkbox"], input[type="radio"]').prop('checked', false).trigger('change');
+          $form.find('select').prop('selectedIndex', 0).trigger('change');
+        }
+        setTimeout(function(){ $status.removeClass('is-visible'); }, 1800);
+      } else {
+        var message = response && response.data && response.data.message ? response.data.message : (messages.error || 'Something went wrong. Please try again.');
+        $status.removeClass('is-success').addClass('is-error is-visible').text(message);
+      }
+    }).fail(function(){
+      $status.removeClass('is-success').addClass('is-error is-visible').text(messages.error || 'Something went wrong. Please try again.');
+    }).always(function(){
+      $buttons.prop('disabled', false).removeClass('is-busy');
+    });
   });
 
   /**

@@ -1458,3 +1458,11 @@
   color: #64748b;
   font-size: 12px;
 }
+
+
+/* AJAX save/reset feedback. */
+.kavro-save-status.is-success{color:#059669;}
+.kavro-save-status.is-error{color:#dc2626;}
+.kavro-actions .button.is-busy{opacity:.72;cursor:wait!important;pointer-events:none;}
+.kavro-save-status.is-visible::before{content:"";display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:999px;background:currentColor;box-shadow:0 0 0 5px rgba(16,185,129,.12);}
+.kavro-save-status.is-error::before{box-shadow:0 0 0 5px rgba(220,38,38,.12);}
