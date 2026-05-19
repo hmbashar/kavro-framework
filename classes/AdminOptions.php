@@ -62,8 +62,20 @@ class AdminOptions {
         register_setting(
             $this->unique . '_group',
             $this->unique,
-            array( 'sanitize_callback' => array( Fields::class, 'sanitize' ) )
+            array( 'sanitize_callback' => array( $this, 'sanitize_options' ) )
         );
+    }
+
+
+    /**
+     * Sanitize options for this screen using its registered field schema.
+     *
+     * @param mixed $values Raw submitted option payload.
+     * @return array
+     */
+    public function sanitize_options( $values ) {
+        $values = is_array( $values ) ? $values : array();
+        return Fields::sanitize_values( $values, $this->sections );
     }
 
     /**
@@ -259,7 +271,7 @@ class AdminOptions {
 
         if ( is_array( $decoded ) ) {
             $settings = isset( $decoded['settings'] ) && is_array( $decoded['settings'] ) ? $decoded['settings'] : $decoded;
-            $settings = Fields::sanitize( $settings );
+            $settings = Fields::sanitize_values( $settings, $this->sections );
             update_option( $this->unique, $settings );
             $status = 'imported';
         }

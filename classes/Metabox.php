@@ -159,7 +159,7 @@ class Metabox {
 
         $raw = isset( $_POST[ $this->unique ] ) ? wp_unslash( $_POST[ $this->unique ] ) : array();
         $raw = is_array( $raw ) ? $raw : array();
-        $sanitized = Fields::sanitize( $raw );
+        $sanitized = Fields::sanitize_values( $raw, $this->sections );
 
         if ( empty( $sanitized ) ) {
             delete_post_meta( $post_id, $this->unique );

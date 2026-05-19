@@ -182,6 +182,6 @@ class Widget extends \WP_Widget {
      */
     public function update( $new_instance, $old_instance ) {
         $new_instance = is_array( $new_instance ) ? $new_instance : array();
-        return Fields::sanitize( $new_instance );
+        return Fields::sanitize_values( $new_instance, $this->sections );
     }
 }

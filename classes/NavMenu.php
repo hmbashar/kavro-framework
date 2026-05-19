@@ -142,7 +142,7 @@ class NavMenu {
         $menu_item_db_id = absint( $menu_item_db_id );
         $posted          = isset( $_POST[ $this->unique ][ $menu_item_db_id ] ) ? wp_unslash( $_POST[ $this->unique ][ $menu_item_db_id ] ) : array();
         $posted          = is_array( $posted ) ? $posted : array();
-        $sanitized       = Fields::sanitize( $posted );
+        $sanitized       = Fields::sanitize_values( $posted, $this->sections );
 
         if ( empty( $sanitized ) ) {
             delete_post_meta( $menu_item_db_id, $this->unique );

@@ -76,3 +76,6 @@ Licensed under GPLv2 or later.
 ## Free vs Pro Architecture
 
 Kavro now includes a module registry for clean Free/Pro separation. See [`docs/free-pro.md`](docs/free-pro.md) for details.
+
+
+- [Validation and Sanitization](docs/validation.md)
