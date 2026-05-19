@@ -1,27 +1,15 @@
-# Kavro Framework Documentation
+# Kavro Documentation
+
+Kavro documentation is split by module so developers can quickly find the API they need.
 
 - [Options Framework](options.md)
 - [Metabox Framework](metabox.md)
+- [Customizer Framework](customizer.md)
+- [Taxonomy Options](taxonomy.md)
+- [Profile Options](profile.md)
+- [Nav Menu Options](nav-menu.md)
+- [Widget Options](widget.md)
+- [Comment Options](comment.md)
+- [Shortcode Framework](shortcode.md)
 - [Field Reference](fields.md)
 - [Developer Notes](developer-notes.md)
-
-The demo files are located in `examples/`:
-
-- `examples/basic-usage.php` loads all demos.
-- `examples/options-demo.php` registers the options panel.
-- `examples/metabox-demo.php` registers post/page metaboxes.
-- `examples/field-examples.php` contains shared field examples used by both demos.
-
-- [Customizer Framework](customizer.md)
-
-- [Profile Options](docs/profile.md)
-
-## Profile Options
-
-Use `KAVRO::createProfileOptions()` to add Kavro fields to WordPress user profile screens.
-
-- [Nav Menu Options](nav-menu.md)
-
-- [Widget Options](docs/widget.md)
-
-- [Comment Options](comment.md)

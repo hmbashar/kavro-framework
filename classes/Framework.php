@@ -196,6 +196,29 @@ final class Framework {
         );
     }
 
+
+
+    /**
+     * Register a shortcode generator and runtime shortcode.
+     *
+     * @param string $id   Unique shortcode container ID.
+     * @param array  $args Shortcode arguments.
+     * @return void
+     */
+    public static function createShortcode( $id, $args = array() ) {
+        self::$containers[ sanitize_key( $id ) ] = wp_parse_args(
+            array_merge( $args, array( '_module' => 'shortcode' ) ),
+            array(
+                'title'       => 'Kavro Shortcode',
+                'tag'         => sanitize_key( $id ),
+                'description' => 'A shortcode registered with Kavro Framework.',
+                'capability'  => 'manage_options',
+                'menu_parent' => 'tools.php',
+                'render'      => null,
+            )
+        );
+    }
+
     /**
      * Placeholder API for future metabox support.
      *
@@ -256,6 +279,11 @@ final class Framework {
 
             if ( isset( $args['_module'] ) && 'comment' === $args['_module'] ) {
                 self::$instances[ $id ] = new Comment( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
+                continue;
+            }
+
+            if ( isset( $args['_module'] ) && 'shortcode' === $args['_module'] ) {
+                self::$instances[ $id ] = new Shortcode( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
                 continue;
             }
 
