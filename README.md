@@ -245,3 +245,25 @@ Added in this build:
 - `terms_checklist` — review/compliance checklist field.
 
 The Feature Flags UI was also fixed so checkbox indicators and label text render separately with no overlap. Demo examples are available in `examples/basic-usage.php` under **Product Experience Fields**.
+
+## Metabox Framework
+
+Kavro supports post/page/CPT metaboxes through `KAVRO::createMetabox()` and reuses the same field definitions as the admin options panel.
+
+See `docs/README.md` for a complete metabox example. The current development build includes the demo loader in `kavro-framework.php`:
+
+```php
+require_once KAVRO_PATH . 'examples/basic-usage.php';
+```
+
+Remove or comment that line before production release if you do not want the bundled demo panel/metabox.
+
+## Development Demo Files
+
+For easier testing, this package includes separated demo files:
+
+- `examples/options-demo.php` — dedicated admin options framework demo.
+- `examples/metabox-demo.php` — dedicated metabox framework demo for posts and pages.
+- `examples/basic-usage.php` — compatibility loader that includes both files.
+
+The main plugin file currently loads the demos on `init` so the example option page and post/page metabox appear immediately after activation. Remove the demo loader before production release.

@@ -525,3 +525,29 @@ Added in this build:
 - `terms_checklist` — review/compliance checklist field.
 
 The Feature Flags UI was also fixed so checkbox indicators and label text render separately with no overlap. Demo examples are available in `examples/basic-usage.php` under **Product Experience Fields**.
+
+## Metabox usage with existing fields
+
+All normal Kavro field types can be used inside metabox sections. Define a metabox first, then attach sections with `KAVRO::createSection()` using the metabox ID.
+
+```php
+KAVRO::createMetabox( 'product_options', array(
+    'title'     => 'Product Options',
+    'post_type' => array( 'product' ),
+) );
+
+KAVRO::createSection( 'product_options', array(
+    'title'  => 'Display',
+    'fields' => array(
+        array( 'id' => 'subtitle', 'type' => 'text', 'title' => 'Subtitle' ),
+        array( 'id' => 'gallery', 'type' => 'gallery', 'title' => 'Gallery' ),
+        array( 'id' => 'accent', 'type' => 'color_picker_alpha', 'title' => 'Accent Color' ),
+    ),
+) );
+```
+
+Metabox values are stored as a single array:
+
+```php
+$product_options = get_post_meta( get_the_ID(), 'product_options', true );
+```

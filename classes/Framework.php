@@ -102,7 +102,15 @@ final class Framework {
      * @return void
      */
     public static function createMetabox( $id, $args = array() ) {
-        self::$containers[ sanitize_key( $id ) ] = array_merge( $args, array( '_module' => 'metabox' ) );
+        self::$containers[ sanitize_key( $id ) ] = wp_parse_args(
+            array_merge( $args, array( '_module' => 'metabox' ) ),
+            array(
+                'title'     => 'Kavro Metabox',
+                'post_type' => array( 'post', 'page' ),
+                'context'   => 'normal',
+                'priority'  => 'default',
+            )
+        );
     }
 
     /**
@@ -112,7 +120,12 @@ final class Framework {
      */
     public static function init_instances() {
         foreach ( self::$containers as $id => $args ) {
-            if ( isset( self::$instances[ $id ] ) || ( isset( $args['_module'] ) && 'metabox' === $args['_module'] ) ) {
+            if ( isset( self::$instances[ $id ] ) ) {
+                continue;
+            }
+
+            if ( isset( $args['_module'] ) && 'metabox' === $args['_module'] ) {
+                self::$instances[ $id ] = new Metabox( $id, $args, isset( self::$sections[ $id ] ) ? self::$sections[ $id ] : array() );
                 continue;
             }
 
