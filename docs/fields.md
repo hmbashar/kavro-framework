@@ -507,3 +507,21 @@ These fields are useful for premium plugin/theme dashboards, API integrations, S
 | `onboarding_steps` | Render checklist-style onboarding progress. |
 
 Example usage is included in `examples/basic-usage.php` under **Operations Pro Fields**.
+
+
+## Product Experience Fields
+
+Added in this build:
+
+- `address` — structured business/location address inputs.
+- `color_scheme` — grouped brand color palette controls.
+- `plan_selector` — premium card-style plan picker.
+- `pricing_table` — simple editable pricing plan rows.
+- `consent` — consent checkbox cards for terms/privacy/marketing.
+- `badge_list` — editable badge/chip labels.
+- `empty_state` — title/message/button empty state builder.
+- `kpi_cards` — compact KPI label/value cards.
+- `notice_builder` — notice type/title/message builder.
+- `terms_checklist` — review/compliance checklist field.
+
+The Feature Flags UI was also fixed so checkbox indicators and label text render separately with no overlap. Demo examples are available in `examples/basic-usage.php` under **Product Experience Fields**.

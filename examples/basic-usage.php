@@ -414,4 +414,28 @@ Thanks for using Kavro.' ) ),
         ),
     ) );
 
+
+    KAVRO::createSection( $prefix, array(
+        'id'       => 'product-experience-fields',
+        'title'    => 'Product Experience Fields',
+        'subtitle' => 'Brand, pricing, consent, onboarding, KPI, and notice builder fields for polished product dashboards.',
+        'fields'   => array(
+            array( 'type' => 'subheading', 'content' => 'Brand & Presentation' ),
+            array( 'id' => 'demo_address', 'type' => 'address', 'title' => 'Business Address' ),
+            array( 'id' => 'demo_color_scheme', 'type' => 'color_scheme', 'title' => 'Brand Color Scheme' ),
+            array( 'id' => 'demo_badge_list', 'type' => 'badge_list', 'title' => 'Badge List' ),
+            array( 'id' => 'demo_empty_state', 'type' => 'empty_state', 'title' => 'Empty State Builder' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Commerce & Product UX' ),
+            array( 'id' => 'demo_plan_selector', 'type' => 'plan_selector', 'title' => 'Plan Selector', 'default' => 'pro' ),
+            array( 'id' => 'demo_pricing_table', 'type' => 'pricing_table', 'title' => 'Pricing Table' ),
+            array( 'id' => 'demo_kpi_cards', 'type' => 'kpi_cards', 'title' => 'KPI Cards' ),
+            array( 'type' => 'divider' ),
+            array( 'type' => 'subheading', 'content' => 'Compliance & Messaging' ),
+            array( 'id' => 'demo_consent', 'type' => 'consent', 'title' => 'Consent Options', 'default' => array( 'terms', 'privacy' ) ),
+            array( 'id' => 'demo_terms_checklist', 'type' => 'terms_checklist', 'title' => 'Review Checklist', 'default' => array( 'security' ) ),
+            array( 'id' => 'demo_notice_builder', 'type' => 'notice_builder', 'title' => 'Notice Builder' ),
+        ),
+    ) );
+
 }

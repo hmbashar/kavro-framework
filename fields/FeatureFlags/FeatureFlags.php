@@ -2,7 +2,9 @@
 /**
  * FeatureFlags field.
  *
- * Professional premium field renderer for Kavro Framework.
+ * Renders a polished grid of checkbox cards for enabling/disabling product or
+ * experiment flags. The native checkbox remains accessible but visually hidden,
+ * while Kavro draws the premium checkbox and label separately.
  *
  * @package Kavro\Fields
  */
@@ -15,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Renders the FeatureFlags field.
+ * FeatureFlags field renderer.
  */
 class FeatureFlags extends AbstractField {
     /**
@@ -26,9 +28,15 @@ class FeatureFlags extends AbstractField {
     public function render() {
         $value = $this->array_value();
         $flags = $this->attr( 'flags', array( 'beta_ui' => 'Beta UI', 'debug_mode' => 'Debug Mode', 'api_cache' => 'API Cache' ) );
+
         echo '<div class="kavro-feature-flags">';
         foreach ( $flags as $key => $label ) {
-            echo '<label><input type="checkbox" name="' . esc_attr( $this->name ) . '[]" value="' . esc_attr( $key ) . '" ' . checked( in_array( $key, $value, true ), true, false ) . '><span>' . esc_html( $label ) . '</span></label>';
+            $is_checked = in_array( $key, $value, true );
+            echo '<label class="kavro-feature-flag-card' . ( $is_checked ? ' is-checked' : '' ) . '">';
+            echo '<input type="checkbox" name="' . esc_attr( $this->name ) . '[]" value="' . esc_attr( $key ) . '" ' . checked( $is_checked, true, false ) . '>';
+            echo '<span class="kavro-flag-check" aria-hidden="true"></span>';
+            echo '<span class="kavro-flag-label">' . esc_html( $label ) . '</span>';
+            echo '</label>';
         }
         echo '</div>';
     }

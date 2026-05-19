@@ -227,3 +227,21 @@ This build includes additional builder-style fields: `border_radius`, `box_model
 Kavro now includes an **Operations Pro Fields** demo section with API credentials, license key, environment selector, feature flags, permission matrix, redirect rules, email templates, REST endpoint, rate limit, cache control, log viewer, changelog, system info, health check, and onboarding steps.
 
 See [`docs/fields.md`](docs/fields.md) for field documentation and `examples/basic-usage.php` for working examples.
+
+
+## Product Experience Fields
+
+Added in this build:
+
+- `address` — structured business/location address inputs.
+- `color_scheme` — grouped brand color palette controls.
+- `plan_selector` — premium card-style plan picker.
+- `pricing_table` — simple editable pricing plan rows.
+- `consent` — consent checkbox cards for terms/privacy/marketing.
+- `badge_list` — editable badge/chip labels.
+- `empty_state` — title/message/button empty state builder.
+- `kpi_cards` — compact KPI label/value cards.
+- `notice_builder` — notice type/title/message builder.
+- `terms_checklist` — review/compliance checklist field.
+
+The Feature Flags UI was also fixed so checkbox indicators and label text render separately with no overlap. Demo examples are available in `examples/basic-usage.php` under **Product Experience Fields**.
