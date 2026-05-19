@@ -239,7 +239,7 @@ class AdminOptions {
             echo '</div></section>';
         }
 
-        echo '<div class="kavro-footer"><span>' . esc_html( $this->args['footer_credit'] ) . '</span><button type="submit" class="button button-primary kavro-save">Save Changes</button></div>';
+        echo '<div class="kavro-footer"><span>' . wp_kses_post( $this->args['footer_credit'] ) . '</span><button type="submit" class="button button-primary kavro-save">Save Changes</button></div>';
         echo '</form></main></div></div>';
     }
 }
