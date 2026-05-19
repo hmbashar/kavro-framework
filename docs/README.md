@@ -20,3 +20,5 @@ Kavro documentation is split by module so developers can quickly find the API th
 Kavro now includes a module registry for clean Free/Pro separation. See [`free-pro.md`](free-pro.md) for details.
 
 - [Validation and Sanitization](validation.md)
+
+- [Performance and asset loading](performance.md)

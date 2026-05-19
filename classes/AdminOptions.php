@@ -124,16 +124,9 @@ class AdminOptions {
             return;
         }
 
-        wp_enqueue_media();
-        wp_enqueue_style( 'wp-color-picker' );
-        wp_enqueue_style( 'dashicons' );
-        wp_enqueue_style( 'kavro-admin', KAVRO_URL . 'assets/css/admin.css', array( 'wp-color-picker' ), KAVRO_VERSION );
-        wp_enqueue_script( 'kavro-admin', KAVRO_URL . 'assets/js/admin.js', array( 'jquery', 'wp-color-picker', 'jquery-ui-sortable' ), KAVRO_VERSION, true );
-        wp_localize_script(
-            'kavro-admin',
-            'KavroAdmin',
+        Assets::enqueue(
+            $this->sections,
             array(
-                'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
                 'unique'       => $this->unique,
                 'saveAction'   => 'kavro_ajax_save_' . $this->unique,
                 'resetAction'  => 'kavro_ajax_reset_' . $this->unique,

@@ -303,7 +303,9 @@
 
   /** Boot all Kavro admin behavior after the WordPress admin screen is ready. */
   $(function(){
-    $('.kavro-color').wpColorPicker();
+    if ($.fn.wpColorPicker) {
+      $('.kavro-color').wpColorPicker();
+    }
     activate(window.location.hash ? window.location.hash.substring(1) : getQueryParam('kavro_section'));
     cleanSectionUrl();
 
