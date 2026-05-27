@@ -159,24 +159,3 @@ add_action('init', 'kavro_load_textdomain', 0);
  * safe for WordPress 6.7+ and fixes empty option panels caused by late demos.
  */
 add_action('plugins_loaded', array('KAVRO', 'boot'));
-
-/**
- * Load local development demos for quick testing.
- *
- * Examples remain bundled as developer references, but they are disabled by
- * default in production. Enable them by defining KAVRO_LOAD_EXAMPLES as true
- * before the plugin loads. Keeping the require statement inside an `init`
- * callback prevents early textdomain notices while still loading before Kavro
- * initializes screens at priority 20.
- *
- * @return void
- */
-function kavro_load_demo_files()
-{
-    if (!defined('KAVRO_LOAD_EXAMPLES') || !KAVRO_LOAD_EXAMPLES) {
-        return;
-    }
-
-    require_once KAVRO_PATH . 'examples/basic-usage.php';
-}
-add_action('init', 'kavro_load_demo_files', 10);
