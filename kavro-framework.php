@@ -3,9 +3,9 @@
  * Plugin Name: Kavro Framework
  * Plugin URI: https://github.com/hmbashar/kavro-framework
  * Description: A modern, lightweight WordPress framework for building admin options, metaboxes, Customizer panels, taxonomy options, profile fields, menu item fields, widgets, comments, and shortcode UIs.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 5.8
- * Tested up to: 6.7
+ * Tested up to: 7.0
  * Requires PHP: 7.4
  * Author: Md Abul Bashar
  * Author URI: https://hmbashar.com
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 if (!defined('KAVRO_VERSION')) {
-    define('KAVRO_VERSION', '1.0.0');
+    define('KAVRO_VERSION', '1.0.1');
 }
 
 if (!defined('KAVRO_EDITION')) {
