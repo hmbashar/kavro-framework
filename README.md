@@ -11,7 +11,7 @@ Kavro is designed for theme and plugin developers who want a clean API, premium-
 | Item | Details |
 | --- | --- |
 | Plugin Name | Kavro Framework |
-| Version | 1.0.0 |
+| Version | 1.0.1 |
 | Author | Md Abul Bashar |
 | Author URI | https://hmbashar.com |
 | Facebook | https://facebook.com/hmbashar |
